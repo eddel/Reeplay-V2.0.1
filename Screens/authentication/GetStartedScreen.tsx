@@ -1,0 +1,267 @@
+import {
+  Alert,
+  Platform,
+  Pressable,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {
+  AppButton,
+  AppText,
+  AppVideo,
+  AppView,
+  TouchableOpacity,
+} from '@/components';
+import VideoRef from 'react-native-video';
+import {BiometricsIcon, MuteIcon, UnmuteIcon} from '@/assets/icons';
+import useToggle from '@/Hooks/useToggle';
+import colors from '@/configs/colors';
+import Size from '@/Utils/useResponsiveSize';
+import fonts from '@/configs/fonts';
+import LinearGradient from 'react-native-linear-gradient';
+import {useAppSelector} from '@/Hooks/reduxHook';
+import {selectUser} from '@/store/slices/userSlice';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
+import {AuthMainNavigation, GetStartedScreenProps} from '@/types/typings';
+import routes from '@/navigation/routes';
+import {getData} from '@/Utils/useAsyncStorage';
+import {HAS_LOCK_APP} from '../Settings/SettingScreen';
+import ReactNativeBiometrics, {BiometryTypes} from 'react-native-biometrics';
+
+const hasUserDetails = 'user';
+export const HAS_SET_NEWPIN = 'new_pin';
+
+const GetStartedScreen = () => {
+  const {replace, navigate} = useNavigation<GetStartedScreenProps>();
+  const navigation = useNavigation<AuthMainNavigation>();
+  const videoRef = useRef<VideoRef>(null);
+  const [toogle, setToogle] = useToggle(false);
+  const user = useAppSelector(selectUser);
+  const [isPause, setIsPause] = useState(false);
+  const [lock, setLock] = useState(false);
+  const [biometricsIsSupport, setBiometricsIsSupport] = useState(true);
+  const isFocused = useIsFocused();
+  const rnBiometrics = new ReactNativeBiometrics();
+
+  function handleLogin() {
+    if (lock) {
+      navigate(routes.APP_PIN);
+    } else {
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: routes.TAB_MAIN,
+          },
+        ],
+      });
+    }
+  }
+
+  async function getLockState() {
+    const lockState = await getData(HAS_LOCK_APP);
+    if (lockState) {
+      setLock(true);
+    }
+  }
+
+  function handleLockPress() {
+    if (!lock)
+      Alert.alert('Turn on the Lock App feature in settings to use biometrics');
+    if (!biometricsIsSupport)
+      Alert.alert('Sorry, your device has no biometrics settings active.');
+    if (lock && biometricsIsSupport) {
+      rnBiometrics
+        .simplePrompt({promptMessage: 'Confirm biometrics'})
+        .then(resultObject => {
+          const {success} = resultObject;
+
+          if (success) {
+            console.log('successful biometrics provided');
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: routes.TAB_MAIN,
+                },
+              ],
+            });
+          } else {
+            console.log('user cancelled biometric prompt');
+          }
+        })
+        .catch(() => {
+          console.log('biometrics failed');
+        });
+    }
+  }
+
+  async function checkBiometrics() {
+    rnBiometrics.isSensorAvailable().then(resultObject => {
+      const {available, biometryType} = resultObject;
+
+      if (
+        !available &&
+        (biometryType !== BiometryTypes.TouchID ||
+          biometryType !== BiometryTypes.FaceID ||
+          biometryType === BiometryTypes.Biometrics)
+      ) {
+        console.log('TouchID is not supported');
+        setBiometricsIsSupport(false);
+      } else {
+        setBiometricsIsSupport(true);
+      }
+    });
+  }
+
+  useEffect(() => {
+    getLockState();
+    checkBiometrics();
+  }, []);
+
+  useEffect(() => {
+    if (isFocused) {
+      setIsPause(false);
+    } else {
+      setIsPause(true);
+    }
+  }, [isFocused]);
+
+  return (
+    <AppView className="relative">
+      <StatusBar hidden />
+      <AppVideo
+        source={require('@/assets/videos/getStartedVideo.mp4')}
+        videoRef={videoRef}
+        style={{width: '100%', height: '100%'}}
+        resizeMode="cover"
+        muted={toogle}
+        repeat
+        paused={isPause}
+      />
+
+      <LinearGradient
+        colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,1)']}
+        style={styles.gradientStyles}
+      />
+
+      <AppView className="absolute top-5 left-5 z-[99px]">
+        <TouchableOpacity onPress={setToogle}>
+          {toogle ? (
+            <MuteIcon
+              style={{
+                marginTop: Platform.OS === 'ios' ? 29 : 18,
+                marginBottom: 20,
+                marginLeft: 3,
+              }}
+            />
+          ) : (
+            <UnmuteIcon style={{marginTop: Platform.OS === 'ios' ? 0 : -10}} />
+          )}
+        </TouchableOpacity>
+        {user.fullname !== '' && (
+          <>
+            <AppText className="mt-4 text-2xl text-white font-bold font-LEXEND_700">
+              Welcome back
+            </AppText>
+            <AppText className="capitalize text-2xl text-white font-bold font-LEXEND_700">
+              {user.fullname.split(' ')[0]}
+            </AppText>
+            <AppText className="mt-2 text-base text-white font-normal font-MANROPE_400">
+              Login to continue
+            </AppText>
+          </>
+        )}
+      </AppView>
+
+      <AppView className="absolute bottom-8 z-[99px] items-center w-full">
+        {user.fullname !== '' ? (
+          <AppView className="flex-row items-center justify-center gap-x-1">
+            <AppButton
+              title="Continue to Login"
+              bgColor={colors.RED}
+              onPress={handleLogin}
+              style={{
+                borderRadius: 0,
+                width: Size.getWidth() * 0.5,
+                height: 51,
+              }}
+            />
+            <TouchableOpacity
+              onPress={handleLockPress}
+              activeOpacity={0.7}
+              style={{
+                backgroundColor: !biometricsIsSupport
+                  ? colors.GREY_BIOMETRICS
+                  : !lock
+                  ? colors.GREY_BIOMETRICS
+                  : colors.RED,
+              }}
+              className="px-6 py-[6px]">
+              <BiometricsIcon />
+            </TouchableOpacity>
+          </AppView>
+        ) : (
+          <>
+            <AppButton
+              title="Login"
+              bgColor="transparent"
+              onPress={() => replace(routes.LOGIN_SCREEN)}
+              style={styles.loginBtn}
+            />
+
+            <AppButton
+              title="Create a New Account"
+              bgColor={colors.RED}
+              onPress={() => replace(routes.SIGNUP_SCREEN)}
+              style={{marginTop: Size.calcHeight(20)}}
+            />
+          </>
+        )}
+
+        <AppView className="mt-5 flex-row items-center justify-center gap-x-1">
+          <AppText style={styles.privacyText}>Read the</AppText>
+          <Pressable onPress={() => navigation.navigate(routes.TERMS_SCREEN)}>
+            <AppText style={[styles.privacyText, styles.underline]}>
+              Terms
+            </AppText>
+          </Pressable>
+          <AppText style={styles.privacyText}>of Use and</AppText>
+          <Pressable onPress={() => navigation.navigate(routes.PRIVACY_SCREEN)}>
+            <AppText style={[styles.privacyText, styles.underline]}>
+              Privacy Policy
+            </AppText>
+          </Pressable>
+        </AppView>
+      </AppView>
+    </AppView>
+  );
+};
+
+export default GetStartedScreen;
+
+const styles = StyleSheet.create({
+  loginBtn: {
+    borderColor: 'white',
+    borderWidth: 2,
+  },
+  privacyText: {
+    fontFamily: fonts.ROBOTO_400,
+    fontWeight: '400',
+    fontSize: Size.calcHeight(14),
+    color: colors.GREY_100,
+  },
+  underline: {
+    textDecorationLine: 'underline',
+    textDecorationColor: colors.GREY_100,
+  },
+  gradientStyles: {
+    width: '100%',
+    height: '100%',
+    zIndex: 1,
+    position: 'absolute',
+  },
+});

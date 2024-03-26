@@ -1,0 +1,647 @@
+import {
+  ActivityIndicator,
+  Alert,
+  Animated,
+  Pressable,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import {AppImage, AppScreen, AppText, AppVideo, AppView} from '@/components';
+import VideoRef, {
+  OnLoadData,
+  OnProgressData,
+  OnSeekData,
+} from 'react-native-video';
+import useToggle from '@/Hooks/useToggle';
+import Orientation from 'react-native-orientation-locker';
+import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
+import {
+  B_PauseBtn,
+  B_PlayBtn,
+  BigClose,
+  BrightnessIcon,
+  Donate_VoteIcon,
+  EpisodesMenu,
+  MutedIcon,
+  NextIcon,
+  SeekBackIcon,
+  SeekForwardIcon,
+  SubtitleIcon,
+  VideoCastingIcon,
+  VolumeIcon,
+} from '@/assets/icons';
+import LinearGradient from 'react-native-linear-gradient';
+import {MotiView} from 'moti';
+import {Easing} from 'react-native-reanimated';
+import {FullScreenVideo, FullScreenVideoRoute} from '@/types/typings';
+import {BlurView} from '@react-native-community/blur';
+import colors from '@/configs/colors';
+import SeekBar from './components/SeekBar';
+import {formatDuration} from '@/Utils/formatVideoDuration';
+import Size from '@/Utils/useResponsiveSize';
+import BrightnessBar from './components/BrightnessBar';
+import {fullVideoType} from '@/navigation/AppNavigator';
+import LottieView from 'lottie-react-native';
+import routes from '@/navigation/routes';
+
+const AnimatedLinear = Animated.createAnimatedComponent(LinearGradient);
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
+const FullScreenModal = () => {
+  const route = useRoute<FullScreenVideoRoute>();
+  const navigation = useNavigation<FullScreenVideo>();
+  const videoRef = useRef<VideoRef>(null);
+  const videoRef2 = useRef<VideoRef>(null);
+  const [muteVideo, setMuteVideo] = useToggle(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [duration, setDuration] = useState<number>(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [isBufferingLoad, setIsBufferingLoad] = useState(false);
+  const [hide, setHide] = useState(false);
+  const isFocused = useIsFocused();
+  const [fixed, setFixed] = useState({
+    time: currentTime,
+    set: false,
+  });
+
+  const type = route.params.type;
+  const videoURL = route.params.videoURL;
+  const channelImg = route.params.channelImage;
+  const donate = route.params.donate;
+  const vote = route.params.vote;
+
+  const transD = useRef(new Animated.Value(0));
+  const transU = useRef(new Animated.Value(0));
+  const opacityU = useRef(new Animated.Value(1));
+
+  function handle_VOTE_DONATE() {
+    if (donate) {
+      Orientation.lockToPortrait();
+      navigation.navigate(routes.MAIN, {
+        screen: routes.SUBSCRIPTION_SCREEN,
+        params: {tab: 'donate'},
+      });
+    }
+
+    if (vote) {
+      Orientation.lockToPortrait();
+      navigation.navigate(routes.MAIN, {
+        screen: routes.VOTE_SCREEN,
+      });
+    }
+  }
+
+  const animatedTransform = (
+    toValue: number,
+    trans: React.MutableRefObject<Animated.Value>,
+  ) => {
+    Animated.timing(trans.current, {
+      toValue,
+      duration: 450,
+      useNativeDriver: true,
+      easing: Easing.ease,
+    }).start();
+  };
+
+  const onLoad = (data: OnLoadData) => {
+    setDuration(Math.round(data.duration));
+    setIsLoading(false);
+  };
+
+  const onLoadStart = () => setIsLoading(true);
+
+  const onProgress = (data: OnProgressData) => {
+    if (!isLoading) {
+      if (fixed.set) {
+        setCurrentTime(fixed.time);
+      }
+      if (data.currentTime === fixed.time && fixed.set) {
+        setCurrentTime(data.currentTime);
+        setFixed({
+          time: data.currentTime,
+          set: false,
+        });
+      }
+      if (!fixed.set) {
+        setCurrentTime(data.currentTime);
+        setIsBufferingLoad(false);
+      }
+    }
+  };
+
+  const onEnd = () => {
+    setCurrentTime(duration);
+    setIsPlaying(true);
+  };
+
+  const onSeek = (data: OnSeekData) => {
+    setIsPlaying(false);
+    setIsBufferingLoad(false);
+  };
+
+  const handleSeek = (time: number) => {
+    setIsPlaying(true);
+    setIsBufferingLoad(true);
+    videoRef.current?.seek(time);
+  };
+
+  const onBuffer = ({isBuffering}: {isBuffering: boolean}) => {
+    setIsBuffering(isBuffering);
+    if (isBuffering) {
+      setIsBufferingLoad(true);
+    }
+  };
+
+  const onReadyForDisplay = () => {
+    setIsBufferingLoad(false);
+  };
+
+  function existFullscreen() {
+    Orientation.lockToPortrait();
+    navigation.goBack();
+  }
+
+  useEffect(() => {
+    if (isFocused) Orientation.lockToLandscapeLeft();
+  }, [isFocused]);
+
+  useEffect(() => {
+    let loadingTimeout: any;
+
+    const startLoadingTimeout = () => {
+      // Set a timeout for 5 seconds (you can adjust the duration)
+      loadingTimeout = setTimeout(() => {
+        existFullscreen();
+        Alert.alert('Info', 'Opps! Something went wrong, service timeout'),
+          {text: 'OK'};
+        setIsLoading(false);
+      }, 10000);
+    };
+
+    const clearLoadingTimeout = () => {
+      // Clear the timeout if content is successfully loaded
+      clearTimeout(loadingTimeout);
+    };
+
+    if (isLoading) {
+      startLoadingTimeout();
+    } else {
+      clearLoadingTimeout();
+    }
+
+    return () => {
+      clearLoadingTimeout();
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
+    videoRef2.current?.seek(currentTime);
+  }, [currentTime]);
+
+  useEffect(() => {
+    let timeoutId: any;
+    let intervalId: any;
+    let timerX: number = 0;
+
+    const decreaseTimer = () => {
+      // Ensure timer doesn't go below 0
+      timerX -= 1;
+    };
+
+    const clearTimer = () => {
+      clearInterval(intervalId);
+      clearTimeout(timeoutId);
+    };
+
+    if (hide) {
+      animatedTransform(0, opacityU);
+      animatedTransform(70, transD);
+      animatedTransform(-70, transU);
+      timerX = 0;
+      clearTimer(); // Clear existing timeout and interval
+    }
+
+    if (!hide) {
+      animatedTransform(1, opacityU);
+      animatedTransform(0, transD);
+      animatedTransform(0, transU);
+      timerX = 7;
+
+      if (isPlaying) {
+        clearTimer(); // Clear existing timeout and interval
+        return;
+      }
+
+      intervalId = setInterval(decreaseTimer, 1000);
+
+      // Set timeout to hide after 10 seconds
+      timeoutId = setTimeout(() => {
+        setHide(true);
+        clearTimer(); // Clear the interval when timer reaches 0
+      }, timerX * 1000);
+    }
+
+    if (isPlaying) setHide(false);
+
+    if (isBufferingLoad) setHide(false);
+
+    if (muteVideo || !muteVideo) timerX = 7;
+
+    // Clear the timeout and interval when the hide variable changes
+    return () => {
+      clearTimer();
+    };
+  }, [isPlaying, hide, muteVideo, isBufferingLoad]);
+
+  return (
+    <View
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+      }}>
+      <BlurView
+        blurAmount={30}
+        overlayColor="transparent"
+        blurType="dark"
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          zIndex: 10,
+        }}
+      />
+      <AppVideo
+        source={{
+          uri: videoURL,
+        }}
+        videoRef={videoRef2}
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+        resizeMode="stretch"
+        fullscreen
+        fullscreenOrientation="landscape"
+        muted={true}
+        // repeat
+        paused={true}
+      />
+
+      <View
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: '105.8%',
+          zIndex: 20,
+        }}>
+        <AppScreen
+          containerStyle={{
+            position: 'relative',
+            paddingBottom: 0,
+            backgroundColor: isLoading ? colors.DEEP_BLACK : 'transparent',
+          }}>
+          {!isLoading ? (
+            <>
+              <AnimatedLinear
+                colors={['transparent', 'rgb(0, 0, 0)']}
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  height: 70,
+                  width: '100%',
+                  zIndex: 20,
+                  opacity: opacityU.current,
+                  // transform: [{translateY: transD.current}],
+                }}
+              />
+              <AnimatedLinear
+                colors={['rgba(0, 0, 0, 0.6)', 'transparent']}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  height: 70,
+                  width: '100%',
+                  zIndex: 20,
+                  opacity: opacityU.current,
+                  // transform: [{translateY: transU.current}],
+                }}
+              />
+
+              {/* Brightness View */}
+              <Animated.View
+                style={{
+                  position: 'absolute',
+                  width: '6%',
+                  height: '78%',
+                  zIndex: 40,
+                  top: 30,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  opacity: opacityU.current,
+                }}>
+                <BrightnessIcon />
+                <AppView className="mt-3 h-[200px] w-[6px] overflow-hidden relative items-center bg-[#535353] rounded-[5px]">
+                  <BrightnessBar />
+                </AppView>
+              </Animated.View>
+
+              {/* Middle */}
+              <AnimatedPressable
+                onPress={() => setHide(!hide)}
+                style={[
+                  styles.overlay,
+                  {
+                    backgroundColor: isBufferingLoad
+                      ? 'rgba(0, 0, 0, 0.2)'
+                      : 'transparent',
+
+                    opacity: opacityU.current,
+                  },
+                ]}>
+                <TouchableOpacity onPress={() => handleSeek(currentTime - 10)}>
+                  <SeekBackIcon />
+                </TouchableOpacity>
+                {isBufferingLoad ? (
+                  <AppView className="mx-16 w-[50px] h-[70px] justify-center">
+                    <LottieView
+                      source={require('@/assets/icons/RPlay.json')}
+                      style={{
+                        width: 350,
+                        height: 350,
+                        alignSelf: 'center',
+                      }}
+                      autoPlay
+                      loop
+                    />
+                  </AppView>
+                ) : (
+                  <TouchableOpacity
+                    style={{
+                      marginHorizontal: 64,
+                      width: 50,
+                      height: 70,
+                      justifyContent: 'center',
+                    }}
+                    onPress={() => setIsPlaying(!isPlaying)}>
+                    {isPlaying ? (
+                      <B_PlayBtn />
+                    ) : (
+                      <B_PauseBtn style={{marginLeft: -20}} />
+                    )}
+                  </TouchableOpacity>
+                )}
+                <AnimatedTouchable
+                  style={{
+                    marginLeft: -8,
+                    // opacity: opacityU.current
+                  }}
+                  onPress={() => handleSeek(currentTime + 10)}>
+                  <SeekForwardIcon />
+                </AnimatedTouchable>
+              </AnimatedPressable>
+
+              {/* Top */}
+              <Animated.View
+                style={[
+                  styles.topView,
+                  {transform: [{translateY: transU.current}]},
+                ]}>
+                <AppView className="ml-7 flex-row items-center">
+                  {channelImg && channelImg !== '' && (
+                    <AppImage
+                      source={channelImg}
+                      className="w-[28px] h-[28px] rounded-full mr-2"
+                    />
+                  )}
+
+                  <AppText className="font-medium font-ROBOTO_500 text-white text-[11px]">
+                    Video Title
+                  </AppText>
+                </AppView>
+                <TouchableOpacity onPress={existFullscreen}>
+                  <BigClose />
+                </TouchableOpacity>
+              </Animated.View>
+
+              {/* Bottom */}
+              <Animated.View
+                style={[
+                  styles.bottomView,
+                  {transform: [{translateY: transD.current}]},
+                ]}>
+                <AppView className="flex-row items-center gap-x-4">
+                  <AppView className="w-[65px] justify-center flex-row items-center gap-x-2">
+                    {type === fullVideoType.live && (
+                      <>
+                        <MotiView
+                          from={{opacity: 0}}
+                          animate={{opacity: 1}}
+                          transition={{
+                            type: 'timing',
+                            duration: 1500,
+                            easing: Easing.out(Easing.ease),
+                            loop: true,
+                          }}>
+                          <AppView className="w-[9px] h-[9px] rounded-full bg-red" />
+                        </MotiView>
+                        <AppText className="font-medium font-ROBOTO_500 text-[11px] text-white">
+                          LIVE
+                        </AppText>
+                      </>
+                    )}
+                  </AppView>
+
+                  <TouchableOpacity style={{height: 17}} onPress={setMuteVideo}>
+                    {muteVideo ? <MutedIcon /> : <VolumeIcon />}
+                  </TouchableOpacity>
+                </AppView>
+
+                <AppView className="flex-row items-center">
+                  {type !== fullVideoType.live && (
+                    <>
+                      <TouchableOpacity
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          marginRight: 16,
+                        }}>
+                        <NextIcon />
+                        <AppText className="ml-[5px] font-semibold font-ROBOTO_700 text-white text-[10px]">
+                          Next
+                        </AppText>
+                      </TouchableOpacity>
+                      {type === fullVideoType.series && (
+                        <TouchableOpacity
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginRight: 16,
+                          }}>
+                          <EpisodesMenu />
+                          <AppText className="ml-[5px] font-semibold font-ROBOTO_700 text-white text-[10px]">
+                            Episodes
+                          </AppText>
+                        </TouchableOpacity>
+                      )}
+                      <TouchableOpacity
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                        }}>
+                        <SubtitleIcon />
+                        <AppText className="ml-[5px] font-semibold font-ROBOTO_700 text-white text-[10px]">
+                          Audio/Subtitle
+                        </AppText>
+                      </TouchableOpacity>
+                    </>
+                  )}
+
+                  {type === fullVideoType.live && (
+                    <TouchableOpacity
+                      onPress={handle_VOTE_DONATE}
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginRight: 16,
+                      }}>
+                      <Donate_VoteIcon />
+                      <AppText className="ml-[5px] font-semibold font-ROBOTO_700 text-[#FFCC00] text-[13px]">
+                        {donate && 'Donate'}
+                        {vote && 'Vote'}
+                      </AppText>
+                    </TouchableOpacity>
+                  )}
+
+                  <TouchableOpacity
+                    style={{
+                      marginLeft: 24,
+                    }}>
+                    <VideoCastingIcon />
+                  </TouchableOpacity>
+                </AppView>
+              </Animated.View>
+
+              {type !== fullVideoType.live && (
+                <Animated.View
+                  style={[
+                    styles.progressBar,
+                    {transform: [{translateY: transD.current}]},
+                  ]}>
+                  <AppText className="text-white text-[13px] font-medium font-MANROPE_500 w-[60px]">
+                    {formatDuration(duration)}
+                  </AppText>
+                  <AppView
+                    style={{width: Size.getWidth() * 0.61}}
+                    className="items-center h-[15px] mx-3 rounded-[5px] overflow-hidden">
+                    <AppView className="h-1 w-full bg-grey_white_90 rounded-[5px] mt-1.5">
+                      <SeekBar
+                        duration={duration}
+                        currentTime={currentTime}
+                        setCurrentTime={setCurrentTime}
+                        handleSeek={handleSeek}
+                        setIsPlaying={setIsPlaying}
+                        setFixed={setFixed}
+                      />
+                    </AppView>
+                  </AppView>
+                  <AppText className="text-white text-[13px] font-medium font-MANROPE_500 w-[60px] text-center">
+                    {formatDuration(currentTime)}
+                  </AppText>
+                </Animated.View>
+              )}
+            </>
+          ) : (
+            <AppView className="absolute w-full h-full items-center justify-center z-30">
+              <LottieView
+                source={require('@/assets/icons/RPlay.json')}
+                style={{
+                  width: 300,
+                  height: 300,
+                }}
+                autoPlay
+                loop
+              />
+            </AppView>
+          )}
+
+          <AppVideo
+            source={{
+              uri: videoURL,
+            }}
+            videoRef={videoRef}
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            resizeMode="stretch"
+            fullscreen
+            fullscreenOrientation="landscape"
+            muted={muteVideo}
+            paused={isPlaying}
+            onLoad={onLoad}
+            onLoadStart={onLoadStart}
+            onProgress={onProgress}
+            onEnd={onEnd}
+            onSeek={onSeek}
+            onBuffer={onBuffer}
+            onReadyForDisplay={onReadyForDisplay}
+          />
+        </AppScreen>
+      </View>
+    </View>
+  );
+};
+
+export default FullScreenModal;
+
+const styles = StyleSheet.create({
+  overlay: {
+    position: 'absolute',
+    right: 0,
+    top: -13,
+    width: '100%',
+    height: '105%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 20,
+  },
+  bottomView: {
+    position: 'absolute',
+    bottom: 6,
+    marginBottom: 4,
+    paddingHorizontal: 8,
+    paddingRight: 20,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    zIndex: 20,
+  },
+  topView: {
+    width: '100%',
+    position: 'absolute',
+    top: 12,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    zIndex: 20,
+  },
+  progressBar: {
+    position: 'absolute',
+    bottom: 40,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 30,
+  },
+});

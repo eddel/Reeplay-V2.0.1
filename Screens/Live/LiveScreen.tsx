@@ -1,0 +1,78 @@
+import {
+  Animated,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import Header from '@/Screens/Home/Header';
+import colors from '@/configs/colors';
+import Slider from '@/Screens/Home/components/SliderContainer';
+import {LiveSliderData} from '@/configs/data';
+import {AppText, AppView} from '@/components';
+import SwiperContainer from '@/Screens/Home/components/SwiperContainer';
+import DynamicViewContainer from './DynamicViewContainer';
+import {BlurView} from '@react-native-community/blur';
+import Size from '@/Utils/useResponsiveSize';
+
+const LiveScreen = () => {
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const scrollY2 = useRef(new Animated.Value(0)).current;
+  const [isScrolled, setIsScrolled] = useState(0);
+
+  useEffect(() => {
+    const listernerID = scrollY.addListener(({value}) => {
+      setIsScrolled(value);
+      scrollY2.setValue(value);
+    });
+
+    return () => {
+      scrollY.removeListener(listernerID);
+    };
+  }, [scrollY]);
+  return (
+    <>
+      <Header scroll={isScrolled} />
+      <AppView
+        style={{minHeight: Size.calcHeight(90)}}
+        className="absolute bottom-0 w-full z-20">
+        <BlurView
+          blurType="dark"
+          blurAmount={20}
+          style={{
+            minHeight: Size.calcHeight(90),
+            width: '100%',
+          }}
+        />
+      </AppView>
+      <StatusBar
+        translucent
+        barStyle="light-content"
+        backgroundColor="transparent"
+      />
+
+      <ScrollView
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: false},
+        )}
+        bounces={false}
+        scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+        style={{
+          backgroundColor: colors.DEEP_BLACK,
+          position: 'relative',
+        }}>
+        <Slider data={LiveSliderData} live />
+
+        <DynamicViewContainer scrollY={scrollY2} />
+      </ScrollView>
+    </>
+  );
+};
+
+export default LiveScreen;
+
+const styles = StyleSheet.create({});

@@ -5,114 +5,184 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+
+import {NavigationContainer} from '@react-navigation/native';
+import AppNavigator from '@/navigation/AppNavigator';
+import 'react-native-reanimated';
+import 'react-native-gesture-handler';
+import {Provider} from 'react-redux';
+import store from '@/store/app.store';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
+  AppState,
+  BackHandler,
+  Platform,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
 } from 'react-native';
+import {getData, storeData} from './Utils/useAsyncStorage';
+import {addEventListener} from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
+import AppModal from './components/AppModal';
+import {AppText, AppView, TouchableOpacity} from './components';
+import {CloseLogo} from './assets/icons';
+import colors from './configs/colors';
+import fonts from './configs/fonts';
+import Size from './Utils/useResponsiveSize';
+import routes from './navigation/routes';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const LEFT_APP_TIME = 'LEFT_APP_TIME';
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [lockApp, setLockApp] = useState<boolean>(false);
+  const appState = useRef(AppState.currentState);
+  const [network, setNetwork] = useState<boolean | null>(true);
+  const [showNetworkModal, setShowNetworkModal] = useState<boolean>(false);
+  const navigationRef = useRef<any>(null);
+  const date = new Date(1711214160358);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const handleBackButtonPress = () => {
+    if (
+      navigationRef.current &&
+      navigationRef.current.getCurrentRoute().index === 0
+    ) {
+      console.log('User pressed back button at index 0');
+      return true;
+    }
+    return false;
   };
 
+  function refreshNetwork() {
+    NetInfo.refresh().then(state => {
+      if (state.isConnected) setNetwork(state.isConnected);
+    });
+  }
+
+  async function checkLockAppLogic() {
+    const date = new Date();
+    const lastLeftTime = await getData(LEFT_APP_TIME);
+    if (lastLeftTime) {
+      if (date.getTime() >= Number(lastLeftTime)) {
+        console.log(
+          'The difference between the timestamps is greater than or equal to 10 minutes.',
+        );
+        setLockApp(true);
+        navigationRef.current.reset({
+          index: 0,
+          routes: [{name: routes.AUTH}],
+        });
+      } else {
+        console.log(
+          'The difference between the timestamps is less than 10 minutes.',
+        );
+      }
+    }
+  }
+
+  async function setLeftAppTime() {
+    const date = new Date();
+
+    await storeData(
+      LEFT_APP_TIME,
+      date.setTime(date.getTime() + 10 * 60 * 1000).toString(),
+    );
+  }
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        console.log('App has come to the foreground!');
+        checkLockAppLogic();
+      }
+
+      appState.current = nextAppState;
+      if (appState.current === 'background') {
+        console.log('first background');
+        setLeftAppTime();
+      }
+    });
+
+    let backHandler: any = null;
+    if (Platform.OS === 'android') {
+      backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        handleBackButtonPress,
+      );
+    }
+
+    return () => {
+      subscription.remove();
+      if (backHandler) {
+        backHandler.remove();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = addEventListener(state => {
+      setNetwork(state.isConnected);
+      if (state.isConnected) {
+        setShowNetworkModal(false);
+      } else {
+        setShowNetworkModal(true);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  });
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <Provider store={store}>
+      <GestureHandlerRootView style={{flex: 1}}>
+        <NavigationContainer ref={navigationRef}>
+          <AppNavigator lockApp={lockApp} />
+          {!network && (
+            <AppModal
+              isModalVisible={showNetworkModal}
+              hideLoge
+              hideCloseBtn
+              style={{paddingBottom: 0}}
+              replaceDefaultContent={
+                <AppView className="h-full relative">
+                  <AppView className="mb-[74px] mt-[60px] items-center">
+                    <CloseLogo />
+                    <AppText className="mt-5 leading-5 font-normal font-ROBOTO_400 text-[14px] text-black text-center">
+                      Your internet connection is lost.{'\n'} Fix connection and
+                      retry.
+                    </AppText>
+                  </AppView>
+                  <TouchableOpacity
+                    onPress={refreshNetwork}
+                    style={{alignSelf: 'center'}}
+                    className="absolute bottom-6 z-30">
+                    <AppText style={styles.secondaryModalButtonText}>
+                      Retry
+                    </AppText>
+                  </TouchableOpacity>
+                </AppView>
+              }
+              handleClose={() => console.log('first')}
+            />
+          )}
+        </NavigationContainer>
+      </GestureHandlerRootView>
+    </Provider>
   );
 }
 
+export default App;
+
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
+  secondaryModalButtonText: {
+    color: colors.DEEP_BLACK,
+    fontFamily: fonts.ROBOTO_400,
     fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+    fontSize: Size.calcWidth(16),
   },
 });
-
-export default App;
