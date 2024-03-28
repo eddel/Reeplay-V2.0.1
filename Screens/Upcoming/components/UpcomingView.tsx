@@ -15,13 +15,14 @@ import {
   UpcomingPlay,
   VolumeIcon,
 } from '@/assets/icons';
-import VideoRef from 'react-native-video';
+import VideoRef, {OnLoadData} from 'react-native-video';
 import useToggle from '@/Hooks/useToggle';
 import LinearGradient from 'react-native-linear-gradient';
 import {fullVideoType} from '@/navigation/AppNavigator';
 import routes from '@/navigation/routes';
 import {useNavigation} from '@react-navigation/native';
 import {TabMainNavigation} from '@/types/typings';
+import LottieView from 'lottie-react-native';
 
 interface Props {
   items: {
@@ -53,6 +54,26 @@ const UpcomingView = ({
   const [verticalScrollState, setVerticalScrollState] = useState<number | null>(
     null,
   );
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [isBufferingLoad, setIsBufferingLoad] = useState(false);
+
+  const onLoad = (data: OnLoadData) => {
+    setIsLoading(false);
+  };
+
+  const onLoadStart = () => setIsLoading(true);
+
+  const onBuffer = ({isBuffering}: {isBuffering: boolean}) => {
+    setIsBuffering(isBuffering);
+    if (isBuffering) {
+      setIsBufferingLoad(true);
+    }
+  };
+
+  const onReadyForDisplay = () => {
+    setIsBufferingLoad(false);
+  };
 
   function handlePlayVideo(query: number) {
     if (playingIndexes.includes(query)) {
@@ -89,7 +110,7 @@ const UpcomingView = ({
   return (
     <AppView className="items-center">
       <AppView className="relative max-w-[400px] h-[186px] items-center justify-center">
-        {!isPlaying && (
+        {!isPlaying ? (
           <>
             <AppImage
               source={items.image}
@@ -101,6 +122,23 @@ const UpcomingView = ({
               className="absolute">
               <UpcomingPlay />
             </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            {isBufferingLoad ||
+              (isLoading && (
+                <AppView className="absolute z-20 pb-3">
+                  <LottieView
+                    source={require('@/assets/icons/RPlay.json')}
+                    style={{
+                      width: 300,
+                      height: 300,
+                    }}
+                    autoPlay
+                    loop
+                  />
+                </AppView>
+              ))}
           </>
         )}
 
@@ -153,6 +191,10 @@ const UpcomingView = ({
             muted={muteVideo}
             onEnd={() => setPlayingIndexes([])}
             paused={!isPlaying}
+            onLoad={onLoad}
+            onLoadStart={onLoadStart}
+            onBuffer={onBuffer}
+            onReadyForDisplay={onReadyForDisplay}
           />
         )}
       </AppView>

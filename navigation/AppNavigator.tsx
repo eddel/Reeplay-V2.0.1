@@ -101,64 +101,96 @@ const AppNavigator = ({lockApp}: {lockApp: boolean}): JSX.Element => {
           name={routes.SPLASH_SCREEN}
           component={Splashscreen}
         />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen
           name={routes.ONBOARDING_SCREEN}
           component={OnboardingScreen}
         />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen name={routes.AUTH} component={AuthNavigation} />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen name={routes.TAB_MAIN} component={TabNavigation} />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen name={routes.MAIN} component={AppStack} />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen
           name={routes.FULL_SCREEN_VIDEO}
           component={FullScreenModal}
         />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen
           name={routes.PREVIEW_SCREEN}
           component={PreviewScreen}
         />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen name={routes.CAST_SCREEN} component={CastScreeen} />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen
           name={routes.DOWNLOAD_SCREEN}
           component={DownoadScreen}
         />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen
           name={routes.WATCHLIST_SCREEN}
           component={WatchlistScreen}
         />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen
           name={routes.INTEREST_SCREEN}
           component={InterestScreen}
         />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen
           name={routes.SETTINGS_SCREEN}
           component={SettingScreen}
         />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen
           name={routes.NOTIFICATION_SCREEN_S}
           component={NotificatoinScreen_S}
         />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen
           name={routes.PRIVACY_SCREEN}
           component={PrivacyScreen}
         />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen name={routes.TERMS_SCREEN} component={TermScreen} />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen name={routes.ABOUT_SCREEN} component={AboutUs} />
+      </RootStack.Group>
 
+      <RootStack.Group>
         <RootStack.Screen name={routes.SEARCH_SCREEN} component={Search} />
       </RootStack.Group>
     </RootStack.Navigator>

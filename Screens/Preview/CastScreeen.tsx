@@ -2,6 +2,7 @@ import {
   Alert,
   Animated,
   Linking,
+  Platform,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -22,13 +23,14 @@ import colors from '@/configs/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import Size from '@/Utils/useResponsiveSize';
 import fonts from '@/configs/fonts';
-import {BlurView} from '@react-native-community/blur';
 import {LibraryData} from '@/configs/data';
 import {useNavigation} from '@react-navigation/native';
 import Share from 'react-native-share';
 import {previewContentType} from '@/navigation/AppNavigator';
 import routes from '@/navigation/routes';
 import {PreviewScreenNav} from '@/types/typings';
+import BlurView from 'react-native-blur-effect';
+import {BlurView as Blur} from '@react-native-community/blur';
 
 const CastScreeen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -156,7 +158,17 @@ const CastScreeen = () => {
       </Animated.ScrollView>
       <AppView className="absolute bottom-0 w-full h-[123px]">
         <AppView className="relative">
-          <BlurView blurType="dark" blurAmount={30} style={styles.blur} />
+          {Platform.OS === 'android' ? (
+            <AppView style={styles.blur}>
+              <BlurView
+                backgroundColor="rgba(255, 255, 255, 0.1)"
+                blurRadius={20}
+              />
+            </AppView>
+          ) : (
+            <Blur blurType="dark" blurAmount={30} style={styles.blur} />
+          )}
+
           <AppView className="absolute w-full h-full px-2 pt-1">
             <TouchableOpacity
               className="py-5 border-b border-grey_200/10 pb-[21px]"

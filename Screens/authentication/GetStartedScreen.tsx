@@ -28,11 +28,11 @@ import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {AuthMainNavigation, GetStartedScreenProps} from '@/types/typings';
 import routes from '@/navigation/routes';
 import {getData} from '@/Utils/useAsyncStorage';
-import {HAS_LOCK_APP} from '../Settings/SettingScreen';
 import ReactNativeBiometrics, {BiometryTypes} from 'react-native-biometrics';
 
 const hasUserDetails = 'user';
 export const HAS_SET_NEWPIN = 'new_pin';
+const HAS_LOCK_APP = 'HAS_LOCK_APP';
 
 const GetStartedScreen = () => {
   const {replace, navigate} = useNavigation<GetStartedScreenProps>();
@@ -47,6 +47,7 @@ const GetStartedScreen = () => {
   const rnBiometrics = new ReactNativeBiometrics();
 
   function handleLogin() {
+    console.log(lock);
     if (lock) {
       navigate(routes.APP_PIN);
     } else {
@@ -64,7 +65,7 @@ const GetStartedScreen = () => {
   async function getLockState() {
     const lockState = await getData(HAS_LOCK_APP);
     if (lockState) {
-      setLock(true);
+      setLock(JSON.parse(lockState));
     }
   }
 
@@ -188,6 +189,7 @@ const GetStartedScreen = () => {
                 borderRadius: 0,
                 width: Size.getWidth() * 0.5,
                 height: 51,
+                paddingVertical: Size.calcHeight(14),
               }}
             />
             <TouchableOpacity

@@ -6,7 +6,8 @@ import {HamBurger, ModalLogo, SearchIcon} from '@/assets/icons';
 import {useNavigation} from '@react-navigation/native';
 import {TabMainNavigation} from '@/types/typings';
 import routes from '@/navigation/routes';
-import {BlurView} from '@react-native-community/blur';
+import BlurView from 'react-native-blur-effect';
+import {BlurView as Blur} from '@react-native-community/blur';
 
 interface HeaderProps {
   scroll: number;
@@ -15,6 +16,8 @@ interface HeaderProps {
 
 const Header = ({scroll, isCast}: HeaderProps) => {
   const {navigate} = useNavigation<TabMainNavigation>();
+
+  console.log(scroll);
 
   const Children = () => (
     <AppView className="flex-row justify-between items-center px-6">
@@ -38,33 +41,50 @@ const Header = ({scroll, isCast}: HeaderProps) => {
 
   return (
     <>
-      {scroll > 0 ? (
-        // <View>
-
-        // </View>
+      {Platform.OS === 'ios' ? (
         <>
-          <BlurView
-            overlayColor="transparent"
-            blurType="dark"
-            blurAmount={32}
-            style={[styles.container, isCast && styles.cast]}>
-            {Platform.OS === 'ios' && Children()}
-          </BlurView>
-          {Platform.OS === 'android' && (
-            <AppView
-              style={{
-                justifyContent: isCast ? 'center' : 'flex-end',
-                height: Size.calcHeight(127),
-              }}
-              className="absolute w-full z-40">
+          {scroll > 0 ? (
+            // <View>
+
+            // </View>
+            <>
+              <Blur
+                overlayColor="transparent"
+                blurType="dark"
+                blurAmount={32}
+                style={[styles.container, isCast && styles.cast]}>
+                {Platform.OS === 'ios' && Children()}
+              </Blur>
+            </>
+          ) : (
+            <View style={[styles.container, isCast && styles.cast]}>
               {Children()}
-            </AppView>
+            </View>
           )}
         </>
       ) : (
-        <View style={[styles.container, isCast && styles.cast]}>
-          {Children()}
-        </View>
+        <>
+          <AppView style={[styles.container, isCast && styles.cast]}>
+            {scroll > 0 && (
+              <BlurView
+                backgroundColor="rgba(255, 255, 255, 0.1)"
+                blurRadius={scroll > 0 ? 20 : scroll}
+              />
+            )}
+
+            <AppView
+              style={[
+                {
+                  justifyContent: isCast ? 'center' : 'flex-end',
+                  height: Size.calcHeight(127),
+                },
+                isCast && {paddingTop: 25},
+              ]}
+              className="absolute w-full z-40">
+              {Children()}
+            </AppView>
+          </AppView>
+        </>
       )}
     </>
   );

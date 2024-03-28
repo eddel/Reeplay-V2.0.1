@@ -1,4 +1,5 @@
 import {
+  Platform,
   Pressable,
   StatusBar,
   StyleSheet,
@@ -43,12 +44,13 @@ import Share from 'react-native-share';
 import AppModal from '@/components/AppModal';
 import DownloadModal from './components/DownloadModal';
 import Size from '@/Utils/useResponsiveSize';
-import {BlurView} from '@react-native-community/blur';
 import PreviewComments from './PreviewComments';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {PreviewScreenNav, PreviewScreenRoute} from '@/types/typings';
 import {fullVideoType, previewContentType} from '@/navigation/AppNavigator';
 import routes from '@/navigation/routes';
+import BlurView from 'react-native-blur-effect';
+import {BlurView as Blur} from '@react-native-community/blur';
 
 const PreviewScreen = () => {
   const [addWatchList, setAddWatchList] = useToggle(false);
@@ -207,7 +209,10 @@ const PreviewScreen = () => {
           style={
             isComment
               ? {
-                  height: Size.getHeight() - 100,
+                  height:
+                    Platform.OS === 'ios'
+                      ? Size.getHeight() - 100
+                      : Size.getHeight() - 375,
                   // flex: 1,
                   // marginBottom: 50,
                 }
@@ -217,7 +222,16 @@ const PreviewScreen = () => {
           {isComment && (
             <AppView className="absolute z-30 w-full h-full">
               <AppView className="relative">
-                <BlurView blurType="dark" blurAmount={30} style={styles.blur} />
+                {Platform.OS === 'android' ? (
+                  <AppView style={styles.blur}>
+                    <BlurView
+                      backgroundColor="rgba(255, 255, 255, 0.1)"
+                      blurRadius={40}
+                    />
+                  </AppView>
+                ) : (
+                  <Blur blurType="dark" blurAmount={30} style={styles.blur} />
+                )}
 
                 <AppView className="absolute w-full h-full pt-[18px]">
                   <AppView className="px-5">
@@ -234,7 +248,10 @@ const PreviewScreen = () => {
                         placeholder="Write a comment..."
                         placeholderTextColor="#C4C4C4C7"
                         cursorColor={colors.RED}
-                        style={styles.input}
+                        style={[
+                          styles.input,
+                          Platform.OS === 'android' && {padding: 0},
+                        ]}
                       />
                     </AppView>
                   </AppView>

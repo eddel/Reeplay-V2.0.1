@@ -1,11 +1,12 @@
-import {Animated, ScrollView} from 'react-native';
+import {Animated, Platform, ScrollView} from 'react-native';
 import React, {useRef, useState} from 'react';
 import {AppScreen, AppText, AppView} from '@/components';
 import colors from '@/configs/colors';
 import UpcomingView from './components/UpcomingView';
 import upcomingData from '@/configs/upcomingData';
-import {BlurView} from '@react-native-community/blur';
 import Size from '@/Utils/useResponsiveSize';
+import BlurView from 'react-native-blur-effect';
+import {BlurView as Blur} from '@react-native-community/blur';
 
 const UpcomingScreen = () => {
   const [playingIndexes, setPlayingIndexes] = useState<number[]>([]);
@@ -14,16 +15,25 @@ const UpcomingScreen = () => {
   return (
     <>
       <AppView
-        style={{minHeight: Size.calcHeight(90)}}
+        style={{
+          minHeight: Size.calcHeight(90),
+        }}
         className="absolute bottom-0 w-full z-20">
-        <BlurView
-          blurType="dark"
-          blurAmount={20}
-          style={{
-            minHeight: Size.calcHeight(90),
-            width: '100%',
-          }}
-        />
+        {Platform.OS === 'ios' ? (
+          <Blur
+            blurType="dark"
+            blurAmount={20}
+            style={{
+              minHeight: Size.calcHeight(90),
+              width: '100%',
+            }}
+          />
+        ) : (
+          <BlurView
+            backgroundColor="rgba(255, 255, 255, 0.1)"
+            blurRadius={20}
+          />
+        )}
       </AppView>
       <AppScreen
         containerStyle={{

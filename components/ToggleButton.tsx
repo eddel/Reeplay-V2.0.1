@@ -23,7 +23,6 @@ const ToggleButton = ({isOn, setIsOn, isBiometrics}: Props) => {
   });
 
   function handleAnimation() {
-    if (!isBiometrics) return;
     if (animation.value === 0) {
       animation.value = withTiming(11.5, {duration: 400});
     } else {
@@ -37,10 +36,7 @@ const ToggleButton = ({isOn, setIsOn, isBiometrics}: Props) => {
         isOn ? 'bg-red' : 'bg-[#bbbbbb]'
       }`}
       activeOpacity={1}
-      onPress={() => [
-        setIsOn(!isBiometrics ? false : !isOn),
-        handleAnimation(),
-      ]}>
+      onPress={() => [setIsOn(!isOn), handleAnimation()]}>
       <Animated.View style={[animatedStyle, styles.circle]} />
     </TouchableOpacity>
   );

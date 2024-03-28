@@ -8,11 +8,13 @@ import {
   Image,
   Text,
   ViewStyle,
+  Platform,
 } from 'react-native';
 import colors from '@/configs/colors';
 import fonts from '@/configs/fonts';
 import {ModalLogo} from '@/assets/icons';
-import {BlurView} from '@react-native-community/blur';
+import BlurView from 'react-native-blur-effect';
+import {BlurView as Blur} from '@react-native-community/blur';
 
 interface Props {
   isModalVisible: boolean;
@@ -43,11 +45,15 @@ const AppModal = ({
       onRequestClose={handleClose}>
       <View style={[styles.modalContainer, {position: 'relative'}]}>
         <Pressable onPress={handleClose} style={styles.overlay}>
-          <BlurView
-            style={{width: '100%', height: '100%'}}
-            blurType="dark"
-            blurAmount={2}
-          />
+          {Platform.OS === 'android' ? (
+            <BlurView backgroundColor="rgba(0, 0, 0, 0.7)" blurRadius={20} />
+          ) : (
+            <Blur
+              style={{width: '100%', height: '100%'}}
+              blurType="dark"
+              blurAmount={2}
+            />
+          )}
         </Pressable>
         <View
           style={[

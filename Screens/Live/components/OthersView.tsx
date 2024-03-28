@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Platform, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import SectionHeader, {
   headerProps,
@@ -6,7 +6,8 @@ import SectionHeader, {
 import {AppImage, AppText, AppView, TouchableOpacity} from '@/components';
 import LinearGradient from 'react-native-linear-gradient';
 import Size from '@/Utils/useResponsiveSize';
-import {BlurView} from '@react-native-community/blur';
+import {BlurView as Blur} from '@react-native-community/blur';
+import BlurView from 'react-native-blur-effect';
 import fonts from '@/configs/fonts';
 import colors from '@/configs/colors';
 import routes from '@/navigation/routes';
@@ -87,14 +88,27 @@ const OthersView = ({data, title}: OthersProps) => {
                   <AppText className="mt-[2px] font-medium font-ROBOTO_500 text-[9px] text-white -mr-[4px]">
                     {item.viewersDiscretion}
                   </AppText>
-                  <BlurView
-                    blurType="light"
-                    blurAmount={10}
-                    style={styles.dateContainer}>
-                    <AppText className="font-ROBOTO_500 font-medium text-[9px] text-white">
-                      01:20:01
-                    </AppText>
-                  </BlurView>
+                  {Platform.OS === 'ios' ? (
+                    <Blur
+                      blurType="light"
+                      blurAmount={10}
+                      style={styles.dateContainer}>
+                      <AppText className="font-ROBOTO_500 font-medium text-[9px] text-white">
+                        01:20:01
+                      </AppText>
+                    </Blur>
+                  ) : (
+                    <AppView style={styles.dateContainer} className="relative">
+                      <BlurView
+                        backgroundColor="rgba(255, 255, 255, 0.1)"
+                        blurRadius={10}
+                        borderRadius={4}
+                      />
+                      <AppText className="relative font-ROBOTO_500 font-medium text-[9px] text-white">
+                        01:20:01
+                      </AppText>
+                    </AppView>
+                  )}
                 </AppView>
               </AppView>
             </TouchableOpacity>

@@ -1,5 +1,6 @@
 import {
   FlatList,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -18,9 +19,10 @@ import {
 import colors from '@/configs/colors';
 import Size from '@/Utils/useResponsiveSize';
 import {LibraryData, RecentSearch} from '@/configs/data';
-import {BlurView} from '@react-native-community/blur';
 import {CloseBtn_S, SearchIcon_S} from '@/assets/icons';
 import fonts from '@/configs/fonts';
+import BlurView from 'react-native-blur-effect';
+import {BlurView as Blur} from '@react-native-community/blur';
 
 const Search = () => {
   const [text, setText] = useState<string>('');
@@ -155,8 +157,19 @@ const Search = () => {
 
       <AppView className="absolute bottom-0 z-30 w-full">
         <AppView className="relative w-full items-center">
-          <BlurView blurType="dark" blurAmount={20} style={styles.blur} />
-          <AppView className="absolute top-3 mx-auto w-[95%] py-[18px] px-6 rounded-[40px] bg-black flex-row items-center z-50">
+          {Platform.OS === 'android' ? (
+            <AppView style={styles.blur}>
+              <BlurView
+                backgroundColor="rgba(255, 255, 255, 0.1)"
+                blurRadius={20}
+              />
+            </AppView>
+          ) : (
+            <Blur blurType="dark" blurAmount={20} style={styles.blur} />
+          )}
+          <AppView
+            style={{paddingVertical: Platform.OS === 'android' ? 6 : 18}}
+            className="absolute top-3 mx-auto w-[95%] px-6 rounded-[40px] bg-black flex-row items-center z-50">
             <TouchableOpacity className="mr-3">
               <SearchIcon_S />
             </TouchableOpacity>

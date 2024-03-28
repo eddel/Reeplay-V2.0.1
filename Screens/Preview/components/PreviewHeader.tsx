@@ -45,9 +45,9 @@ const PreviewHeader = () => {
   const [muteVideo, setMuteVideo] = useState(true);
   const videoRefs = useRef<VideoRef>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isBuffering, setIsBuffering] = useState(false);
   const [isBufferingLoad, setIsBufferingLoad] = useState(false);
   const [hide, setHide] = useState(false);
@@ -306,10 +306,10 @@ const PreviewHeader = () => {
           paused={isPlaying}
           onLoad={onLoad}
           onLoadStart={onLoadStart}
+          onBuffer={onBuffer}
           onProgress={onProgress}
           onEnd={onEnd}
           onSeek={onSeek}
-          onBuffer={onBuffer}
           onReadyForDisplay={onReadyForDisplay}
         />
       </AppView>

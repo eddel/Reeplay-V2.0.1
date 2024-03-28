@@ -1,4 +1,11 @@
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import {
   AppImage,
@@ -11,11 +18,12 @@ import {Dropdown} from '@/assets/icons';
 import {AllCateegories, LibraryData, movieGenre} from '@/configs/data';
 import Size from '@/Utils/useResponsiveSize';
 import useToggle from '@/Hooks/useToggle';
-import {BlurView} from '@react-native-community/blur';
 import {previewContentType} from '@/navigation/AppNavigator';
 import routes from '@/navigation/routes';
 import {useNavigation} from '@react-navigation/native';
 import {TabMainNavigation} from '@/types/typings';
+import BlurView from 'react-native-blur-effect';
+import {BlurView as Blur} from '@react-native-community/blur';
 
 const LibraryScreen = () => {
   const {navigate} = useNavigation<TabMainNavigation>();
@@ -37,16 +45,25 @@ const LibraryScreen = () => {
   return (
     <>
       <AppView
-        style={{minHeight: Size.calcHeight(90)}}
+        style={{
+          minHeight: Size.calcHeight(90),
+        }}
         className="absolute bottom-0 w-full z-20">
-        <BlurView
-          blurType="dark"
-          blurAmount={20}
-          style={{
-            minHeight: Size.calcHeight(90),
-            width: '100%',
-          }}
-        />
+        {Platform.OS === 'ios' ? (
+          <Blur
+            blurType="dark"
+            blurAmount={20}
+            style={{
+              minHeight: Size.calcHeight(90),
+              width: '100%',
+            }}
+          />
+        ) : (
+          <BlurView
+            backgroundColor="rgba(255, 255, 255, 0.1)"
+            blurRadius={20}
+          />
+        )}
       </AppView>
       <AppScreen containerStyle={{position: 'relative', paddingTop: 5}}>
         {genre !== null && (

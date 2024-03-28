@@ -1,5 +1,6 @@
 import {
   Animated,
+  Platform,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -14,8 +15,9 @@ import {LiveSliderData} from '@/configs/data';
 import {AppText, AppView} from '@/components';
 import SwiperContainer from '@/Screens/Home/components/SwiperContainer';
 import DynamicViewContainer from './DynamicViewContainer';
-import {BlurView} from '@react-native-community/blur';
 import Size from '@/Utils/useResponsiveSize';
+import BlurView from 'react-native-blur-effect';
+import {BlurView as Blur} from '@react-native-community/blur';
 
 const LiveScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -36,16 +38,25 @@ const LiveScreen = () => {
     <>
       <Header scroll={isScrolled} />
       <AppView
-        style={{minHeight: Size.calcHeight(90)}}
+        style={{
+          minHeight: Size.calcHeight(90),
+        }}
         className="absolute bottom-0 w-full z-20">
-        <BlurView
-          blurType="dark"
-          blurAmount={20}
-          style={{
-            minHeight: Size.calcHeight(90),
-            width: '100%',
-          }}
-        />
+        {Platform.OS === 'ios' ? (
+          <Blur
+            blurType="dark"
+            blurAmount={20}
+            style={{
+              minHeight: Size.calcHeight(90),
+              width: '100%',
+            }}
+          />
+        ) : (
+          <BlurView
+            backgroundColor="rgba(255, 255, 255, 0.1)"
+            blurRadius={20}
+          />
+        )}
       </AppView>
       <StatusBar
         translucent

@@ -1,6 +1,7 @@
 import {
   Animated,
   FlatList,
+  Platform,
   StyleSheet,
   Text,
   View,
@@ -21,7 +22,7 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import colors from '@/configs/colors';
 import Size from '@/Utils/useResponsiveSize';
 import {LiveChannel} from '@/configs/data';
-import VideoRef from 'react-native-video';
+import VideoRef, {OnLoadData} from 'react-native-video';
 import useToggle from '@/Hooks/useToggle';
 import {
   BigPlayIcon,
@@ -35,13 +36,15 @@ import {
 import Dots from 'react-native-dots-pagination';
 import LinearGradient from 'react-native-linear-gradient';
 import fonts from '@/configs/fonts';
-import {BlurView} from '@react-native-community/blur';
+import {BlurView as Blur} from '@react-native-community/blur';
+import BlurView from 'react-native-blur-effect';
 import {MotiView} from 'moti';
 import {Easing} from 'react-native-reanimated';
 import {fullVideoType} from '@/navigation/AppNavigator';
 import routes from '@/navigation/routes';
 import {TabMainNavigation} from '@/types/typings';
 import {useNavigation} from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 
 interface SwiperPros extends headerProps {
   channels?: boolean;
@@ -71,6 +74,26 @@ const Swiper = ({
   const [verticalScrollState, setVerticalScrollState] = useState<number | null>(
     null,
   );
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [isBufferingLoad, setIsBufferingLoad] = useState(false);
+
+  const onLoad = (data: OnLoadData) => {
+    setIsLoading(false);
+  };
+
+  const onLoadStart = () => setIsLoading(true);
+
+  const onBuffer = ({isBuffering}: {isBuffering: boolean}) => {
+    setIsBuffering(isBuffering);
+    if (isBuffering) {
+      setIsBufferingLoad(true);
+    }
+  };
+
+  const onReadyForDisplay = () => {
+    setIsBufferingLoad(false);
+  };
 
   function handlePlayVideo(query: number) {
     if (playingIndexes.includes(query)) {
@@ -130,7 +153,7 @@ const Swiper = ({
               <AppView
                 style={containerStyle}
                 key={index}
-                className="relative rounded-[5px] overflow-hidden items-center justify-center">
+                className="relative rounded-[5px] overflow-hidden items-center mb-3 justify-center">
                 {!isPlaying && (
                   <TouchableOpacity
                     onPress={() => handlePlayVideo(index)}
@@ -216,17 +239,35 @@ const Swiper = ({
                         <AppText className="mt-[2px] font-medium font-ROBOTO_500 text-[11px] text-white mr-[2px]">
                           {item.viewersDiscretion}
                         </AppText>
-                        <BlurView
-                          blurType="light"
-                          blurAmount={10}
-                          style={styles.dateContainer}>
-                          <AppText className="font-ROBOTO_500 font-medium text-[10px] text-white">
-                            start in{' '}
-                            <AppText className="font-ROBOTO_700 font-bold text-[10px] text-red">
-                              01:20:01
+                        {Platform.OS === 'ios' ? (
+                          <Blur
+                            blurType="light"
+                            blurAmount={10}
+                            style={styles.dateContainer}>
+                            <AppText className="font-ROBOTO_500 font-medium text-[10px] text-white">
+                              start in{' '}
+                              <AppText className="font-ROBOTO_700 font-bold text-[10px] text-red">
+                                01:20:01
+                              </AppText>
                             </AppText>
-                          </AppText>
-                        </BlurView>
+                          </Blur>
+                        ) : (
+                          <AppView
+                            style={styles.dateContainer}
+                            className="relative w-[87px] pb-[10px] rounded items-center">
+                            <BlurView
+                              backgroundColor="rgba(255, 255, 255, 0.1)"
+                              blurRadius={20}
+                              borderRadius={4}
+                            />
+                            <AppText className="absolute font-ROBOTO_500 font-medium text-[10px] text-white">
+                              start in{' '}
+                              <AppText className="font-ROBOTO_700 font-bold text-[10px] text-red">
+                                01:20:01
+                              </AppText>
+                            </AppText>
+                          </AppView>
+                        )}
                       </AppView>
                     </AppView>
 
@@ -258,6 +299,10 @@ const Swiper = ({
                   muted={muteVideo}
                   repeat
                   paused={!isPlaying}
+                  onLoad={onLoad}
+                  onLoadStart={onLoadStart}
+                  onBuffer={onBuffer}
+                  onReadyForDisplay={onReadyForDisplay}
                 />
               </AppView>
             );
@@ -288,12 +333,29 @@ const Swiper = ({
                   style={containerStyle}
                   key={index}
                   className="relative rounded-[5px] overflow-hidden items-center justify-center">
-                  {!isPlaying && (
+                  {!isPlaying ? (
                     <TouchableOpacity
                       onPress={() => handlePlayVideo(index)}
                       className="absolute z-20">
                       <BigPlayIcon />
                     </TouchableOpacity>
+                  ) : (
+                    <>
+                      {isBufferingLoad ||
+                        (isLoading && (
+                          <AppView className="absolute z-20 pb-3">
+                            <LottieView
+                              source={require('@/assets/icons/RPlay.json')}
+                              style={{
+                                width: 300,
+                                height: 300,
+                              }}
+                              autoPlay
+                              loop
+                            />
+                          </AppView>
+                        ))}
+                    </>
                   )}
 
                   {isPlaying && (
@@ -367,6 +429,10 @@ const Swiper = ({
                     muted={muteVideo}
                     repeat
                     paused={!isPlaying}
+                    onLoad={onLoad}
+                    onLoadStart={onLoadStart}
+                    onBuffer={onBuffer}
+                    onReadyForDisplay={onReadyForDisplay}
                   />
                 </AppView>
               );

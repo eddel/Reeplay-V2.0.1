@@ -81,7 +81,7 @@ const VerificationScreen = () => {
   }, [expiryTime]);
 
   return (
-    <AppScreen>
+    <AppScreen containerStyle={{paddingTop: 15}}>
       <AppHeader />
       <StatusBar hidden />
 

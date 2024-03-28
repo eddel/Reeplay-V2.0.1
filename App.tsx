@@ -18,6 +18,7 @@ import {
   AppState,
   BackHandler,
   Platform,
+  StatusBar,
   StyleSheet,
   Text,
   View,
@@ -44,6 +45,7 @@ function App(): React.JSX.Element {
   const date = new Date(1711214160358);
 
   const handleBackButtonPress = () => {
+    console.log('checking...');
     if (
       navigationRef.current &&
       navigationRef.current.getCurrentRoute().index === 0
@@ -51,7 +53,7 @@ function App(): React.JSX.Element {
       console.log('User pressed back button at index 0');
       return true;
     }
-    return false;
+    // return false;
   };
 
   function refreshNetwork() {
@@ -140,6 +142,7 @@ function App(): React.JSX.Element {
   return (
     <Provider store={store}>
       <GestureHandlerRootView style={{flex: 1}}>
+        <StatusBar backgroundColor="#000" />
         <NavigationContainer ref={navigationRef}>
           <AppNavigator lockApp={lockApp} />
           {!network && (

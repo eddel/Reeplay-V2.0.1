@@ -41,6 +41,11 @@ import {
 import {RootStackParamList} from '@/navigation/AppNavigator';
 import {getData, removeData, storeData} from '@/Utils/useAsyncStorage';
 import ReactNativeBiometrics, {BiometryTypes} from 'react-native-biometrics';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 
 export const HAS_LOCK_APP = 'HAS_LOCK_APP';
 
@@ -56,6 +61,21 @@ const SettingScreen = () => {
 
   const url = 'https://reeplay.app/help';
 
+  const animation = useSharedValue(0);
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{translateX: animation.value}],
+    };
+  });
+
+  function handleAnimation() {
+    if (animation.value === 0) {
+      animation.value = withTiming(11.5, {duration: 400});
+    } else {
+      animation.value = withTiming(0, {duration: 400});
+    }
+  }
+
   const handleLink = async () => {
     const supported = await Linking.canOpenURL(url);
 
@@ -70,7 +90,7 @@ const SettingScreen = () => {
     if (lock) {
       await storeData(HAS_LOCK_APP, 'true');
     } else {
-      await removeData(HAS_LOCK_APP);
+      await storeData(HAS_LOCK_APP, 'false');
     }
   }
 
@@ -95,7 +115,7 @@ const SettingScreen = () => {
   async function getLockState() {
     const lockState = await getData(HAS_LOCK_APP);
     if (lockState) {
-      setLock(true);
+      setLock(JSON.parse(lockState));
     }
   }
 
@@ -131,7 +151,7 @@ const SettingScreen = () => {
     <>
       <AppScreen
         containerStyle={{
-          paddingTop: 10,
+          paddingTop: 20,
           paddingHorizontal: 0,
           position: 'relative',
           width: Size.getWidth(),
@@ -149,7 +169,7 @@ const SettingScreen = () => {
 
         <AppView
           style={{paddingHorizontal: Size.calcHeight(20)}}
-          className="pr-5 mt-10 -mb-3">
+          className="pr-5 mt-8 -mb-3">
           <AppView className="flex-row items-start mb-6">
             <FingerPrint style={{marginTop: 2}} />
             <AppView className="ml-2 pr-8">
@@ -157,11 +177,20 @@ const SettingScreen = () => {
                 <AppText className="font-medium font-MANROPE_500 text-base text-white">
                   Biometrics
                 </AppText>
-                <ToggleButton
-                  isBiometrics={biometricsIsSupport}
-                  isOn={biometrics}
-                  setIsOn={setBiometrics}
-                />
+                <TouchableOpacity
+                  className={`w-8 h-[19px] rounded-2xl pt-[1.5px] px-[2px] pb-[2.2px]  items-center flex-row ${
+                    biometrics ? 'bg-red' : 'bg-[#bbbbbb]'
+                  }`}
+                  activeOpacity={1}
+                  onPress={() =>
+                    biometricsIsSupport
+                      ? [setBiometrics(!biometrics), handleAnimation()]
+                      : Alert.alert(
+                          'Sorry, your device has no biometrics settings active.',
+                        )
+                  }>
+                  <Animated.View style={[animatedStyle, styles.circle]} />
+                </TouchableOpacity>
               </AppView>
               <AppText className="mt-1 font-normal  font-MANROPE_400 text-white text-sm">
                 Unlock App and Authorize Reeplay Transactions with your device
@@ -272,5 +301,11 @@ const styles = StyleSheet.create({
     paddingBottom: Size.calcHeight(8),
     borderRadius: 4,
     marginVertical: 5,
+  },
+  circle: {
+    width: 16.5,
+    height: 16.5,
+    borderRadius: 17 / 2,
+    backgroundColor: '#fff',
   },
 });

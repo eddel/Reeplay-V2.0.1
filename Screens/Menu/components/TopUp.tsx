@@ -1,4 +1,5 @@
 import {
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -6,7 +7,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppButton, AppText, AppView, TouchableOpacity} from '@/components';
 import Size from '@/Utils/useResponsiveSize';
 import fonts from '@/configs/fonts';
@@ -25,7 +26,7 @@ import {
 } from '@/assets/icons';
 import {paymentMethods} from '@/configs/data';
 import {formatAmount} from '@/Utils/formatAmount';
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 
 interface Props {
   setStage: React.Dispatch<React.SetStateAction<string>>;
@@ -40,6 +41,12 @@ const TopUp = ({setStage, tab}: Props) => {
   const [showList, setShowList] = useState<boolean>(false);
   const [activeIndex, setActiveindex] = useState<number>(0);
   const [text, setText] = useState<string>('');
+  const isFocused = useIsFocused();
+  const [reRun, setReRun] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isFocused) setReRun(true);
+  }, []);
 
   return (
     <AppView className="relative h-full">
@@ -79,7 +86,7 @@ const TopUp = ({setStage, tab}: Props) => {
                 onPress={() => [setActiveindex(i), setText(option)]}
                 style={{
                   backgroundColor: showClicked ? colors.RED : 'white',
-                  width: Size.getWidth() / 3 - 25,
+                  width: Size.getWidth() / 3 - 28,
                 }}
                 className="py-[14px] mb-3 rounded-lg items-center justify-center">
                 <AppText
@@ -170,7 +177,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 5,
     paddingHorizontal: Size.calcHeight(18),
-    paddingVertical: Size.calcHeight(14),
+    paddingVertical: Platform.OS === 'android' ? 2 : Size.calcHeight(14),
   },
   input: {
     flex: 1,

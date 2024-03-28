@@ -11,12 +11,12 @@ const NotificatoinScreen_S = () => {
   const [subscription, setSubscription] = useState(false);
   const [newService, setNewService] = useState(false);
   return (
-    <AppScreen containerStyle={{paddingTop: 10, paddingHorizontal: 0}}>
+    <AppScreen containerStyle={{paddingTop: 20, paddingHorizontal: 0}}>
       <AppView className="px-5">
         <AppHeader />
       </AppView>
 
-      <AppView className="mt-9">
+      <AppView className="mt-6">
         <AppView style={styles.center} className="py-5 px-5">
           <AppText className="font-medium font-MANROPE_500 text-sm text-white">
             Allow Notifications

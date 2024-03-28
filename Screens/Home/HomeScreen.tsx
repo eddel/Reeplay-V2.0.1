@@ -1,6 +1,7 @@
 import {
   Animated,
   FlatList,
+  Platform,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -14,14 +15,15 @@ import {ContinueWatching, HeroSliderData} from '@/configs/data';
 import {AppText, AppView, TouchableOpacity} from '@/components';
 import SwiperContainer from './components/SwiperContainer';
 import SectionHeader from './components/SectionHeader';
-import {useEffect, useRef, useState} from 'react';
+import {Fragment, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import AppCategories from '@/components/AppCategories';
 import Size from '@/Utils/useResponsiveSize';
 import Sections from './components/Sections';
 import {useNavigation} from '@react-navigation/native';
 import {HomeScreenNav} from '@/types/typings';
 import routes from '@/navigation/routes';
-import {BlurView} from '@react-native-community/blur';
+import BlurView from 'react-native-blur-effect';
+import {BlurView as Blur} from '@react-native-community/blur';
 
 const HomeScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -42,20 +44,30 @@ const HomeScreen = () => {
 
   return (
     <>
+      <AppView
+        style={{
+          minHeight: Size.calcHeight(90),
+        }}
+        className="absolute bottom-0 w-full z-20">
+        {Platform.OS === 'ios' ? (
+          <Blur
+            blurType="dark"
+            blurAmount={20}
+            style={{
+              minHeight: Size.calcHeight(90),
+              width: '100%',
+            }}
+          />
+        ) : (
+          <BlurView
+            backgroundColor="rgba(255, 255, 255, 0.1)"
+            blurRadius={20}
+          />
+        )}
+      </AppView>
       {/* //Header */}
       <Header scroll={isScrolled} />
-      <AppView
-        style={{minHeight: Size.calcHeight(90)}}
-        className="absolute bottom-0 w-full z-20">
-        <BlurView
-          blurType="dark"
-          blurAmount={20}
-          style={{
-            minHeight: Size.calcHeight(90),
-            width: '100%',
-          }}
-        />
-      </AppView>
+
       <StatusBar
         translucent
         barStyle="light-content"

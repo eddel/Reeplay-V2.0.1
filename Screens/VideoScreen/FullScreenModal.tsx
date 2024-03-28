@@ -2,6 +2,7 @@ import {
   ActivityIndicator,
   Alert,
   Animated,
+  Platform,
   Pressable,
   StatusBar,
   StyleSheet,
@@ -38,7 +39,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import {MotiView} from 'moti';
 import {Easing} from 'react-native-reanimated';
 import {FullScreenVideo, FullScreenVideoRoute} from '@/types/typings';
-import {BlurView} from '@react-native-community/blur';
 import colors from '@/configs/colors';
 import SeekBar from './components/SeekBar';
 import {formatDuration} from '@/Utils/formatVideoDuration';
@@ -47,6 +47,8 @@ import BrightnessBar from './components/BrightnessBar';
 import {fullVideoType} from '@/navigation/AppNavigator';
 import LottieView from 'lottie-react-native';
 import routes from '@/navigation/routes';
+import BlurView from 'react-native-blur-effect';
+import {BlurView as Blur} from '@react-native-community/blur';
 
 const AnimatedLinear = Animated.createAnimatedComponent(LinearGradient);
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
@@ -82,6 +84,7 @@ const FullScreenModal = () => {
   const opacityU = useRef(new Animated.Value(1));
 
   function handle_VOTE_DONATE() {
+    Orientation.lockToPortrait();
     if (donate) {
       Orientation.lockToPortrait();
       navigation.navigate(routes.MAIN, {
@@ -267,17 +270,33 @@ const FullScreenModal = () => {
         width: '100%',
         height: '100%',
       }}>
-      <BlurView
-        blurAmount={30}
-        overlayColor="transparent"
-        blurType="dark"
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          zIndex: 10,
-        }}
-      />
+      {/* Background Video */}
+      {Platform.OS === 'android' ? (
+        <View
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            zIndex: 10,
+          }}>
+          <BlurView
+            backgroundColor="rgba(255, 255, 255, 0.1)"
+            blurRadius={20}
+          />
+        </View>
+      ) : (
+        <Blur
+          blurAmount={30}
+          overlayColor="transparent"
+          blurType="dark"
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            zIndex: 10,
+          }}
+        />
+      )}
       <AppVideo
         source={{
           uri: videoURL,
@@ -295,11 +314,12 @@ const FullScreenModal = () => {
         paused={true}
       />
 
+      {/* Main video component */}
       <View
         style={{
           position: 'absolute',
           width: '100%',
-          height: '105.8%',
+          height: Platform.OS === 'ios' ? '105.8%' : '100%',
           zIndex: 20,
         }}>
         <AppScreen
@@ -529,6 +549,7 @@ const FullScreenModal = () => {
                 </AppView>
               </Animated.View>
 
+              {/* SeekBar */}
               {type !== fullVideoType.live && (
                 <Animated.View
                   style={[
@@ -617,7 +638,7 @@ const styles = StyleSheet.create({
   bottomView: {
     position: 'absolute',
     bottom: 6,
-    marginBottom: 4,
+    marginBottom: Platform.OS === 'ios' ? 4 : 8,
     paddingHorizontal: 8,
     paddingRight: 20,
     width: '100%',
@@ -643,5 +664,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     zIndex: 30,
+    alignSelf: 'center',
   },
 });
