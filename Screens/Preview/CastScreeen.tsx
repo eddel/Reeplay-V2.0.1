@@ -43,8 +43,6 @@ const CastScreeen = () => {
     const supported = await Linking.canOpenURL(url);
 
     if (supported) {
-      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-      // by some browser in the mobile
       await Linking.openURL(url);
     } else {
       Alert.alert(`Don't know how to open this URL: ${url}`);
@@ -137,11 +135,11 @@ const CastScreeen = () => {
             OTHER MOVIES FEATURED ON
           </AppText>
 
-          <AppView className="w-full mt-5 px-1 flex-row flex-wrap items-center justify-evenly mb-32">
+          <AppView className="w-full mt-5 px-1 flex-row flex-wrap items-center gap-x-[10px] mb-32">
             {LibraryData.map((lib, index) => {
               return (
                 <TouchableOpacity
-                  className="mb-4"
+                  className="mb-3"
                   activeOpacity={0.6}
                   key={index}
                   onPress={() =>

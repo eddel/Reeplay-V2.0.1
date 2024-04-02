@@ -10,6 +10,7 @@
     "postinstall": "npx pod-install ios",
     "test": "jest",
     "build-android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle"
+
   },
   "dependencies": {
     "@adrianso/react-native-device-brightness": "^1.2.7",

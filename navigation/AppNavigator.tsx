@@ -24,6 +24,7 @@ import NotificatoinScreen_S from '@/Screens/Settings/NotificatoinScreen_S';
 import Search from '@/Screens/Search/Search';
 import GetStartedScreen from '@/Screens/authentication/GetStartedScreen';
 import {useNavigation} from '@react-navigation/native';
+import PaymentSummaryView from '@/Screens/Payments/PaymentSummaryView';
 
 const RootStack = createNativeStackNavigator();
 
@@ -69,6 +70,7 @@ export type RootStackParamList = {
     vote?: boolean;
     donate?: boolean;
   };
+  [routes.PAYMENT_SCREEN]: undefined;
 };
 
 export type RootNav = NativeStackNavigationProp<RootStackParamList>;
@@ -133,6 +135,13 @@ const AppNavigator = ({lockApp}: {lockApp: boolean}): JSX.Element => {
         <RootStack.Screen
           name={routes.PREVIEW_SCREEN}
           component={PreviewScreen}
+        />
+      </RootStack.Group>
+
+      <RootStack.Group>
+        <RootStack.Screen
+          name={routes.PAYMENT_SCREEN}
+          component={PaymentSummaryView}
         />
       </RootStack.Group>
 

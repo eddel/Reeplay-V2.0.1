@@ -224,7 +224,6 @@ const UpcomingView = ({
           {items.description}
         </AppText>
       </AppView>
-      <Text>UpcomingView</Text>
     </AppView>
   );
 };

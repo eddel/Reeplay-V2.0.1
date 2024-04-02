@@ -35,7 +35,6 @@ const PayStackView = ({setStage, tab}: Props) => {
     setPaySuccessful(false);
     setStage('plan');
     goBack();
-    // navigate(routes.ACCOUNT_SCREEN);
   }
 
   return (
@@ -70,8 +69,8 @@ const PayStackView = ({setStage, tab}: Props) => {
               <LottieView
                 source={require('@/assets/icons/RPlay.json')}
                 style={{
-                  width: 500,
-                  height: 500,
+                  width: 300,
+                  height: 300,
                 }}
                 autoPlay
                 loop

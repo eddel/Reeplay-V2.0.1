@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {Alert, Linking, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useState} from 'react';
 import {
   AppButton,
@@ -15,8 +15,22 @@ import colors from '@/configs/colors';
 
 const SuggestionScreen = () => {
   const [typed, setTyped] = useToggle();
+
+  const url = 'https://www.tecno-mobile.com/stores/';
+
+  const handleLink = async () => {
+    // Checking if the link is supported for links with custom URL scheme.
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  };
+
   return (
-    <AppScreen containerStyle={{paddingTop: 10}}>
+    <AppScreen scrollable containerStyle={{paddingTop: 10}}>
       <AppHeader />
 
       <AppView className="mt-6 bg-red pt-3 px-1 rounded-[15px]">
@@ -29,7 +43,9 @@ const SuggestionScreen = () => {
               Ads that meet your interest
             </AppText>
           </AppView>
-          <TouchableOpacity className="bg-white py-2 px-3 rounded-[40px]">
+          <TouchableOpacity
+            onPress={handleLink}
+            className="bg-white py-2 px-3 rounded-[40px]">
             <AppText className="font-semibold font-MANROPE_600 text-red text-xs">
               BUY NOW
             </AppText>
@@ -39,7 +55,7 @@ const SuggestionScreen = () => {
         <AppView className="h-[191px] mb-1 rounded-b-[15px] overflow-hidden border-[2px] border-black">
           <AppImage
             source={require('@/assets/images/Ads.png')}
-            className="h-full rounded-b-[15px]"
+            className="h-full w-full rounded-b-[15px] object-contain"
           />
         </AppView>
       </AppView>

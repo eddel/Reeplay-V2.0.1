@@ -1,6 +1,7 @@
 import {ImageSourcePropType} from 'react-native';
 
 export interface HeroSliderDataProps {
+  _id: number;
   image: any;
   type: string;
   title: string;

@@ -20,6 +20,7 @@ import {useNavigation} from '@react-navigation/native';
 import {HomeScreenNav, TabMainNavigation} from '@/types/typings';
 import routes from '@/navigation/routes';
 import {fullVideoType} from '@/navigation/AppNavigator';
+import LinearGradient from 'react-native-linear-gradient';
 
 const ITEM_WIDTH = Size.getWidth() * 0.72;
 const SPACING = 6;
@@ -46,12 +47,24 @@ const Caurosel = ({item, translate, currentIndex, live}: Props) => {
         overflow: 'hidden',
         transform: [{translateY: translate}],
       }}>
+      <LinearGradient
+        colors={['transparent', 'rgba(0,0,0,0.89)']}
+        style={[
+          {
+            bottom: 0,
+            zIndex: 1,
+            width: '100%',
+            position: 'absolute',
+            height: '60%',
+          },
+        ]}
+      />
       <AppImage
         source={item.image}
         style={{width: ITEM_WIDTH}}
         className="absolute h-full"
       />
-      <AppView className="absolute bottom-3 items-center">
+      <AppView className="absolute bottom-3 z-10 items-center">
         <AppText className="text-white text-xs font-normal uppercase font-MANROPE_400 mb-2">
           {item.type}
         </AppText>
@@ -70,7 +83,7 @@ const Caurosel = ({item, translate, currentIndex, live}: Props) => {
                     {tag}
                   </AppText>
                   {item.tags && i !== item.tags.length - 1 && (
-                    <AppView className="w-1.5 h-1.5 rounded-full bg-white mx-1" />
+                    <AppView className="w-1.5 h-1.5 rounded-full bg-white mt-[2.5px] mx-1" />
                   )}
                 </Fragment>
               );

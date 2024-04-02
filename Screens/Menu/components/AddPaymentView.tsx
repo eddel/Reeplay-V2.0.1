@@ -116,10 +116,15 @@ const AddPaymentView = () => {
             <AppText className="mb-3 mt-7 font-normal font-LEXEND_400 text-[15px] text-white">
               Card number
             </AppText>
-            <AppView style={styles.input} className="flex-row items-center">
+            <AppView style={[styles.input]} className="flex-row items-center">
               <Credit_Card />
               <CardNumber
-                style={{marginLeft: -10, borderWidth: 0, height: 21}}
+                style={{
+                  marginLeft: -10,
+                  borderWidth: 0,
+                  height: 21,
+                  paddingBottom: 6,
+                }}
                 placeholderTextColor="#474748"
                 placeholder="XXXX XXXX XXXX XXXX"
                 showIcon={false}

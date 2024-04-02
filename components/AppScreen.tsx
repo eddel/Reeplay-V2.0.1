@@ -25,6 +25,8 @@ const AppScreen = (props: ScreenProps): JSX.Element => {
 
       {scrollable ? (
         <ScrollView
+          bounces={false}
+          // decelerationRate="fast"
           showsVerticalScrollIndicator={false}
           style={[styles.view, style]}>
           {children}

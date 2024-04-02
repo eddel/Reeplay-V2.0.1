@@ -59,6 +59,9 @@ export default Object.freeze({
   PREVIEW_SCREEN: 'PreviewScreen',
   CAST_SCREEN: 'CastScreen',
 
+  //PAYMENT_SCREEN
+  PAYMENT_SCREEN: 'PaymentScreen',
+
   //SETTING
   LANGUAGE_SCREEN: 'LanguageScreen',
 

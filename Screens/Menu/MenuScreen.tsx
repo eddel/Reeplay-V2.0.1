@@ -65,6 +65,7 @@ const MenuScreen = () => {
   const nav = useNavigation<MenuNavigationProps>();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isSkipped, setIsSkipped] = useState<boolean>(false);
+  const [ads, setAds] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   async function getSkippedState() {
@@ -79,7 +80,7 @@ const MenuScreen = () => {
     if (selectedTab === 'Log In')
       navigation.navigate(routes.AUTH, {screen: routes.LOGIN_SCREEN});
     if (selectedTab === 'Watchlist') navigate(routes.WATCHLIST_SCREEN);
-    if (selectedTab === 'Create AD') navigate(routes.CREATE_ADS_SCREEN);
+    if (selectedTab === 'Create AD') setAds(true);
     if (selectedTab === 'Notifications') navigate(routes.NOTIFICATION_SCREEN);
     if (selectedTab === 'Suggestions') navigate(routes.SUGGESTION_SCREEN);
     if (selectedTab === 'Giftcards') navigate(routes.GIFT_CARD_SCREEN);
@@ -106,16 +107,18 @@ const MenuScreen = () => {
     <>
       <AppScreen containerStyle={{paddingTop: Size.calcHeight(20)}}>
         <AppView className="flex-row items-center justify-between">
-          <AppView className="flex-row items-center gap-x-3">
-            <AppImage
-              source={require('@/assets/images/bbn.png')}
-              className="w-[40px] h-[40px] rounded-full"
-            />
-            <AppText className="font-bold font-MANROPE_700 text-base text-white">
-              Edward Bette
-            </AppText>
-          </AppView>
-          <TouchableOpacity onPress={goBack}>
+          {!isSkipped && (
+            <AppView className="flex-row items-center gap-x-3">
+              <AppImage
+                source={require('@/assets/images/bbn.png')}
+                className="w-[40px] h-[40px] rounded-full"
+              />
+              <AppText className="font-bold font-MANROPE_700 text-base text-white">
+                Edward Bette
+              </AppText>
+            </AppView>
+          )}
+          <TouchableOpacity className="ml-auto" onPress={goBack}>
             <BigClose />
           </TouchableOpacity>
         </AppView>
@@ -188,6 +191,25 @@ const MenuScreen = () => {
           </AppView>
         }
         handleClose={() => setShowModal(false)}
+      />
+
+      <AppModal
+        isModalVisible={ads}
+        redCloseBtn
+        LogoStyle={{marginBottom: -30, marginTop: -15}}
+        style={{height: 383}}
+        replaceDefaultContent={
+          <AppView className="mb-3 mt-5 items-center">
+            <AppText className="mt-5 leading-5 font-medium font-ROBOTO_500 text-[14px] text-black text-center">
+              Sorry, you are not authorized {'\n'}to create Ads.
+            </AppText>
+            <AppText className="mt-5 leading-5 font-normal font-ROBOTO_400 text-[14px] text-black text-center">
+              Kindly go through a {'\n'} licensed agent, who already has a
+              relationship with Reeplay.
+            </AppText>
+          </AppView>
+        }
+        handleClose={() => setAds(false)}
       />
     </>
   );

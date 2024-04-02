@@ -1,16 +1,18 @@
 import {
   Animated,
   FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import colors from '@/configs/colors';
 import LinearGradient from 'react-native-linear-gradient';
-import {AppText, AppView} from '@/components';
+import {AppImage, AppText, AppView} from '@/components';
 import Size from '@/Utils/useResponsiveSize';
 import Caurosel from './Caurosel';
 import MaskedView from '@react-native-masked-view/masked-view';
@@ -30,10 +32,44 @@ interface SliderProps {
   live?: boolean;
 }
 
+// Type definition for the FlatList component
+type MyFlatList = FlatList<any>;
+
 const Slider = ({data, live}: SliderProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
-  const movieData = [{title: 'spacer'}, ...data, {title: 'spacer'}];
+  const [movieData, setMovieData] = useState([
+    {title: 'spacer', colors: []},
+    ...data,
+    ...data,
+    ...data,
+    {title: 'spacer', colors: []},
+  ]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const flatListRef = useRef<MyFlatList>(null); // Reference to the FlatList component
+
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const contentOffsetX = event.nativeEvent.contentOffset.x;
+    const secondToLastIndex = movieData.length - 2;
+    const maxScroll = ITEM_WIDTH * secondToLastIndex - 120;
+
+    if (contentOffsetX > maxScroll) {
+      flatListRef.current?.scrollToOffset({offset: 0, animated: false});
+    }
+
+    if (contentOffsetX < 0) {
+      flatListRef.current?.scrollToOffset({offset: maxScroll, animated: false});
+    }
+  };
+
+  useEffect(() => {
+    const listernerID = scrollX.addListener(({value}) => {
+      if (value < 0) return;
+    });
+
+    return () => {
+      scrollX.removeListener(listernerID);
+    };
+  }, [scrollX]);
 
   return (
     <AppView style={{height: SLIDER_HEIGHT}} className="relative z-0">
@@ -56,12 +92,13 @@ const Slider = ({data, live}: SliderProps) => {
       />
 
       {!live && (
-        <BackDrop data={data} curIndex={currentIndex} scrollX={scrollX} />
+        <BackDrop data={movieData} curIndex={currentIndex} scrollX={scrollX} />
       )}
 
       {/* Image caurosel */}
       <Animated.FlatList
-        data={movieData}
+        ref={flatListRef}
+        data={[...movieData]}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
@@ -69,7 +106,7 @@ const Slider = ({data, live}: SliderProps) => {
           marginBottom: Size.calcHeight(40),
         }}
         keyExtractor={(_, index) => index.toString()}
-        snapToInterval={ITEM_WIDTH + 2}
+        snapToInterval={Size.getWidth() - 98}
         onViewableItemsChanged={({viewableItems}) => {
           // Log the current index
           if (viewableItems.length > 0) {
@@ -78,15 +115,36 @@ const Slider = ({data, live}: SliderProps) => {
           }
         }}
         decelerationRate={0}
-        bounces={false}
         scrollEventThrottle={16}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: true},
         )}
+        onScrollEndDrag={event => {
+          handleScroll(event);
+        }}
+        onMomentumScrollEnd={event => {
+          handleScroll(event);
+        }}
         renderItem={({item, index}) => {
+          const last = index === movieData.length - 1;
           if (item.title === 'spacer')
-            return <View style={{width: SPACER_SIZE}} />;
+            return (
+              <AppView
+                className={`relative z-10 ${
+                  last ? 'rounded-l-md ml-1.5' : 'rounded-r-md mr-1.5'
+                } overflow-hidden`}
+                style={{
+                  width: SPACER_SIZE + 10,
+                  height: Size.calcHeight(382),
+                }}>
+                <AppImage
+                  source={last ? data[0].image : data[data.length - 1].image}
+                  style={{width: ITEM_WIDTH}}
+                  className="absolute right-0 h-full z-10"
+                />
+              </AppView>
+            );
 
           const isCurrentIndex = index === currentIndex + 1;
 
@@ -101,12 +159,14 @@ const Slider = ({data, live}: SliderProps) => {
           });
 
           return (
-            <Caurosel
-              item={item}
-              currentIndex={isCurrentIndex}
-              translate={translateY}
-              live={live}
-            />
+            <>
+              <Caurosel
+                item={item}
+                currentIndex={isCurrentIndex}
+                translate={translateY}
+                live={live}
+              />
+            </>
           );
         }}
       />
@@ -116,17 +176,22 @@ const Slider = ({data, live}: SliderProps) => {
   );
 };
 
-interface BackDropOptions extends SliderProps {
+interface BackDropOptions {
+  data: (
+    | HeroSliderDataProps
+    | LiveSliderDataProps
+    | {
+        title: string;
+        colors: never[];
+      }
+  )[];
   scrollX: Animated.Value;
   curIndex: number;
 }
 
 const BackDrop = ({data, scrollX, curIndex}: BackDropOptions) => {
-  const MainItem = [
-    {title: 'spacer', colors: []},
-    ...data,
-    {title: 'spacer', colors: []},
-  ];
+  const MainItem = data;
+
   return (
     <AppView
       style={{
@@ -138,59 +203,19 @@ const BackDrop = ({data, scrollX, curIndex}: BackDropOptions) => {
         keyExtractor={(_, index) => index.toString()}
         renderItem={({item, index}) => {
           if ('colors' in item && item.colors.length === 0) return null;
-          const inputRange = [
-            (index - 2) * ITEM_WIDTH,
-            (index - 1) * ITEM_WIDTH,
-          ];
-          const translateX = scrollX.interpolate({
-            inputRange,
-            outputRange: [-Size.getWidth(), 0],
-          });
+
           return (
-            <>
-              {Platform.OS === 'android' ? (
-                <Animated.View
-                  style={{
-                    height: SLIDER_HEIGHT,
-                    width: '100%',
-                  }}>
-                  <LinearGradient
-                    //@ts-ignore
-                    colors={MainItem[curIndex + 1].colors}
-                    style={{height: SLIDER_HEIGHT, width: '100%'}}
-                  />
-                </Animated.View>
-              ) : (
-                <MaskedView
-                  style={{
-                    position: 'absolute',
-                    height: SLIDER_HEIGHT,
-                    width: '100%',
-                  }}
-                  maskElement={
-                    <AnimatedSvg
-                      width={Size.getWidth()}
-                      height={SLIDER_HEIGHT}
-                      viewBox={`0, 0, ${Size.getWidth()} ${SLIDER_HEIGHT}`}
-                      style={{transform: [{translateX}]}}>
-                      <Rect
-                        x="0"
-                        y="0"
-                        width={Size.getWidth()}
-                        height={SLIDER_HEIGHT}
-                        fill="black"
-                      />
-                    </AnimatedSvg>
-                  }>
-                  {'colors' in item && (
-                    <LinearGradient
-                      colors={item.colors}
-                      style={{height: SLIDER_HEIGHT, width: '100%'}}
-                    />
-                  )}
-                </MaskedView>
-              )}
-            </>
+            <Animated.View
+              style={{
+                height: SLIDER_HEIGHT,
+                width: '100%',
+              }}>
+              <LinearGradient
+                //@ts-ignore
+                colors={MainItem[curIndex + 1].colors}
+                style={{height: SLIDER_HEIGHT, width: '100%'}}
+              />
+            </Animated.View>
           );
         }}
       />

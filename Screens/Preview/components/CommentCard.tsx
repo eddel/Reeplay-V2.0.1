@@ -43,8 +43,8 @@ const SingleCommentCard = () => {
         </AppView>
 
         {/* Buttons */}
-        <AppView className="flex-row items-center gap-x-4 mt-3">
-          <AppView className="flex-row gap-x-1.5">
+        <AppView className="flex-row items-center gap-x-4 mt-[10px]">
+          <AppView className="flex-row items-center gap-x-1.5">
             <TouchableOpacity onPress={setIsLike}>
               {isLike ? <LikeBtn_F /> : <LikeBtn />}
             </TouchableOpacity>
@@ -52,7 +52,7 @@ const SingleCommentCard = () => {
               29
             </AppText>
           </AppView>
-          <TouchableOpacity className="flex-row gap-x-1.5">
+          <TouchableOpacity className="flex-row items-center gap-x-1.5">
             <ReplyIcon />
             <AppText className="text-[11.8px] text-yellow font-normal font-ROBOTO_400">
               Reply

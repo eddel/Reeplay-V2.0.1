@@ -1,5 +1,5 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {Alert, FlatList, Linking, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
 import {
   AppHeader,
   AppImage,
@@ -8,7 +8,7 @@ import {
   AppView,
   TouchableOpacity,
 } from '@/components';
-import {TrendingNow} from '@/configs/data';
+import {DownloadsData, TrendingNow} from '@/configs/data';
 import {DeleteIcon} from '@/assets/icons';
 import {useNavigation} from '@react-navigation/native';
 import {DownloadScreenNav} from '@/types/typings';
@@ -17,6 +17,25 @@ import {previewContentType} from '@/navigation/AppNavigator';
 
 const DownoadScreen = () => {
   const {navigate} = useNavigation<DownloadScreenNav>();
+  const [data, setData] = useState([...DownloadsData]);
+
+  const url = 'https://www.tecno-mobile.com/stores/';
+
+  const handleLink = async () => {
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  };
+
+  function handleDelete(id: number) {
+    const newData = data.filter(item => item._id !== id);
+    setData(newData);
+  }
+
   return (
     <AppScreen containerStyle={{paddingTop: 15}}>
       <AppHeader />
@@ -31,7 +50,9 @@ const DownoadScreen = () => {
               Ads that meet your interest
             </AppText>
           </AppView>
-          <TouchableOpacity className="bg-white py-2 px-3 rounded-[40px]">
+          <TouchableOpacity
+            onPress={handleLink}
+            className="bg-white py-2 px-3 rounded-[40px]">
             <AppText className="font-semibold font-MANROPE_600 text-red text-xs">
               VISIT STORE
             </AppText>
@@ -41,7 +62,7 @@ const DownoadScreen = () => {
         <AppView className="h-[191px] mb-1 rounded-b-[15px] overflow-hidden border-[2px] border-black">
           <AppImage
             source={require('@/assets/images/Ads.png')}
-            className="h-full rounded-b-[15px]"
+            className="h-full rounded-b-[15px] w-full object-contain"
           />
         </AppView>
       </AppView>
@@ -55,16 +76,16 @@ const DownoadScreen = () => {
         </AppView>
 
         <AppText className="font-normal font-MANROPE_400 text-[13px] text-yellow">
-          25 downloads
+          {data.length} downloads
         </AppText>
       </AppView>
 
       <FlatList
-        data={TrendingNow}
+        data={data}
         keyExtractor={(_, index) => index.toString()}
         showsVerticalScrollIndicator={false}
         // bounces={false}
-        renderItem={({item}) => {
+        renderItem={({item, index}) => {
           return (
             <AppView className="pb-1 flex-row items-center mb-2 border-b border-grey_200/10">
               <TouchableOpacity
@@ -90,10 +111,10 @@ const DownoadScreen = () => {
                   </AppText>
                   <AppView className="w-[1px] h-[68%] bg-white" />
                   <AppText className="font-normal font-MANROPE_400 text-xs text-white">
-                    98 MB
+                    {item.size}
                   </AppText>
                   <AppView className="w-[1px] h-[68%] mr-[2px] bg-white" />
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => handleDelete(item._id)}>
                     <DeleteIcon />
                   </TouchableOpacity>
                 </AppView>

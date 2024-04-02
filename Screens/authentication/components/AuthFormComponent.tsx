@@ -128,7 +128,7 @@ const AuthFormComponent = ({screen, trigger}: Props) => {
           email,
           password,
           fullname,
-          phoneNo,
+          phoneNo: `${countryCode.cc}${phoneNo}`,
         };
         //TODO: RUN actual signup endpoint here
 

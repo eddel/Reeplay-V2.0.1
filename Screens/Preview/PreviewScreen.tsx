@@ -93,9 +93,9 @@ const PreviewScreen = () => {
 
       <AppView className="h-full">
         <AppView className="px-5 flex-row items-center justify-between mt-[13px]">
-          <TouchableOpacity className="ml-1.5" onPress={setAddWatchList}>
+          <Pressable style={{marginLeft: 6}} onPress={setAddWatchList}>
             {addWatchList ? <VideoLog_F /> : <VideoLogIcon />}
-          </TouchableOpacity>
+          </Pressable>
           <AppView>
             <AppText className="text-[21px] text-grey_100 font-ROBOTO_700 font-bold text-center">
               NKOYO
@@ -108,7 +108,7 @@ const PreviewScreen = () => {
                       {tag}
                     </AppText>
                     {i !== ['Comedy', 'Exciting', 'Drama'].length - 1 && (
-                      <AppView className="w-1.5 h-1.5 rounded-full bg-white mx-1.5" />
+                      <AppView className="w-1.5 h-1.5 rounded-full bg-white mt-[2.8px] mx-1.5" />
                     )}
                   </Fragment>
                 );
@@ -239,7 +239,7 @@ const PreviewScreen = () => {
                       68 Comments
                     </AppText>
 
-                    <AppView className="mt-4 flex-row w-full p-[4px] rounded-[30px] bg-grey_900">
+                    <AppView className="relative mt-4 flex-row w-full p-[4px] rounded-[30px] bg-grey_900">
                       <AppImage
                         className="w-[39px] h-[39px] rounded-full mr-3"
                         source={require('@/assets/images/bette.png')}
@@ -253,6 +253,8 @@ const PreviewScreen = () => {
                           Platform.OS === 'android' && {padding: 0},
                         ]}
                       />
+                      {/* Send button */}
+                      {/* <TouchableOpacity className="absolute right-1 top-3 z-10"></TouchableOpacity> */}
                     </AppView>
                   </AppView>
 
@@ -410,7 +412,12 @@ subscription`}
                 <AppButton
                   bgColor={colors.RED}
                   title="Subscribe"
-                  onPress={() => console.log('payment')}
+                  onPress={() =>
+                    navigate(routes.MAIN, {
+                      screen: routes.SUBSCRIPTION_SCREEN,
+                      params: {tab: 'getSubscription'},
+                    })
+                  }
                   style={styles.btn}
                   labelStyle={styles.btnLabel}
                 />
@@ -422,7 +429,7 @@ subscription`}
                 <AppButton
                   bgColor={colors.RED}
                   title="₦300"
-                  onPress={() => console.log('payment')}
+                  onPress={() => navigate(routes.PAYMENT_SCREEN)}
                   style={styles.btn}
                   labelStyle={styles.btnLabel}
                 />

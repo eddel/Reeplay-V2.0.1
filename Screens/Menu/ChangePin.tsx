@@ -45,25 +45,24 @@ const ChangePin = () => {
   };
 
   return (
-    <AppScreen containerStyle={{paddingTop: 10, position: 'relative'}}>
+    <AppScreen containerStyle={{paddingTop: 20, position: 'relative'}}>
       <AppHeader />
 
-      <AppText className="text-2xl text-white font-bold font-LEXEND_700 mt-14">
-        Confirm your new
-      </AppText>
-      <AppText className="text-2xl text-white font-bold font-LEXEND_700 mb-2">
-        App pin
-      </AppText>
-
-      <AppView className="mt-8">
+      <AppView className="mt-56">
         <OTPInput pinCount={4} handleCode={code => setCode(code)} />
+
+        <AppText
+          style={{alignSelf: 'center'}}
+          className="font-MANROPE_400 text-base text-white mt-3">
+          Enter pin to continue
+        </AppText>
       </AppView>
 
       <AppView className="w-full items-center absolute bottom-10">
         <AppButton
           isLoading={loading}
           bgColor={colors.RED}
-          title="Create Pin"
+          title="Change PIN"
           onPress={() => handlePin()}
           style={{borderRadius: 8, width: Size.getWidth() * 0.9}}
         />

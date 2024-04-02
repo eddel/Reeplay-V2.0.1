@@ -56,7 +56,7 @@ const AppPIN = () => {
       <AppText className="text-2xl text-white font-bold font-LEXEND_700 mt-12">
         Welcome back
       </AppText>
-      <AppText className="text-2xl text-white font-bold font-LEXEND_700 ">
+      <AppText className="text-2xl text-white font-bold font-LEXEND_700 -mt-1">
         {user.fullname.split(' ')[0]}
       </AppText>
       <AppText className=" text-sm text-white font-normal font-MANROPE_400">

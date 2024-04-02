@@ -30,6 +30,8 @@
 		<false/>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
+		<key>REACT_NATIVE_PATH</key>
+		<string>$(PODS_ROOT)/../../node_modules/react-native</string>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>

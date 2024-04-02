@@ -48,6 +48,7 @@ const LanguageScreen = () => {
       <FlatList
         data={[...Array(20)]}
         keyExtractor={(_, index) => index.toString()}
+        showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => {
           const show = activeIndx === index;
           return (

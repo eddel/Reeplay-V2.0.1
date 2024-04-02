@@ -17,25 +17,31 @@ import {TabMainNavigation} from '@/types/typings';
 import routes from '@/navigation/routes';
 import {previewContentType} from '@/navigation/AppNavigator';
 
-const Sections = () => {
+interface Props {
+  isSkipped: boolean;
+}
+
+const Sections = ({isSkipped}: Props) => {
   const {navigate} = useNavigation<TabMainNavigation>();
 
   return (
     <>
-      <AppView className="mt-10 pl-5">
-        <AppCategories
-          title="Popular on REEPLAY"
-          movieCategories={TrendingNow}
-          onPress={() => console.log('popular')}
-          style={{marginRight: Size.calcHeight(12)}}
-          onPressMovie={() =>
-            navigate(routes.PREVIEW_SCREEN, {
-              content: previewContentType.film,
-            })
-          }
-        />
-      </AppView>
-      <AppView className="mt-6 pl-5">
+      {isSkipped && (
+        <AppView className="mt-10 pl-5">
+          <AppCategories
+            title="Popular on REEPLAY"
+            movieCategories={TrendingNow}
+            onPress={() => console.log('popular')}
+            style={{marginRight: Size.calcHeight(12)}}
+            onPressMovie={() =>
+              navigate(routes.PREVIEW_SCREEN, {
+                content: previewContentType.film,
+              })
+            }
+          />
+        </AppView>
+      )}
+      <AppView style={{marginTop: isSkipped ? 24 : 40}} className="pl-5">
         <AppCategories
           title="Trending Now"
           movieCategories={TrendingNow}

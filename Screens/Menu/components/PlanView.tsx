@@ -13,7 +13,7 @@ interface Props {
 
 const PlanView = ({setStage}: Props) => {
   const [activeId, setActiveId] = useState<number>(1);
-  const {navigate} = useNavigation<SubscriptionNavProps>();
+  const {navigate, goBack} = useNavigation<SubscriptionNavProps>();
 
   const handlePress = (id: number) => {
     setActiveId(id);
@@ -80,7 +80,7 @@ const PlanView = ({setStage}: Props) => {
         <AppButton
           bgColor="transparent"
           title="Cancel anytime"
-          onPress={() => navigate(routes.ACCOUNT_SCREEN)}
+          onPress={() => goBack()}
           style={{width: '100%', marginTop: 5}}
           labelStyle={{color: '#9095A1'}}
         />

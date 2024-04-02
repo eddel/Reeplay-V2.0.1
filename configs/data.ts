@@ -54,6 +54,7 @@ export const LiveTabs = [
 
 export const HeroSliderData = [
   {
+    _id: 1,
     image: require('@/assets/images/CR1.jpg'),
     videoURL:
       'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
@@ -63,6 +64,7 @@ export const HeroSliderData = [
     colors: ['#C841BF', '#7C328E', '#33094F'],
   },
   {
+    _id: 2,
     image: require('@/assets/images/CR2.jpg'),
     videoURL:
       'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
@@ -72,6 +74,7 @@ export const HeroSliderData = [
     colors: ['#B3C5CF', '#E0E0DE', '#404241'],
   },
   {
+    _id: 3,
     image: require('@/assets/images/CR333.jpg'),
     videoURL:
       'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
@@ -206,6 +209,41 @@ export const GenreTabs = [
       require('@/assets/images/Genres/generAction8.png'),
       require('@/assets/images/Genres/generAction6.png'),
     ],
+  },
+];
+
+export const DownloadsData = [
+  {
+    _id: 1,
+    title: 'BUKKA STREET',
+    image: require('@/assets/images/buka.jpeg'),
+    subscription: 'free',
+    viewersDiscretion: '13+',
+    size: '48 MB',
+  },
+  {
+    _id: 2,
+    title: 'BRODA SHAGGI',
+    image: require('@/assets/images/broda_d.jpeg'),
+    subscription: 'free',
+    viewersDiscretion: '12+',
+    size: '98 MB',
+  },
+  {
+    _id: 3,
+    title: 'NKOYO',
+    image: require('@/assets/images/life.jpeg'),
+    subscription: 'free',
+    viewersDiscretion: '13+',
+    size: '2.2 GB',
+  },
+  {
+    _id: 4,
+    title: 'MUMMY SOLDIER',
+    image: require('@/assets/images/mummy_soldier.jpeg'),
+    subscription: 'free',
+    viewersDiscretion: '13+',
+    size: '2 GB',
   },
 ];
 
@@ -456,37 +494,7 @@ export const LibraryData = [
     image: require('@/assets/images/Lib1.png'),
   },
   {
-    image: require('@/assets/images/Lib2.png'),
-  },
-  {
-    image: require('@/assets/images/Lib3.png'),
-  },
-  {
     image: require('@/assets/images/Lib1.png'),
-  },
-  {
-    image: require('@/assets/images/Lib2.png'),
-  },
-  {
-    image: require('@/assets/images/Lib3.png'),
-  },
-  {
-    image: require('@/assets/images/Lib1.png'),
-  },
-  {
-    image: require('@/assets/images/Lib2.png'),
-  },
-  {
-    image: require('@/assets/images/Lib3.png'),
-  },
-  {
-    image: require('@/assets/images/Lib1.png'),
-  },
-  {
-    image: require('@/assets/images/Lib2.png'),
-  },
-  {
-    image: require('@/assets/images/Lib3.png'),
   },
 ];
 
