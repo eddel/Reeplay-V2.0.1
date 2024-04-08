@@ -7,6 +7,7 @@ export interface HeroSliderDataProps {
   title: string;
   tags: string[];
   colors: string[];
+  colors2: string[];
 }
 
 export interface LiveSliderDataProps {
@@ -14,6 +15,7 @@ export interface LiveSliderDataProps {
   type: string;
   title: string;
   subscription: string;
+  colors2: string[];
 }
 
 export interface HomeSlideProps {
@@ -23,6 +25,7 @@ export interface HomeSlideProps {
   title: string;
   tags?: string[];
   colors?: string[];
+  colors2?: string[];
 }
 export interface LiveSlideProps {
   image: ImageSourcePropType;
@@ -30,4 +33,5 @@ export interface LiveSlideProps {
   type: string;
   title: string;
   subscription: string;
+  colors2?: string[];
 }

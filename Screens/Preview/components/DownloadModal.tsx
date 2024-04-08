@@ -4,9 +4,10 @@ import {AppImage, AppText, AppView, TouchableOpacity} from '@/components';
 
 interface Props {
   setIsDownload: () => void;
+  handleDelete: () => void;
 }
 
-const DownloadModal = ({setIsDownload}: Props) => {
+const DownloadModal = ({setIsDownload, handleDelete}: Props) => {
   return (
     <AppView className="w-full items-center">
       <AppImage
@@ -23,7 +24,7 @@ const DownloadModal = ({setIsDownload}: Props) => {
             No
           </AppText>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => [handleDelete(), setIsDownload()]}>
           <AppText className="font-medium font-ROBOTO_500 text-[14px] text-black">
             Yes
           </AppText>

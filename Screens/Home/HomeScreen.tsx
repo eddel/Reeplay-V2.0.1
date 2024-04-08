@@ -29,6 +29,13 @@ import {HAS_SKIPPED} from '../authentication/components/AuthFormComponent';
 import {getData} from '@/Utils/useAsyncStorage';
 import {previewContentType} from '@/navigation/AppNavigator';
 
+export const SeriesVideo: string =
+  'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4';
+export const MusicVideo: string =
+  'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4';
+export const MovieVideo: string =
+  'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4';
+
 const HomeScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const [isScrolled, setIsScrolled] = useState(0);
@@ -64,22 +71,20 @@ const HomeScreen = () => {
       <AppView
         style={{
           minHeight: Size.calcHeight(90),
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
         }}
         className="absolute bottom-0 w-full z-20">
         {Platform.OS === 'ios' ? (
           <Blur
             blurType="dark"
-            blurAmount={20}
+            blurAmount={120}
             style={{
               minHeight: Size.calcHeight(90),
               width: '100%',
             }}
           />
         ) : (
-          <BlurView
-            backgroundColor="rgba(255, 255, 255, 0.1)"
-            blurRadius={20}
-          />
+          <BlurView backgroundColor="rgba(0, 0, 0, 0.4)" blurRadius={120} />
         )}
       </AppView>
       {/* //Header */}
@@ -98,7 +103,7 @@ const HomeScreen = () => {
         )}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 50}}
+        contentContainerStyle={{paddingBottom: 50, width: '100%'}}
         style={{backgroundColor: colors.DEEP_BLACK, position: 'relative'}}>
         <Slider data={HeroSliderData} />
 
@@ -128,11 +133,12 @@ const HomeScreen = () => {
                 style={{marginRight: Size.calcHeight(12)}}
                 onPressMovie={() =>
                   nav(routes.PREVIEW_SCREEN, {
-                    content: previewContentType.film,
+                    content: previewContentType['tv series'],
+                    videoURL: SeriesVideo,
                   })
                 }
               />
-              <AppView className="flex-row items-center justify-center gap-x-1.5 -mb-4 mt-5">
+              <AppView className="flex-row items-center justify-center gap-x-1.5 -mb-4 mt-4">
                 {[...Array(5)].map((item, i) => {
                   const active = i === 1 || i === 2 || i === 3;
                   const color = active ? colors.RED : 'rgba(255, 19, 19, 0.4)';
@@ -140,9 +146,10 @@ const HomeScreen = () => {
                     <View
                       key={i}
                       style={{
-                        width: active ? 10 : 7,
-                        height: active ? 10 : 7,
-                        borderRadius: 10,
+                        marginTop: active ? 0 : 1,
+                        width: active ? 9 : 7,
+                        height: active ? 9 : 7,
+                        borderRadius: 99,
                         backgroundColor: color,
                       }}
                     />
@@ -158,7 +165,7 @@ const HomeScreen = () => {
             <SectionHeader
               title="Genres"
               btnText="SEE ALL"
-              headerStyle={{marginRight: 5}}
+              headerStyle={{marginRight: 12}}
               onPress={() => navigate(routes.LIBRARY_SCREEN)}
             />
           </AppView>

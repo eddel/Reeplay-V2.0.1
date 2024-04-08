@@ -26,7 +26,7 @@ const AllTabs = () => {
           btnText="SEE ALL"
           movieCategories={LiveChannel}
           onPress={() => navigate(routes.LIBRARY_SCREEN)}
-          style={{marginRight: Size.calcHeight(6)}}
+          style={{marginRight: Size.calcHeight(9)}}
           imageStyle={{width: 182, height: 102}}
           headerStyle={{paddingRight: 20}}
           space={6}

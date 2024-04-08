@@ -1,7 +1,7 @@
 import {StatusBar, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import FastImage from 'react-native-fast-image';
-import {AppButton, AppImage, AppText} from '@/components';
+import {AppButton, AppImage, AppText, AppView} from '@/components';
 import Size from '@/Utils/useResponsiveSize';
 import AuthFormComponent from './components/AuthFormComponent';
 import colors from '@/configs/colors';
@@ -10,6 +10,7 @@ import {ResetPasswordScreenProps} from '@/types/typings';
 import routes from '@/navigation/routes';
 import AppModal from '@/components/AppModal';
 import VerificationModal from './components/VerificationModal';
+import LinearGradient from 'react-native-linear-gradient';
 
 const ResetPassword = () => {
   const {navigate} = useNavigation<ResetPasswordScreenProps>();
@@ -25,61 +26,59 @@ const ResetPassword = () => {
   return (
     <View
       style={{
-        flex: 1,
         position: 'relative',
         alignItems: 'center',
-        justifyContent: 'center',
+        height: Size.getHeight(),
       }}>
-      <StatusBar barStyle={'light-content'} />
+      <StatusBar hidden />
 
       <FastImage
         source={require('@/assets/images/Login-bg.png')}
         style={styles.imageContainer}
       />
 
+      <LinearGradient
+        colors={['rgba(0,0,0,0.65)', 'rgba(0,0,0,0.95)', 'rgba(0,0,0,0.99)']}
+        style={[styles.gradientStyles]}
+      />
+
       <AppImage
-        source={require('@/assets/images/LogoReply.png')}
-        style={{width: 200, height: 100, objectFit: 'contain'}}
+        source={require('@/assets/images/authLogo.png')}
+        style={{
+          width: 300,
+          height: 200,
+          objectFit: 'contain',
+          marginTop: 50,
+        }}
       />
 
       <View
         style={{
-          paddingHorizontal: Size.calcHeight(24),
-          marginTop: Size.calcHeight(112),
+          paddingHorizontal: Size.calcHeight(20),
+          marginTop: 12,
           width: '100%',
         }}>
         <AuthFormComponent screen="reset" trigger={() => handleModal()} />
       </View>
 
-      <AppButton
-        title="Create a New Account"
-        bgColor="rgba(0, 0, 0, 0.3)"
-        onPress={() => navigate(routes.SIGNUP_SCREEN)}
-        style={{
-          marginTop: Size.calcHeight(20),
-          borderColor: colors.RED,
-          borderWidth: 3,
-          borderRadius: 30,
-        }}
-        labelStyle={{
-          color: colors.RED,
-        }}
-      />
-
-      <AppButton
-        title="Login"
-        bgColor="rgba(0, 0, 0, 0.3)"
-        onPress={() => navigate(routes.LOGIN_SCREEN)}
-        style={{
-          marginTop: Size.calcHeight(20),
-          borderColor: colors.RED,
-          borderWidth: 3,
-          borderRadius: 30,
-        }}
-        labelStyle={{
-          color: colors.RED,
-        }}
-      />
+      <AppView className="mt-auto mb-5 flex-row items-center">
+        <AppText className="font-normal font-MANROPE_400 text-[#BCC1CA] text-base ">
+          Return to{' '}
+        </AppText>
+        <AppButton
+          title="Log in"
+          bgColor="transparent"
+          onPress={() => navigate(routes.LOGIN_SCREEN)}
+          style={{width: 50, paddingHorizontal: 0}}
+          labelStyle={{
+            color: colors.RED,
+            textDecorationStyle: 'solid',
+            textDecorationLine: 'underline',
+            textDecorationColor: colors.RED,
+            fontSize: 16,
+          }}
+        />
+      </AppView>
 
       <AppModal
         isModalVisible={isShowModal}
@@ -102,5 +101,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     objectFit: 'contain',
+  },
+  gradientStyles: {
+    height: Size.getHeight(),
+    width: Size.getWidth(),
+    // zIndex: 10,
+    position: 'absolute',
   },
 });

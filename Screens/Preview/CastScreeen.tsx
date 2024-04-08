@@ -31,6 +31,7 @@ import routes from '@/navigation/routes';
 import {PreviewScreenNav} from '@/types/typings';
 import BlurView from 'react-native-blur-effect';
 import {BlurView as Blur} from '@react-native-community/blur';
+import {MovieVideo} from '@/Screens/Home/HomeScreen';
 
 const CastScreeen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -74,19 +75,12 @@ const CastScreeen = () => {
     <>
       <Header scroll={isScrolled} isCast />
 
-      <Animated.ScrollView
-        bounces={false}
-        showsVerticalScrollIndicator={false}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: scrollY}}}],
-          {useNativeDriver: false},
-        )}
-        scrollEventThrottle={16}
-        contentContainerStyle={{
+      <View
+        style={{
           paddingHorizontal: 0,
           position: 'relative',
           width: '100%',
-          // height: '100%',
+          height: '100%',
           backgroundColor: colors.DEEP_BLACK,
         }}>
         <AppView className="relative">
@@ -131,40 +125,46 @@ const CastScreeen = () => {
             chosed Me.
           </AppText>
 
-          <AppText className="mt-6 font-bold font-ROBOTO_700 text-[15px] text-white text-center">
-            OTHER MOVIES FEATURED ON
-          </AppText>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{height: 250, marginTop: 24}}
+            contentContainerStyle={{
+              width: '100%',
+              alignSelf: 'center',
+            }}>
+            <AppText className="font-bold font-ROBOTO_700 text-[15px] text-white text-center">
+              OTHER MOVIES FEATURED ON
+            </AppText>
 
-          <AppView className="w-full mt-5 px-1 flex-row flex-wrap items-center gap-x-[10px] mb-32">
-            {LibraryData.map((lib, index) => {
-              return (
-                <TouchableOpacity
-                  className="mb-3"
-                  activeOpacity={0.6}
-                  key={index}
-                  onPress={() =>
-                    navigate(routes.PREVIEW_SCREEN, {
-                      content: previewContentType.film,
-                    })
-                  }>
-                  <AppImage source={lib.image} style={styles.image} />
-                </TouchableOpacity>
-              );
-            })}
-          </AppView>
+            <AppView className="w-full mt-5 px-1 flex-row flex-wrap items-center gap-x-[10px] mb-32">
+              {LibraryData.map((lib, index) => {
+                return (
+                  <TouchableOpacity
+                    className="mb-3"
+                    activeOpacity={0.6}
+                    key={index}
+                    onPress={() =>
+                      navigate(routes.PREVIEW_SCREEN, {
+                        content: previewContentType.film,
+                        videoURL: MovieVideo,
+                      })
+                    }>
+                    <AppImage source={lib.image} style={styles.image} />
+                  </TouchableOpacity>
+                );
+              })}
+            </AppView>
+          </ScrollView>
         </AppView>
-      </Animated.ScrollView>
+      </View>
       <AppView className="absolute bottom-0 w-full h-[123px]">
         <AppView className="relative">
           {Platform.OS === 'android' ? (
             <AppView style={styles.blur}>
-              <BlurView
-                backgroundColor="rgba(255, 255, 255, 0.1)"
-                blurRadius={20}
-              />
+              <BlurView backgroundColor="rgba(0, 0, 0, 0.4)" blurRadius={120} />
             </AppView>
           ) : (
-            <Blur blurType="dark" blurAmount={30} style={styles.blur} />
+            <Blur blurType="dark" blurAmount={120} style={styles.blur} />
           )}
 
           <AppView className="absolute w-full h-full px-2 pt-1">

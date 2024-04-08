@@ -69,7 +69,7 @@ const OnboardingScreen = () => {
                   source={require('@/assets/images/ONBOARDING1.jpg')}
                   mainText="Watch everything"
                   mainText2="in one place"
-                  subText="See your Favorite Content on REEPLAY."
+                  subText={`See your Favorite Content ${'\n'}on REEPLAY.`}
                   btnText="NEXT"
                   handleBtn={handleNext}
                   iconLeft={
@@ -92,7 +92,7 @@ const OnboardingScreen = () => {
                   subImage={<ImageView />}
                   mainText="Watch"
                   mainText2="on any device"
-                  subText="Stream on your Phone, Tablet and Laptop, without paying more."
+                  subText={`Stream on your Phone, ${'\n'}Tablet and Laptop, ${'\n'}without paying more.`}
                   btnText="NEXT"
                   handleBtn={handleNext}
                   iconLeft={
@@ -115,7 +115,7 @@ const OnboardingScreen = () => {
                   subImage={<ImageView2 />}
                   mainText="Download Movies"
                   mainText2="with a Tap"
-                  subText="Have something to watch offline, anytime."
+                  subText={`Have something to watch ${'\n'}offline, anytime.`}
                   btnText="CONTINUE"
                   handleBtn={() => navigation.replace(routes.AUTH)}
                   Indicator={<Indicator />}

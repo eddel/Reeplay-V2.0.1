@@ -49,7 +49,7 @@ const UpcomingView = ({
   const navigation = useNavigation<TabMainNavigation>();
   const isPlaying = playingIndexes.includes(index);
   const videoRefs = useRef<Record<number, VideoRef | null>>({});
-  const [muteVideo, setMuteVideo] = useToggle(false);
+  const [muteVideo, setMuteVideo] = useState(true);
   const [remindMe, setRemindMe] = useToggle(false);
   const [verticalScrollState, setVerticalScrollState] = useState<number | null>(
     null,
@@ -108,7 +108,7 @@ const UpcomingView = ({
   }, [scrollY, playingIndexes, verticalScrollState]);
 
   return (
-    <AppView className="items-center">
+    <AppView className="items-center mt-1.5">
       <AppView className="relative max-w-[400px] h-[186px] items-center justify-center">
         {!isPlaying ? (
           <>
@@ -131,8 +131,8 @@ const UpcomingView = ({
                   <LottieView
                     source={require('@/assets/icons/RPlay.json')}
                     style={{
-                      width: 300,
-                      height: 300,
+                      width: 200,
+                      height: 200,
                     }}
                     autoPlay
                     loop
@@ -155,7 +155,9 @@ const UpcomingView = ({
               }}
             />
             <AppView className="absolute w-[90%] bottom-0 mb-1 px-2 flex-row items-center justify-between z-30">
-              <TouchableOpacity style={{height: 17}} onPress={setMuteVideo}>
+              <TouchableOpacity
+                style={{height: 17}}
+                onPress={() => setMuteVideo(!muteVideo)}>
                 {muteVideo ? <MutedIcon /> : <VolumeIcon />}
               </TouchableOpacity>
               <TouchableOpacity
@@ -199,7 +201,7 @@ const UpcomingView = ({
         )}
       </AppView>
 
-      <AppView className="w-full items-center mt-3 pt-1 pb-3 border-y border-grey_200/10">
+      <AppView className="w-full items-center mt-1 mb-1 pt-1 pb-1.5 border-y border-grey_200/10">
         <AppView className="flex-row items-center gap-x-2">
           <AppText className="bg-red font-ROBOTO_700 font-bold text-white text-[8px] pt-[3px] pb-1 px-2 text-center max-w-[43px]">
             {items.type}

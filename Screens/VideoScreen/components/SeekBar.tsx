@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Animated, {
@@ -34,8 +34,15 @@ const SeekBar = ({
   setIsPlaying,
   setFixed,
 }: Props) => {
-  const translateX = useSharedValue(-Size.getWidth() * 0.59 + 3);
-  const MAX_MIN = Size.getWidth() * 0.59 + 3;
+  const translateX = useSharedValue(
+    Platform.OS === 'android'
+      ? -Size.getWidth() - 237 + 3
+      : -Size.getWidth() - 357 + 3,
+  );
+  const MAX_MIN =
+    Platform.OS === 'android'
+      ? Size.getWidth() - 357 + 3
+      : Size.getWidth() - 357 + 3;
   const [seeking, setSeeking] = useState(false);
 
   const scrollTo = useCallback((destination: number) => {

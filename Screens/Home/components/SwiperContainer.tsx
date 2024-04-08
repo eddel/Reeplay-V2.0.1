@@ -19,6 +19,7 @@ import routes from '@/navigation/routes';
 import {previewContentType} from '@/navigation/AppNavigator';
 import {useNavigation} from '@react-navigation/native';
 import {TabMainNavigation} from '@/types/typings';
+import {MovieVideo} from '../HomeScreen';
 
 interface GenreList {
   title: string;
@@ -53,13 +54,13 @@ const SwiperContainer = () => {
             const show = activeIndex === index;
             return (
               <Pressable
-                style={{marginHorizontal: 12}}
+                style={{marginHorizontal: 6}}
                 onPress={() => handleTab(item, index)}>
                 <AppText
                   style={
                     show && {fontWeight: '700', fontFamily: fonts.MANROPE_700}
                   }
-                  className="mx-2 font-normal font-MANROPE_400 text-[13px] text-white">
+                  className="mx-1.5 font-normal font-MANROPE_400 text-[13px] text-white">
                   {item.title}
                 </AppText>
                 <MotiView
@@ -92,6 +93,7 @@ const SwiperContainer = () => {
               onPress={() =>
                 navigate(routes.PREVIEW_SCREEN, {
                   content: previewContentType.film,
+                  videoURL: MovieVideo,
                 })
               }>
               <AppImage key={index} style={styles.image} source={item} />

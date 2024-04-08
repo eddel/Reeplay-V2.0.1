@@ -72,7 +72,7 @@ const Splashscreen = () => {
 
   return (
     <SafeAreaView style={[styles.center, styles.container]}>
-      <StatusBar hidden={true} />
+      <StatusBar hidden />
       <AppVideo
         source={require('@/assets/videos/splash.mp4')}
         videoRef={videoRef}

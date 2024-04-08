@@ -16,6 +16,7 @@ import {PlayVideoIcon} from '@/assets/icons';
 import {useNavigation} from '@react-navigation/native';
 import {TabMainNavigation} from '@/types/typings';
 import routes from '@/navigation/routes';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface CategoriesProsp extends headerProps {
   movieCategories: any[];
@@ -25,6 +26,7 @@ interface CategoriesProsp extends headerProps {
   video?: boolean;
   space?: number;
   onPressMovie: (item: any) => void;
+  linearGradient?: boolean;
 }
 
 const AppCategories = ({
@@ -39,6 +41,7 @@ const AppCategories = ({
   space,
   headerStyle,
   onPressMovie,
+  linearGradient,
 }: CategoriesProsp) => {
   return (
     <View>
@@ -71,8 +74,8 @@ const AppCategories = ({
                 />
               </AppView>
               {tag && (
-                <AppView className="absolute top-0 left-0 items-center justify-center w-5 h-5 bg-red rounded-tl-[3px] rounded-br-[8px]">
-                  <AppText className="font-bold font-ROBOTO_700 text-[11px] text-white">{`${
+                <AppView className="absolute top-0 left-0 items-center justify-center w-[18px] h-[22px] bg-red rounded-tl-[5px] rounded-br-[8px]">
+                  <AppText className="font-bold font-ROBOTO_700 text-[9px] text-white">{`${
                     index + 1 < 10 ? 0 : ''
                   }${index + 1}`}</AppText>
                 </AppView>
@@ -85,7 +88,7 @@ const AppCategories = ({
               {video && (
                 <AppView
                   style={{alignSelf: 'center'}}
-                  className="absolute bottom-1.5">
+                  className="absolute z-30 bottom-1.5">
                   <AppText className="font-normal font-MANROPE_400 text-[10px] text-white uppercase ml-1">
                     {item.title}
                   </AppText>
@@ -93,6 +96,17 @@ const AppCategories = ({
                     {item.subtitle}
                   </AppText>
                 </AppView>
+              )}
+              {linearGradient && (
+                <LinearGradient
+                  colors={['transparent', 'rgba(0, 0, 0, 0.9)']}
+                  style={{
+                    position: 'absolute',
+                    bottom: -5,
+                    width: '100%',
+                    height: '60%',
+                  }}
+                />
               )}
             </TouchableOpacity>
           );
@@ -106,7 +120,7 @@ export default AppCategories;
 
 const styles = StyleSheet.create({
   images: {
-    width: Size.calcWidth(108),
+    width: Size.calcWidth(117),
     height: Size.calcHeight(161),
   },
   container: {

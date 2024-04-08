@@ -18,7 +18,6 @@ export const interests = [
   'Eroctic',
   'Kids',
 ];
-
 export const movieGenre = [
   'Movies',
   'TV Series',
@@ -52,6 +51,12 @@ export const LiveTabs = [
   'Podcast',
 ];
 
+const colors2 = [
+  ['transparent', 'transparent', '#33094F'],
+  ['transparent', 'transparent', '#404241'],
+  ['transparent', 'transparent', '#4C030A'],
+];
+
 export const HeroSliderData = [
   {
     _id: 1,
@@ -62,26 +67,95 @@ export const HeroSliderData = [
     title: 'Grind',
     tags: ['Romance', 'Exicting', 'Drama'],
     colors: ['#C841BF', '#7C328E', '#33094F'],
+    colors2: ['transparent', 'transparent', '#33094F'],
   },
   {
     _id: 2,
-    image: require('@/assets/images/CR2.jpg'),
+    image: require('@/assets/images/CR333.jpg'),
     videoURL:
       'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
     type: 'FILM',
     title: 'Ile Owo',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#B3C5CF', '#E0E0DE', '#404241'],
+    colors: ['#CD0924', '#52060B', '#4C030A'],
+    colors2: ['transparent', 'transparent', '#4C030A'],
   },
   {
     _id: 3,
-    image: require('@/assets/images/CR333.jpg'),
+    image: require('@/assets/images/CR2.jpg'),
     videoURL:
       'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
     type: 'SERIES',
     title: 'Ahima',
     tags: ['Action', 'Horror', 'Drama'],
+    colors: ['#B3C5CF', '#E0E0DE', '#404241'],
+    colors2: ['transparent', 'transparent', '#404241'],
+  },
+  {
+    _id: 1,
+    image: require('@/assets/images/CR1.jpg'),
+    videoURL:
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+    type: 'FILM',
+    title: 'Grind',
+    tags: ['Romance', 'Exicting', 'Drama'],
+    colors: ['#C841BF', '#7C328E', '#33094F'],
+    colors2: ['transparent', 'transparent', '#33094F'],
+  },
+  {
+    _id: 2,
+    image: require('@/assets/images/CR333.jpg'),
+    videoURL:
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+    type: 'FILM',
+    title: 'Ile Owo',
+    tags: ['Romance', 'Exicting', 'Drama'],
     colors: ['#CD0924', '#52060B', '#4C030A'],
+    colors2: ['transparent', 'transparent', '#4C030A'],
+  },
+  {
+    _id: 3,
+    image: require('@/assets/images/CR2.jpg'),
+    videoURL:
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+    type: 'SERIES',
+    title: 'Ahima',
+    tags: ['Action', 'Horror', 'Drama'],
+    colors: ['#B3C5CF', '#E0E0DE', '#404241'],
+    colors2: ['transparent', 'transparent', '#404241'],
+  },
+  {
+    _id: 1,
+    image: require('@/assets/images/CR1.jpg'),
+    videoURL:
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+    type: 'FILM',
+    title: 'Grind',
+    tags: ['Romance', 'Exicting', 'Drama'],
+    colors: ['#C841BF', '#7C328E', '#33094F'],
+    colors2: ['transparent', 'transparent', '#33094F'],
+  },
+  {
+    _id: 2,
+    image: require('@/assets/images/CR333.jpg'),
+    videoURL:
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+    type: 'FILM',
+    title: 'Ile Owo',
+    tags: ['Romance', 'Exicting', 'Drama'],
+    colors: ['#CD0924', '#52060B', '#4C030A'],
+    colors2: ['transparent', 'transparent', '#4C030A'],
+  },
+  {
+    _id: 3,
+    image: require('@/assets/images/CR2.jpg'),
+    videoURL:
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+    type: 'SERIES',
+    title: 'Ahima',
+    tags: ['Action', 'Horror', 'Drama'],
+    colors: ['#B3C5CF', '#E0E0DE', '#404241'],
+    colors2: ['transparent', 'transparent', '#404241'],
   },
 ];
 

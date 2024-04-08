@@ -1,6 +1,7 @@
 import {
   Platform,
   Pressable,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -20,6 +21,7 @@ import colors from '@/configs/colors';
 import PreviewHeader from './components/PreviewHeader';
 import {
   BigClose,
+  CommentSendBtn,
   DownloadIcon,
   PreviewDownloadIcon,
   PreviewPlayIcon,
@@ -55,7 +57,6 @@ import {BlurView as Blur} from '@react-native-community/blur';
 const PreviewScreen = () => {
   const [addWatchList, setAddWatchList] = useToggle(false);
   const [addRatting, setAddRating] = useToggle(false);
-  const [isDownload, setIsDownload] = useToggle(false);
   const [watchModal, setWatchModal] = useToggle(false);
   const [isComment, setIsComment] = useState(false);
   const route = useRoute<PreviewScreenRoute>();
@@ -82,7 +83,6 @@ const PreviewScreen = () => {
 
   return (
     <AppScreen
-      scrollable
       style={{position: 'relative', paddingBottom: 100}}
       containerStyle={{
         paddingHorizontal: 0,
@@ -225,12 +225,12 @@ const PreviewScreen = () => {
                 {Platform.OS === 'android' ? (
                   <AppView style={styles.blur}>
                     <BlurView
-                      backgroundColor="rgba(255, 255, 255, 0.1)"
-                      blurRadius={40}
+                      backgroundColor="rgba(0, 0, 0, 0.4)"
+                      blurRadius={70}
                     />
                   </AppView>
                 ) : (
-                  <Blur blurType="dark" blurAmount={30} style={styles.blur} />
+                  <Blur blurType="dark" blurAmount={70} style={styles.blur} />
                 )}
 
                 <AppView className="absolute w-full h-full pt-[18px]">
@@ -251,10 +251,15 @@ const PreviewScreen = () => {
                         style={[
                           styles.input,
                           Platform.OS === 'android' && {padding: 0},
+                          {flex: 1},
                         ]}
                       />
                       {/* Send button */}
-                      {/* <TouchableOpacity className="absolute right-1 top-3 z-10"></TouchableOpacity> */}
+                      <TouchableOpacity
+                        style={{alignSelf: 'center'}}
+                        className="z-10 mr-4">
+                        <CommentSendBtn />
+                      </TouchableOpacity>
                     </AppView>
                   </AppView>
 
@@ -271,112 +276,120 @@ const PreviewScreen = () => {
             </AppView>
           )}
 
-          {!addRatting ? (
-            <AppView className="px-5">
-              {/* desc */}
+          {/* From here */}
+          <ScrollView
+            contentContainerStyle={{paddingBottom: 100, paddingTop: 2}}
+            showsVerticalScrollIndicator={false}>
+            {!addRatting ? (
+              <AppView className="px-5">
+                {/* desc */}
 
-              <AppView className="items-center mt-5 px-4">
-                <AppText className="font-normal font-ROBOTO_400 uppercase text-white text-[11px]">
-                  {previewContentType[content]}
-                </AppText>
-                <AppText className="text-center mt-2 font-normal font-ROBOTO_400 text-white text-xs">
-                  2 Sisters set out to Impress the World in a thrilling show of
-                  Bravery and Comedic Trickery, the World in a thrilling 2
-                  Sisters set out to Impress the World.
-                </AppText>
+                <AppView className="items-center mt-5 px-4">
+                  <AppText className="font-normal font-ROBOTO_400 uppercase text-white text-[11px]">
+                    {previewContentType[content]}
+                  </AppText>
+                  <AppText className="text-center mt-2 font-normal font-ROBOTO_400 text-white text-xs">
+                    2 Sisters set out to Impress the World in a thrilling show
+                    of Bravery and Comedic Trickery, the World in a thrilling 2
+                    Sisters set out to Impress the World.
+                  </AppText>
 
-                <AppView className="mt-3 mb-2 w-full px-1 flex-row items-center justify-between">
-                  <TouchableOpacity onPress={handleShare}>
-                    <ShareIcon />
-                  </TouchableOpacity>
-                  <TouchableOpacity activeOpacity={0.7} onPress={setAddRating}>
-                    <AppView className="flex-row items-center gap-x-2">
-                      {[...Array(5)].map((star, i) => {
-                        return (
-                          <AppView key={i}>
-                            <RateStar_W />
-                          </AppView>
-                        );
-                      })}
-                    </AppView>
-                    <AppText className="text-center mt-1.5 ml-1 font-normal font-ROBOTO_400 text-[13px] text-white">
-                      Tap to Rate
-                    </AppText>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setIsDownload(true)}>
-                    <PreviewDownloadIcon />
-                  </TouchableOpacity>
+                  <AppView className="mt-3 mb-2 w-full px-1 flex-row items-center justify-between">
+                    <TouchableOpacity onPress={handleShare}>
+                      <ShareIcon />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      onPress={setAddRating}>
+                      <AppView className="flex-row items-center gap-x-2">
+                        {[...Array(5)].map((star, i) => {
+                          return (
+                            <AppView key={i}>
+                              <RateStar_W />
+                            </AppView>
+                          );
+                        })}
+                      </AppView>
+                      <AppText className="text-center mt-1.5 ml-1 font-normal font-ROBOTO_400 text-[13px] text-white">
+                        Tap to Rate
+                      </AppText>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() =>
+                        console.log('downnloading content' + true)
+                      }>
+                      <PreviewDownloadIcon />
+                    </TouchableOpacity>
+                  </AppView>
+
+                  <AppButton
+                    title={contentPrice}
+                    style={{marginTop: 10, width: '100%'}}
+                    bgColor={colors.RED}
+                    labelStyle={styles.btnLabel_}
+                    onPress={() =>
+                      contentPrice === 'Watch' && contentType === 'Free'
+                        ? navigate(routes.FULL_SCREEN_VIDEO, {
+                            videoURL:
+                              content === previewContentType.film
+                                ? 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4'
+                                : content === previewContentType['music video']
+                                ? 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4'
+                                : 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+                            type: previewContentType['tv series']
+                              ? fullVideoType.series
+                              : fullVideoType.default,
+                          })
+                        : setWatchModal()
+                    }
+                    iconRight={
+                      contentPrice === 'Watch' ? <PreviewPlayIcon /> : <></>
+                    }
+                  />
+                </AppView>
+
+                {/* Dynamic View */}
+                {!isComment && (
+                  <>
+                    {content === previewContentType['music video'] ? (
+                      <RelatedContent title="Related Videos" />
+                    ) : content === previewContentType['tv series'] ? (
+                      <SeriesContent />
+                    ) : (
+                      <FilmContent />
+                    )}
+                  </>
+                )}
+              </AppView>
+            ) : (
+              <AppView
+                style={{height: Size.getHeight() - 400}}
+                className="relative">
+                <AppView className="px-5 w-full">
+                  <RatingView />
                 </AppView>
 
                 <AppButton
-                  title={contentPrice}
-                  style={{marginTop: 10, width: '100%'}}
                   bgColor={colors.RED}
-                  labelStyle={styles.btnLabel}
-                  onPress={() =>
-                    contentPrice === 'Watch' && contentType === 'Free'
-                      ? navigate(routes.FULL_SCREEN_VIDEO, {
-                          videoURL:
-                            content === previewContentType.film
-                              ? 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4'
-                              : content === previewContentType['music video']
-                              ? 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4'
-                              : 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
-                          type: previewContentType['tv series']
-                            ? fullVideoType.series
-                            : fullVideoType.default,
-                        })
-                      : setWatchModal()
-                  }
-                  iconRight={
-                    contentPrice === 'Watch' ? <PreviewPlayIcon /> : <></>
-                  }
+                  title="Submit"
+                  onPress={() => console.log('first')}
+                  style={{width: '90%', alignSelf: 'center', marginTop: 45}}
                 />
-              </AppView>
 
-              {/* Dynamic View */}
-              {!isComment && (
-                <>
-                  {content === previewContentType['music video'] ? (
-                    <RelatedContent title="Related Videos" />
-                  ) : content === previewContentType['tv series'] ? (
-                    <SeriesContent />
-                  ) : (
-                    <FilmContent />
-                  )}
-                </>
-              )}
-            </AppView>
-          ) : (
-            <AppView
-              style={{height: Size.getHeight() - 400}}
-              className="relative">
-              <AppView className="px-5 w-full">
-                <RatingView />
+                <Pressable
+                  style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    alignSelf: 'center',
+                  }}
+                  onPress={setAddRating}>
+                  <BigClose />
+                </Pressable>
               </AppView>
-              <Pressable
-                style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  alignSelf: 'center',
-                }}
-                onPress={setAddRating}>
-                <BigClose />
-              </Pressable>
-            </AppView>
-          )}
+            )}
+          </ScrollView>
         </AppView>
       </AppView>
-
-      <AppModal
-        isModalVisible={isDownload}
-        hideCloseBtn
-        hideLoge
-        replaceDefaultContent={
-          <DownloadModal setIsDownload={() => setIsDownload(false)} />
-        }
-        handleClose={() => setIsDownload(false)}
-      />
 
       <AppModal
         isModalVisible={watchModal}
@@ -395,9 +408,11 @@ const PreviewScreen = () => {
                 `You don’t have an active 
 subscription`}
             </AppText>
-            <AppText className="mt-4 mb-1 font-bold font-ROBOTO_700 text-[14px] text-black">
-              TO WATCH PREMIUM
-            </AppText>
+            {contentType === 'Premium' && (
+              <AppText className="mt-4 mb-1 font-bold font-ROBOTO_700 text-[14px] text-black">
+                TO WATCH PREMIUM
+              </AppText>
+            )}
             <AppText
               style={contentType === 'Premium' && {marginBottom: 18}}
               className="text-center max-w-[80%] font-normal font-ROBOTO_400 text-[14px] text-black my-3 mb-4">
@@ -473,6 +488,15 @@ const styles = StyleSheet.create({
     color: colors.GREY_100,
     marginLeft: 8,
     marginTop: 1,
+  },
+  btnLabel_: {
+    fontFamily: fonts.ROBOTO_700,
+    fontWeight: '700',
+    fontSize: 17,
+    color: colors.GREY_100,
+    marginLeft: 8,
+    marginTop: 1,
+    textTransform: 'uppercase',
   },
   btn: {
     width: Size.getWidth() * 0.4,

@@ -1,5 +1,6 @@
 import {
   Animated,
+  Dimensions,
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -20,15 +21,18 @@ import {Rect, Svg} from 'react-native-svg';
 import {HeroSliderDataProps, LiveSliderDataProps} from '@/types/data.types';
 import {useNavigation} from '@react-navigation/native';
 import {HomeScreenNav} from '@/types/typings';
+import Carousel from 'react-native-reanimated-carousel';
 
-const SLIDER_HEIGHT = Size.getHeight() * 0.62;
+const SLIDER_HEIGHT =
+  Platform.OS === 'ios' ? Size.getHeight() * 0.59 : Size.getHeight() * 0.6;
 const ITEM_WIDTH = Size.getWidth() * 0.72;
 const SPACER_SIZE = (Size.getWidth() - ITEM_WIDTH) / 3;
+const WIDTH = Dimensions.get('window').width;
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
 interface SliderProps {
-  data: HeroSliderDataProps[] | LiveSliderDataProps[];
+  data: any; // HeroSliderDataProps[] | LiveSliderDataProps[];
   live?: boolean;
 }
 
@@ -37,13 +41,7 @@ type MyFlatList = FlatList<any>;
 
 const Slider = ({data, live}: SliderProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
-  const [movieData, setMovieData] = useState([
-    {title: 'spacer', colors: []},
-    ...data,
-    ...data,
-    ...data,
-    {title: 'spacer', colors: []},
-  ]);
+  const [movieData, setMovieData] = useState([...data, ...data, ...data]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<MyFlatList>(null); // Reference to the FlatList component
 
@@ -72,19 +70,29 @@ const Slider = ({data, live}: SliderProps) => {
   }, [scrollX]);
 
   return (
-    <AppView style={{height: SLIDER_HEIGHT}} className="relative z-0">
+    <AppView style={{height: SLIDER_HEIGHT}} className="relative w-full z-0">
       <LinearGradient
         colors={['rgb(0,0,0)', 'rgba(0,0,0,0.65)', 'transparent']}
         style={styles.gradientStyles}
       />
       <LinearGradient
-        colors={[
-          'transparent',
-          'transparent',
-          'rgba(0,0,0,0.25)',
-          'rgba(0,0,0,0.45)',
-          'rgba(0,0,0,0.99)',
-        ]}
+        colors={
+          Platform.OS === 'android'
+            ? [
+                'transparent',
+                'transparent',
+                'rgba(0,0,0,0.25)',
+                'rgba(0,0,0,0.45)',
+                'rgba(0,0,0,0.85)',
+              ]
+            : [
+                'transparent',
+                'transparent',
+                'rgba(0,0,0,0.25)',
+                'rgba(0,0,0,0.45)',
+                'rgba(0,0,0,0.99)',
+              ]
+        }
         style={[
           styles.gradientStyles,
           {bottom: 0, zIndex: 0, height: SLIDER_HEIGHT},
@@ -92,11 +100,48 @@ const Slider = ({data, live}: SliderProps) => {
       />
 
       {!live && (
-        <BackDrop data={movieData} curIndex={currentIndex} scrollX={scrollX} />
+        <BackDrop data={[...data]} curIndex={currentIndex} scrollX={scrollX} />
       )}
 
+      <View style={{flex: 1}}>
+        <Carousel
+          loop
+          style={{
+            marginTop: 122,
+            alignItems: 'flex-end',
+            alignSelf: 'flex-end',
+            width: '100%',
+            height: 385,
+            justifyContent: 'center',
+          }}
+          width={Size.getWidth() * 0.912 - 6}
+          height={410}
+          pagingEnabled={true}
+          mode="parallax"
+          data={[...data]}
+          scrollAnimationDuration={200}
+          onSnapToItem={index => {
+            console.log('current index:', index);
+            setCurrentIndex(index);
+          }}
+          renderItem={({item, index}) => {
+            return (
+              <>
+                <Caurosel
+                  item={item}
+                  currentIndex={index === currentIndex}
+                  // translate={}
+                  colors={live ? [] : item.colors2}
+                  live={live}
+                />
+              </>
+            );
+          }}
+        />
+      </View>
+
       {/* Image caurosel */}
-      <Animated.FlatList
+      {/* <Animated.FlatList
         ref={flatListRef}
         data={[...movieData]}
         horizontal
@@ -169,9 +214,9 @@ const Slider = ({data, live}: SliderProps) => {
             </>
           );
         }}
-      />
+      /> */}
 
-      <Indicators items={movieData} currentIndex={currentIndex} />
+      <Indicators items={[...data]} currentIndex={currentIndex} />
     </AppView>
   );
 };
@@ -212,7 +257,7 @@ const BackDrop = ({data, scrollX, curIndex}: BackDropOptions) => {
               }}>
               <LinearGradient
                 //@ts-ignore
-                colors={MainItem[curIndex + 1].colors}
+                colors={MainItem[curIndex].colors}
                 style={{height: SLIDER_HEIGHT, width: '100%'}}
               />
             </Animated.View>
@@ -229,18 +274,33 @@ interface indicatorData {
 }
 
 const Indicators = ({items, currentIndex}: indicatorData) => {
+  const [index, setIndex] = useState<number>(0);
+
+  useEffect(() => {
+    if (currentIndex % 3 === 0) {
+      setIndex(currentIndex);
+    } else {
+      const closestIndex = Math.floor(currentIndex / 3) * 3;
+      setIndex(closestIndex);
+    }
+  }, [currentIndex]);
+
   return (
-    <AppView className="flex-row items-center justify-center gap-x-1.5 -mt-9">
+    <AppView className="flex-row items-center justify-center gap-x-[3px] -mt-9">
       {items.map((item, i) => {
         if (item.title === 'spacer') return null;
 
+        const activeArray = [index, index + 1, index + 2];
+
+        const isNearActive = activeArray.includes(i);
+
         const color =
-          currentIndex + 1 === i ? colors.RED : 'rgba(255, 19, 19, 0.4)';
+          currentIndex === i ? colors.RED : 'rgba(255, 19, 19, 0.4)';
         return (
           <View
             key={i}
             style={{
-              width: 23,
+              width: isNearActive ? 23 : 6,
               height: 3,
               borderRadius: 10,
               backgroundColor: color,

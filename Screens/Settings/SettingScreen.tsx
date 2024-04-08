@@ -178,7 +178,7 @@ const SettingScreen = () => {
                   Biometrics
                 </AppText>
                 <TouchableOpacity
-                  className={`w-8 h-[19px] rounded-2xl pt-[1.5px] px-[2px] pb-[2.2px]  items-center flex-row ${
+                  className={`w-8 h-[19px] rounded-2xl mr-[9px] pt-[1.5px] px-[2px] pb-[2.2px]  items-center flex-row ${
                     biometrics ? 'bg-red' : 'bg-[#bbbbbb]'
                   }`}
                   activeOpacity={1}
@@ -248,7 +248,7 @@ const SettingScreen = () => {
         style={{
           height: 380,
         }}
-        hideCloseBtn={modalType === 'clear' ? false : true}
+        hideCloseBtn={true}
         replaceDefaultContent={
           <>
             {modalType === 'video' ? (
@@ -263,7 +263,7 @@ const SettingScreen = () => {
                 <AppButton
                   bgColor={colors.DARK_GREY}
                   title="No"
-                  onPress={() => console.log('payment')}
+                  onPress={() => setShowModal(false)}
                   style={styles.btn}
                   labelStyle={styles.btnLabel}
                 />
@@ -274,6 +274,7 @@ const SettingScreen = () => {
                   style={styles.btn}
                   labelStyle={styles.btnLabel}
                 />
+                <AppView className="mb-5" />
               </AppView>
             )}
           </>

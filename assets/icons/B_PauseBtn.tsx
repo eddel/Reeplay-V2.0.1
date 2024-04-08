@@ -3,8 +3,8 @@ import Svg, {G, Rect, Defs, Pattern, Use, Image} from 'react-native-svg';
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
 const SVGComponent = (props: any) => (
   <Svg
-    width={98}
-    height={88}
+    width={88}
+    height={78}
     viewBox="0 0 98 88"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

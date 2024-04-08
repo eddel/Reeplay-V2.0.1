@@ -87,7 +87,8 @@ const ChannelsTabs = ({scrollY}: Props) => {
           onPressMovie={item =>
             navigation.navigate(routes.FULL_SCREEN_VIDEO, {
               type: fullVideoType.live,
-              videoURL,
+              videoURL:
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
               donate: true,
               channelImage: item,
             })

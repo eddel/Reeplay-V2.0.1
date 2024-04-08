@@ -14,10 +14,16 @@ import {useNavigation} from '@react-navigation/native';
 import {DownloadScreenNav} from '@/types/typings';
 import routes from '@/navigation/routes';
 import {previewContentType} from '@/navigation/AppNavigator';
+import {MovieVideo} from '../Home/HomeScreen';
+import AppModal from '@/components/AppModal';
+import DownloadModal from '../Preview/components/DownloadModal';
+import useToggle from '@/Hooks/useToggle';
 
 const DownoadScreen = () => {
   const {navigate} = useNavigation<DownloadScreenNav>();
   const [data, setData] = useState([...DownloadsData]);
+  const [isDownload, setIsDownload] = useToggle(false);
+  const [isDeleteIndex, setIsDeleteIndex] = useState<number>(0);
 
   const url = 'https://www.tecno-mobile.com/stores/';
 
@@ -92,6 +98,7 @@ const DownoadScreen = () => {
                 onPress={() =>
                   navigate(routes.PREVIEW_SCREEN, {
                     content: previewContentType.film,
+                    videoURL: MovieVideo,
                   })
                 }>
                 <AppImage
@@ -114,7 +121,11 @@ const DownoadScreen = () => {
                     {item.size}
                   </AppText>
                   <AppView className="w-[1px] h-[68%] mr-[2px] bg-white" />
-                  <TouchableOpacity onPress={() => handleDelete(item._id)}>
+                  <TouchableOpacity
+                    onPress={() => [
+                      setIsDownload(true),
+                      setIsDeleteIndex(item._id),
+                    ]}>
                     <DeleteIcon />
                   </TouchableOpacity>
                 </AppView>
@@ -122,6 +133,19 @@ const DownoadScreen = () => {
             </AppView>
           );
         }}
+      />
+
+      <AppModal
+        isModalVisible={isDownload}
+        hideCloseBtn
+        hideLoge
+        replaceDefaultContent={
+          <DownloadModal
+            handleDelete={() => handleDelete(isDeleteIndex)}
+            setIsDownload={() => setIsDownload(false)}
+          />
+        }
+        handleClose={() => setIsDownload(false)}
       />
     </AppScreen>
   );

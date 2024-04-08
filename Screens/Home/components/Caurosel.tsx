@@ -6,9 +6,12 @@ import Size from '@/Utils/useResponsiveSize';
 import colors from '@/configs/colors';
 import {
   Exclusive,
+  Exclusive_B,
   FreeIcon,
+  FreeIcon_B,
   InfoIcon,
   PremiumIcon,
+  PremiumIcon_B,
   SmPlayIcon,
 } from '@/assets/icons';
 import {
@@ -19,58 +22,89 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {HomeScreenNav, TabMainNavigation} from '@/types/typings';
 import routes from '@/navigation/routes';
-import {fullVideoType} from '@/navigation/AppNavigator';
+import {fullVideoType, previewContentType} from '@/navigation/AppNavigator';
 import LinearGradient from 'react-native-linear-gradient';
+import fonts from '@/configs/fonts';
+import {MovieVideo} from '../HomeScreen';
 
-const ITEM_WIDTH = Size.getWidth() * 0.72;
+const ITEM_WIDTH = Size.getWidth() * 0.88;
 const SPACING = 6;
 
 interface Props {
   item: HomeSlideProps | LiveSlideProps;
-  translate: Animated.AnimatedInterpolation<string | number>;
+  translate?: Animated.AnimatedInterpolation<string | number>;
   currentIndex: boolean;
   live?: boolean;
+  colors: string[];
 }
 
-const Caurosel = ({item, translate, currentIndex, live}: Props) => {
+const Caurosel = ({
+  item,
+  colors: colorsArr,
+  translate,
+  currentIndex,
+  live,
+}: Props) => {
   const {navigate} = useNavigation<TabMainNavigation>();
 
   return (
     <Animated.View
       style={{
         width: ITEM_WIDTH,
-        height: Size.calcHeight(382),
-        marginHorizontal: SPACING,
+        // paddingHorizontal: SPACING,
         position: 'relative',
-        borderRadius: 6,
+        borderRadius: 8,
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
         alignItems: 'center',
         overflow: 'hidden',
-        transform: [{translateY: translate}],
+        flex: 1,
+        flexGrow: 2,
+        transform: [{scaleY: 1.11}],
       }}>
-      <LinearGradient
-        colors={['transparent', 'rgba(0,0,0,0.89)']}
-        style={[
-          {
-            bottom: 0,
-            zIndex: 1,
-            width: '100%',
-            position: 'absolute',
-            height: '60%',
-          },
-        ]}
-      />
+      {!live && (
+        <LinearGradient
+          colors={colorsArr}
+          style={[
+            {
+              bottom: -1,
+              zIndex: 1,
+              width: '105%',
+              position: 'absolute',
+              height: '60%',
+            },
+          ]}
+        />
+      )}
+
+      {live && currentIndex && (
+        <LinearGradient
+          colors={['transparent', 'rgba(0, 0, 0, 0.8)', 'rgba(0, 0, 0, 0.91)']}
+          style={[
+            {
+              bottom: -1,
+              zIndex: 1,
+              width: '105%',
+              position: 'absolute',
+              height: '60%',
+            },
+          ]}
+        />
+      )}
       <AppImage
         source={item.image}
         style={{width: ITEM_WIDTH}}
         className="absolute h-full"
       />
-      <AppView className="absolute bottom-3 z-10 items-center">
-        <AppText className="text-white text-xs font-normal uppercase font-MANROPE_400 mb-2">
+      <AppView className="absolute bottom-4 z-10 items-center">
+        <AppText className="text-white text-sm font-normal uppercase font-MANROPE_400 mb-3">
           {item.type}
         </AppText>
         <AppText
-          style={{maxWidth: item.title.length > 13 ? 200 : 168}}
-          className="text-[30px] leading-[30px] text-white font-bold font-LEXEND_700 mb-1 text-center">
+          style={{
+            maxWidth: item.title.length > 13 ? 200 : 168,
+          }}
+          className="text-[40px] leading-[39px] font-LEXEND_700 font-bold text-white mb-1 text-center">
           {item.title}
         </AppText>
         <AppView className="flex-row items-center justify-center">
@@ -79,11 +113,11 @@ const Caurosel = ({item, translate, currentIndex, live}: Props) => {
             item.tags.map((tag, i) => {
               return (
                 <Fragment key={i}>
-                  <AppText className="font-noraml font-ROBOTO_400 text-xs text-grey_200">
+                  <AppText className="font-noraml font-ROBOTO_400 text-sm text-grey_200">
                     {tag}
                   </AppText>
                   {item.tags && i !== item.tags.length - 1 && (
-                    <AppView className="w-1.5 h-1.5 rounded-full bg-white mt-[2.5px] mx-1" />
+                    <AppView className="w-1.5 h-1.5 rounded-full bg-white mt-[2.5px] mx-1.5" />
                   )}
                 </Fragment>
               );
@@ -93,27 +127,35 @@ const Caurosel = ({item, translate, currentIndex, live}: Props) => {
         <AppView className="flex-row items-center justify-center mt-1.5">
           <AppButton
             bgColor={live ? colors.GREY_600 : colors.RED}
-            onPress={() => console.log('first')}
+            onPress={() =>
+              !live
+                ? navigate(routes.PREVIEW_SCREEN, {
+                    content: previewContentType.film,
+                    videoURL: MovieVideo,
+                  })
+                : console.log('first')
+            }
             replaceDefaultContent={
               live ? (
                 'subscription' in item && item.subscription === 'premium' ? (
-                  <PremiumIcon />
+                  <PremiumIcon_B />
                 ) : 'subscription' in item &&
                   item.subscription === 'exclusive' ? (
-                  <Exclusive />
+                  <Exclusive_B />
                 ) : (
-                  <FreeIcon />
+                  <FreeIcon_B />
                 )
               ) : (
                 <InfoIcon />
               )
             }
             style={{
-              width: Size.calcHeight(65),
+              width: Size.calcHeight(85),
               borderRadius: 4,
               borderTopRightRadius: 0,
               borderBottomRightRadius: 0,
               marginRight: 2,
+              paddingVertical: 17,
             }}
           />
           <AppButton
@@ -126,16 +168,17 @@ const Caurosel = ({item, translate, currentIndex, live}: Props) => {
               })
             }
             style={{
-              width: Size.calcHeight(132),
+              width: Size.calcHeight(152),
               borderRadius: 4,
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
+              paddingVertical: 17,
             }}
             replaceDefaultContent={
               <AppView className="flex-row items-center justify-center">
                 <SmPlayIcon />
-                <AppText className="text-xs text-white font-semibold font-ROBOTO_700 ml-2">
-                  Play
+                <AppText className="text-[15px] text-white font-semibold font-ROBOTO_700 ml-[10px]">
+                  {live ? 'Watch' : 'Play'}
                 </AppText>
               </AppView>
             }

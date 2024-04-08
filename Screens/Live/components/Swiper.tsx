@@ -235,39 +235,18 @@ const Swiper = ({
                         </AppText>
                         <AppText style={styles.title}>{item.author}</AppText>
                       </AppView>
-                      <AppView className="flex-row items-center gap-x-2">
-                        <AppText className="mt-[2px] font-medium font-ROBOTO_500 text-[11px] text-white mr-[2px]">
+                      <AppView className="flex-row items-center gap-x-1">
+                        <AppText className="font-medium font-ROBOTO_500 text-[11px] text-white mr-[2px]">
                           {item.viewersDiscretion}
                         </AppText>
-                        {Platform.OS === 'ios' ? (
-                          <Blur
-                            blurType="light"
-                            blurAmount={10}
-                            style={styles.dateContainer}>
-                            <AppText className="font-ROBOTO_500 font-medium text-[10px] text-white">
-                              start in{' '}
-                              <AppText className="font-ROBOTO_700 font-bold text-[10px] text-red">
-                                01:20:01
-                              </AppText>
+                        <AppView className="bg-[#626161] rounded-sm pl-1.5 pr-1 pt-[1px] pb-[2.5px]">
+                          <AppText className="font-ROBOTO_500 font-medium text-[10px] text-white">
+                            start in{' '}
+                            <AppText className="font-ROBOTO_700 font-bold text-[10px] text-red">
+                              01:20:01
                             </AppText>
-                          </Blur>
-                        ) : (
-                          <AppView
-                            style={styles.dateContainer}
-                            className="relative w-[87px] pb-[10px] rounded items-center">
-                            <BlurView
-                              backgroundColor="rgba(255, 255, 255, 0.1)"
-                              blurRadius={20}
-                              borderRadius={4}
-                            />
-                            <AppText className="absolute font-ROBOTO_500 font-medium text-[10px] text-white">
-                              start in{' '}
-                              <AppText className="font-ROBOTO_700 font-bold text-[10px] text-red">
-                                01:20:01
-                              </AppText>
-                            </AppText>
-                          </AppView>
-                        )}
+                          </AppText>
+                        </AppView>
                       </AppView>
                     </AppView>
 

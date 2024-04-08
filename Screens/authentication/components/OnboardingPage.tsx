@@ -6,6 +6,7 @@ import {AppButton, AppText, AppView} from '@/components';
 import Size from '@/Utils/useResponsiveSize';
 import colors from '@/configs/colors';
 import {RightArrow} from '@/assets/icons';
+import fonts from '@/configs/fonts';
 
 interface OnboardingOptions {
   index: number;
@@ -51,7 +52,7 @@ const OnboardingPage = ({
           <AppText
             style={{
               paddingTop: Size.calcHeight(42),
-              maxWidth: index === 1 ? 214 : 224,
+              alignSelf: 'center',
             }}
             className="text-lg text-white font-MANROPE_400 font-normal text-center">
             {subText}{' '}
@@ -63,6 +64,13 @@ const OnboardingPage = ({
             title={btnText}
             bgColor={colors.RED}
             iconLeft={iconLeft}
+            style={{borderRadius: 8}}
+            labelStyle={{
+              fontFamily: fonts.MANROPE_700,
+              fontSize: 13,
+              fontWeight: '800',
+              color: '#fff',
+            }}
             onPress={() => handleBtn()}
           />
           {Indicator}

@@ -191,6 +191,7 @@ const GetStartedScreen = () => {
                 height: 51,
                 paddingVertical: Size.calcHeight(14),
               }}
+              labelStyle={styles.labelStyle}
             />
             <TouchableOpacity
               onPress={handleLockPress}
@@ -213,6 +214,7 @@ const GetStartedScreen = () => {
               bgColor="transparent"
               onPress={() => replace(routes.LOGIN_SCREEN)}
               style={styles.loginBtn}
+              labelStyle={styles.labelStyle}
             />
 
             <AppButton
@@ -220,6 +222,7 @@ const GetStartedScreen = () => {
               bgColor={colors.RED}
               onPress={() => replace(routes.SIGNUP_SCREEN)}
               style={{marginTop: Size.calcHeight(20)}}
+              labelStyle={styles.labelStyle}
             />
           </>
         )}
@@ -265,5 +268,11 @@ const styles = StyleSheet.create({
     height: '100%',
     zIndex: 1,
     position: 'absolute',
+  },
+  labelStyle: {
+    fontSize: 13,
+    fontFamily: fonts.MANROPE_700,
+    fontWeight: '800',
+    color: '#E5E5E5',
   },
 });

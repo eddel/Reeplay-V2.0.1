@@ -167,6 +167,7 @@ const MenuScreen = () => {
 
       <AppModal
         isModalVisible={showModal}
+        hideCloseBtn
         replaceDefaultContent={
           <AppView className="">
             <AppText className="mt-4 font-normal font-ROBOTO_400 text-sm text-black text-center leading-5">
@@ -188,6 +189,7 @@ const MenuScreen = () => {
               style={styles.btn}
               labelStyle={styles.btnLabel}
             />
+            <AppView className="mb-3" />
           </AppView>
         }
         handleClose={() => setShowModal(false)}

@@ -24,6 +24,7 @@ import {useNavigation} from '@react-navigation/native';
 import {TabMainNavigation} from '@/types/typings';
 import BlurView from 'react-native-blur-effect';
 import {BlurView as Blur} from '@react-native-community/blur';
+import {MovieVideo} from '../Home/HomeScreen';
 
 const LibraryScreen = () => {
   const {navigate} = useNavigation<TabMainNavigation>();
@@ -47,22 +48,20 @@ const LibraryScreen = () => {
       <AppView
         style={{
           minHeight: Size.calcHeight(90),
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
         }}
         className="absolute bottom-0 w-full z-20">
         {Platform.OS === 'ios' ? (
           <Blur
             blurType="dark"
-            blurAmount={20}
+            blurAmount={120}
             style={{
               minHeight: Size.calcHeight(90),
               width: '100%',
             }}
           />
         ) : (
-          <BlurView
-            backgroundColor="rgba(255, 255, 255, 0.1)"
-            blurRadius={20}
-          />
+          <BlurView backgroundColor="rgba(0, 0, 0, 0.4)" blurRadius={120} />
         )}
       </AppView>
       <AppScreen containerStyle={{position: 'relative', paddingTop: 5}}>
@@ -121,6 +120,7 @@ const LibraryScreen = () => {
                   onPress={() =>
                     navigate(routes.PREVIEW_SCREEN, {
                       content: previewContentType.film,
+                      videoURL: MovieVideo,
                     })
                   }>
                   <AppImage source={lib.image} style={styles.image} />

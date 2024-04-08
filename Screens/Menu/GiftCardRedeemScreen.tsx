@@ -4,9 +4,23 @@ import {AppButton, AppHeader, AppScreen, AppText, AppView} from '@/components';
 import Size from '@/Utils/useResponsiveSize';
 import fonts from '@/configs/fonts';
 import colors from '@/configs/colors';
+import AppModal from '@/components/AppModal';
+import VerificationModal from '@/Screens/authentication/components/VerificationModal';
 
 const GiftCardRedeemScreen = () => {
   const [giftCard, setGiftCard] = useState<string>('');
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+
+  function handleRedeem() {
+    if (giftCard !== '') {
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+        setGiftCard('');
+      }, 3000);
+    }
+  }
+
   return (
     <AppScreen containerStyle={{paddingTop: 10, position: 'relative'}}>
       <AppHeader />
@@ -25,10 +39,22 @@ const GiftCardRedeemScreen = () => {
         <AppButton
           bgColor={colors.RED}
           title="Redeem"
-          onPress={() => {}}
+          onPress={() => handleRedeem()}
           style={{borderRadius: 8, width: '100%'}}
         />
       </AppView>
+
+      <AppModal
+        isModalVisible={isSuccess}
+        hideLoge
+        hideCloseBtn
+        replaceDefaultContent={
+          <VerificationModal
+            message={`Giftcard redeemed ${'\n'}successfully`}
+          />
+        }
+        handleClose={() => setIsSuccess(false)}
+      />
     </AppScreen>
   );
 };

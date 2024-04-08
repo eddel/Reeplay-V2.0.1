@@ -56,13 +56,6 @@ const NotificatoinScreen_S = () => {
           </AppText>
           <ToggleButton isOn={liveChannel} setIsOn={setLiveChannel} />
         </AppView>
-
-        <AppView style={styles.center} className="py-5 px-5 bg-[#3E3D3D59]">
-          <AppText className="font-medium font-MANROPE_500 text-sm text-white">
-            Subscription
-          </AppText>
-          <ToggleButton isOn={subscription} setIsOn={setSubscription} />
-        </AppView>
       </AppView>
     </AppScreen>
   );

@@ -109,12 +109,10 @@ const styles = StyleSheet.create({
     top: 0,
   },
   bar: {
-    width: 10,
-    height: 11,
+    width: 11.5,
+    height: 11.5,
     borderRadius: 99,
     backgroundColor: 'white',
-    // alignSelf: 'flex-end',
-    // right: 0,
     top: -4.8,
   },
 });

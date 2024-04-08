@@ -1,5 +1,7 @@
 import {
+  Alert,
   FlatList,
+  Linking,
   Platform,
   ScrollView,
   StyleSheet,
@@ -26,6 +28,18 @@ import {BlurView as Blur} from '@react-native-community/blur';
 
 const Search = () => {
   const [text, setText] = useState<string>('');
+
+  const url = 'https://www.tecno-mobile.com/stores/';
+
+  const handleLink = async () => {
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  };
   return (
     <AppScreen
       containerStyle={{
@@ -66,7 +80,7 @@ const Search = () => {
               <AppView className="h-[191px] mb-1 rounded-b-[15px] overflow-hidden border-[2px] border-black">
                 <AppImage
                   source={require('@/assets/images/Ads.png')}
-                  className="h-full rounded-b-[15px]"
+                  className="h-full w-full object-contain rounded-b-[15px]"
                 />
               </AppView>
             </AppView>
@@ -74,12 +88,18 @@ const Search = () => {
             <AppButton
               title="BUY NOW"
               bgColor={colors.RED}
-              onPress={() => console.log('first')}
+              onPress={() => handleLink()}
               style={{
                 borderRadius: 5,
                 width: '100%',
                 marginTop: 15,
                 paddingVertical: Size.calcHeight(15),
+              }}
+              labelStyle={{
+                fontFamily: fonts.MANROPE_500,
+                fontSize: 14.5,
+                fontWeight: '500',
+                color: '#ffffff',
               }}
             />
 
@@ -159,13 +179,10 @@ const Search = () => {
         <AppView className="relative w-full items-center">
           {Platform.OS === 'android' ? (
             <AppView style={styles.blur}>
-              <BlurView
-                backgroundColor="rgba(255, 255, 255, 0.1)"
-                blurRadius={20}
-              />
+              <BlurView backgroundColor="rgba(0, 0, 0, 0.4)" blurRadius={50} />
             </AppView>
           ) : (
-            <Blur blurType="dark" blurAmount={20} style={styles.blur} />
+            <Blur blurType="dark" blurAmount={50} style={styles.blur} />
           )}
           <AppView
             style={{paddingVertical: Platform.OS === 'android' ? 6 : 18}}

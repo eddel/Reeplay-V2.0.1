@@ -14,13 +14,16 @@ import {
   CloseIcon,
   Exclusive,
   FreeIcon,
+  InfoBtn,
+  InfoLiveBtn,
   PremiumIcon,
   SmInfoIcon,
 } from '@/assets/icons';
-import {fullVideoType} from '@/navigation/AppNavigator';
+import {fullVideoType, previewContentType} from '@/navigation/AppNavigator';
 import routes from '@/navigation/routes';
 import {TabMainNavigation} from '@/types/typings';
 import {useNavigation} from '@react-navigation/native';
+import {MovieVideo} from './HomeScreen';
 
 const ITEM_WIDTH: number = Size.calcWidth(232);
 
@@ -80,11 +83,14 @@ const ContinueWatchingComponent = ({
               vote,
             })
           }
-          className="w-full rounded-[5px] overflow-hidden">
+          style={{
+            borderRadius: live ? 5 : 0,
+          }}
+          className="w-full overflow-hidden">
           <AppImage
             source={item.image}
-            style={imageStyle}
-            className="w-full h-[112px]"
+            style={[imageStyle, {height: live ? 112 : 102}]}
+            className="w-full"
           />
         </TouchableOpacity>
         <AppView className="absolute bottom-0 w-full">
@@ -120,35 +126,37 @@ const ContinueWatchingComponent = ({
         </AppView>
 
         <AppView className="flex-row">
-          <AppView className="flex-row">
-            {'subscription' in item && item.subscription === 'premium' ? (
-              <PremiumIcon style={{marginRight: 4}} />
-            ) : 'subscription' in item && item.subscription === 'exclusive' ? (
-              <Exclusive style={{marginRight: 4}} />
-            ) : (
-              <FreeIcon style={{marginRight: 4}} />
-            )}
-            {'viewersDiscretion' in item && (
-              <AppText className="mt-[2px] font-medium font-ROBOTO_500 text-[11px] text-white mr-1.5">
-                {item.viewersDiscretion}
-              </AppText>
-            )}
-          </AppView>
+          {live && (
+            <AppView className="flex-row">
+              {'subscription' in item && item.subscription === 'premium' ? (
+                <PremiumIcon style={{marginRight: 4}} />
+              ) : 'subscription' in item &&
+                item.subscription === 'exclusive' ? (
+                <Exclusive style={{marginRight: 4}} />
+              ) : (
+                <FreeIcon style={{marginRight: 4}} />
+              )}
+              {'viewersDiscretion' in item && (
+                <AppText className=" font-medium font-ROBOTO_500 text-[11px] text-white mr-1.5">
+                  {item.viewersDiscretion}
+                </AppText>
+              )}
+            </AppView>
+          )}
           <AppButton
             bgColor={colors.RED}
-            onPress={() => console.log('first')}
-            replaceDefaultContent={
-              <AppView className="flex-row items-center justify-center mb-[2px]">
-                <SmInfoIcon />
-                <AppText className="font-bold font-ROBOTO_700 text-white text-[10px] ml-1">
-                  Info
-                </AppText>
-              </AppView>
+            onPress={() =>
+              !live &&
+              navigate(routes.PREVIEW_SCREEN, {
+                content: previewContentType.film,
+                videoURL: MovieVideo,
+              })
             }
+            replaceDefaultContent={live ? <InfoLiveBtn /> : <InfoBtn />}
             style={{
               width: Size.calcWidth(45),
-              height: Size.calcWidth(20),
-              borderRadius: 0,
+              height: live ? Size.calcWidth(18.5) : Size.calcWidth(20),
+              borderRadius: 2,
               paddingVertical: 0,
               paddingHorizontal: 2,
             }}

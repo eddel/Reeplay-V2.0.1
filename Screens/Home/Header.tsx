@@ -51,7 +51,7 @@ const Header = ({scroll, isCast}: HeaderProps) => {
               <Blur
                 overlayColor="transparent"
                 blurType="dark"
-                blurAmount={32}
+                blurAmount={5}
                 style={[styles.container, isCast && styles.cast]}>
                 {Platform.OS === 'ios' && Children()}
               </Blur>
@@ -67,8 +67,8 @@ const Header = ({scroll, isCast}: HeaderProps) => {
           <AppView style={[styles.container, isCast && styles.cast]}>
             {scroll > 0 && (
               <BlurView
-                backgroundColor="rgba(255, 255, 255, 0.1)"
-                blurRadius={scroll > 0 ? 20 : scroll}
+                backgroundColor="rgba(0, 0, 0, 0.4)"
+                blurRadius={scroll > 0 ? 5 : 4}
               />
             )}
 

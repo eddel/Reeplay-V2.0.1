@@ -16,7 +16,7 @@ const TvShowsTab = ({scrollY}: Props) => {
       {TrendingNow.length > 0 ? (
         <>
           <Swiper
-            data={TrendingNow}
+            data={TrendingNow.slice(1)}
             title="Top TV Shows"
             containerStyle={{height: 171, width: Size.getWidth()}}
             mainStyle={{paddingLeft: 0}}

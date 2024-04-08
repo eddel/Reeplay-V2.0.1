@@ -15,7 +15,8 @@ import Size from '@/Utils/useResponsiveSize';
 import {useNavigation} from '@react-navigation/native';
 import {TabMainNavigation} from '@/types/typings';
 import routes from '@/navigation/routes';
-import {previewContentType} from '@/navigation/AppNavigator';
+import {fullVideoType, previewContentType} from '@/navigation/AppNavigator';
+import {MovieVideo, MusicVideo, SeriesVideo} from '../HomeScreen';
 
 interface Props {
   isSkipped: boolean;
@@ -35,7 +36,8 @@ const Sections = ({isSkipped}: Props) => {
             style={{marginRight: Size.calcHeight(12)}}
             onPressMovie={() =>
               navigate(routes.PREVIEW_SCREEN, {
-                content: previewContentType.film,
+                content: previewContentType['tv series'],
+                videoURL: SeriesVideo,
               })
             }
           />
@@ -49,9 +51,10 @@ const Sections = ({isSkipped}: Props) => {
           style={{marginRight: Size.calcHeight(12)}}
           onPressMovie={() =>
             navigate(routes.PREVIEW_SCREEN, {
-              content: previewContentType['music video'],
+              content: previewContentType.film,
               contentPrice: '₦300.00',
               contentType: 'Exclusive',
+              videoURL: MovieVideo,
             })
           }
         />
@@ -68,6 +71,7 @@ const Sections = ({isSkipped}: Props) => {
               content: previewContentType['tv series'],
               contentPrice: '₦300.00',
               contentType: 'Exclusive',
+              videoURL: SeriesVideo,
             })
           }
         />
@@ -80,11 +84,13 @@ const Sections = ({isSkipped}: Props) => {
           onPress={() => console.log('popular')}
           style={{marginRight: Size.calcHeight(8)}}
           imageStyle={styles.videoBackdrop}
+          linearGradient
           onPressMovie={() =>
             navigate(routes.PREVIEW_SCREEN, {
               content: previewContentType['music video'],
               contentPrice: '₦300.00',
               contentType: 'Exclusive',
+              videoURL: MusicVideo,
             })
           }
         />
@@ -97,9 +103,11 @@ const Sections = ({isSkipped}: Props) => {
           onPress={() => console.log('popular')}
           style={{marginRight: Size.calcHeight(8)}}
           imageStyle={styles.videoBackdrop}
+          linearGradient
           onPressMovie={() =>
             navigate(routes.PREVIEW_SCREEN, {
               content: previewContentType.film,
+              videoURL: MovieVideo,
             })
           }
         />
@@ -111,11 +119,11 @@ const Sections = ({isSkipped}: Props) => {
           onPress={() => console.log('popular')}
           style={{marginRight: Size.calcHeight(8)}}
           imageStyle={styles.videoBackdrop}
-          onPressMovie={() =>
-            navigate(routes.PREVIEW_SCREEN, {
-              content: previewContentType['music video'],
-              contentPrice: '₦300.00',
-              contentType: 'Exclusive',
+          onPressMovie={item =>
+            navigate(routes.FULL_SCREEN_VIDEO, {
+              channelImage: item,
+              type: fullVideoType.live,
+              videoURL: SeriesVideo,
             })
           }
         />
@@ -130,6 +138,7 @@ const Sections = ({isSkipped}: Props) => {
             navigate(routes.PREVIEW_SCREEN, {
               content: previewContentType.film,
               contentType: 'Premium',
+              videoURL: MovieVideo,
             })
           }
         />

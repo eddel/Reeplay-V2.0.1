@@ -185,7 +185,7 @@ const FullScreenModal = () => {
         Alert.alert('Info', 'Opps! Something went wrong, service timeout'),
           {text: 'OK'};
         setIsLoading(false);
-      }, 10000);
+      }, 20000);
     };
 
     const clearLoadingTimeout = () => {
@@ -335,7 +335,7 @@ const FullScreenModal = () => {
                 style={{
                   position: 'absolute',
                   bottom: 0,
-                  height: 70,
+                  height: 81,
                   width: '100%',
                   zIndex: 20,
                   opacity: opacityU.current,
@@ -364,11 +364,13 @@ const FullScreenModal = () => {
                   zIndex: 40,
                   top: 30,
                   justifyContent: 'center',
-                  alignItems: 'center',
                   opacity: opacityU.current,
                 }}>
-                <BrightnessIcon />
-                <AppView className="mt-3 h-[200px] w-[6px] overflow-hidden relative items-center bg-[#535353] rounded-[5px]">
+                <AppView style={{alignSelf: 'center'}} className="ml-[5px]">
+                  <BrightnessIcon />
+                </AppView>
+                <AppView className="relative mt-3 overflow-hidden h-[200px] w-[60%]">
+                  <AppView className="h-[200px] w-[6px] absolute right-0 items-center bg-[#535353] rounded-[5px]" />
                   <BrightnessBar />
                 </AppView>
               </Animated.View>
@@ -455,7 +457,9 @@ const FullScreenModal = () => {
               <Animated.View
                 style={[
                   styles.bottomView,
-                  {transform: [{translateY: transD.current}]},
+                  {
+                    transform: [{translateY: transD.current}],
+                  },
                 ]}>
                 <AppView className="flex-row items-center gap-x-4">
                   <AppView className="w-[65px] justify-center flex-row items-center gap-x-2">
@@ -556,11 +560,16 @@ const FullScreenModal = () => {
                     styles.progressBar,
                     {transform: [{translateY: transD.current}]},
                   ]}>
-                  <AppText className="text-white text-[13px] font-medium font-MANROPE_500 w-[60px]">
+                  <AppText className="text-white text-[13px] font-medium font-OUTFIT_500 w-[60px]">
                     {formatDuration(duration)}
                   </AppText>
                   <AppView
-                    style={{width: Size.getWidth() * 0.61}}
+                    style={{
+                      width:
+                        Platform.OS === 'android'
+                          ? Size.getWidth() - 220
+                          : Size.getWidth() - 340,
+                    }}
                     className="items-center h-[15px] mx-3 rounded-[5px] overflow-hidden">
                     <AppView className="h-1 w-full bg-grey_white_90 rounded-[5px] mt-1.5">
                       <SeekBar
@@ -573,7 +582,7 @@ const FullScreenModal = () => {
                       />
                     </AppView>
                   </AppView>
-                  <AppText className="text-white text-[13px] font-medium font-MANROPE_500 w-[60px] text-center">
+                  <AppText className="text-white text-[13px] font-medium font-OUTFIT_500 w-[60px] text-center">
                     {formatDuration(currentTime)}
                   </AppText>
                 </Animated.View>
@@ -584,8 +593,8 @@ const FullScreenModal = () => {
               <LottieView
                 source={require('@/assets/icons/RPlay.json')}
                 style={{
-                  width: 300,
-                  height: 300,
+                  width: 270,
+                  height: 270,
                 }}
                 autoPlay
                 loop
@@ -638,7 +647,7 @@ const styles = StyleSheet.create({
   bottomView: {
     position: 'absolute',
     bottom: 6,
-    marginBottom: Platform.OS === 'ios' ? 4 : 8,
+    marginBottom: Platform.OS === 'ios' ? 4 : 13,
     paddingHorizontal: 8,
     paddingRight: 20,
     width: '100%',
@@ -659,7 +668,7 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     position: 'absolute',
-    bottom: 40,
+    bottom: Platform.OS === 'android' ? 55 : 40,
     paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',

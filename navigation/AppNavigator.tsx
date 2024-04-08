@@ -50,6 +50,7 @@ export type RootStackParamList = {
     content: previewContentType;
     contentType?: string;
     contentPrice?: string;
+    videoURL: string;
   };
   [routes.WATCHLIST_SCREEN]: undefined;
   [routes.CAST_SCREEN]: undefined;

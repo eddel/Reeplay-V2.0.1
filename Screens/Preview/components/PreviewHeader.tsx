@@ -30,11 +30,12 @@ import VideoRef, {
   OnProgressData,
   OnSeekData,
 } from 'react-native-video';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import PreviewSeekBar from './PreviewSeekBar';
 import colors from '@/configs/colors';
 import {Easing} from 'react-native-reanimated';
 import LottieView from 'lottie-react-native';
+import {PreviewScreenRoute} from '@/types/typings';
 
 const AnimatedLinear = Animated.createAnimatedComponent(LinearGradient);
 const AnimatedTouchable = Animated.createAnimatedComponent(Pressable);
@@ -59,9 +60,9 @@ const PreviewHeader = () => {
     time: currentTime,
     set: false,
   });
+  const route = useRoute<PreviewScreenRoute>();
 
-  const videoURL =
-    'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4';
+  const videoURL = route.params.videoURL;
 
   const animatedTransform = (
     toValue: number,
@@ -221,8 +222,8 @@ const PreviewHeader = () => {
             <LottieView
               source={require('@/assets/icons/RPlay.json')}
               style={{
-                width: 300,
-                height: 300,
+                width: 200,
+                height: 200,
               }}
               autoPlay
               loop

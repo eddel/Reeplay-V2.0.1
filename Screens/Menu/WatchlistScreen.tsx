@@ -1,6 +1,7 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {
+  AppHeader,
   AppImage,
   AppScreen,
   AppText,
@@ -15,11 +16,13 @@ import {useNavigation} from '@react-navigation/native';
 import {WatchlistScreenNav} from '@/types/typings';
 import routes from '@/navigation/routes';
 import {previewContentType} from '@/navigation/AppNavigator';
+import {MovieVideo} from '../Home/HomeScreen';
 
 const WatchlistScreen = () => {
   const {goBack, navigate} = useNavigation<WatchlistScreenNav>();
   return (
     <AppScreen containerStyle={{paddingTop: 10}}>
+      <AppHeader style={{zIndex: 99}} />
       {LibraryData.length === 0 ? (
         <AppModal
           isModalVisible={true}
@@ -37,7 +40,7 @@ const WatchlistScreen = () => {
         />
       ) : (
         <>
-          <AppText className="text-center font-bold font-LEXEND_700 text-grey_100 text-[17px]">
+          <AppText className="text-center font-bold font-LEXEND_700 text-grey_100 -mt-5 text-[17px]">
             My Watchlist
           </AppText>
 
@@ -51,6 +54,7 @@ const WatchlistScreen = () => {
                   onPress={() =>
                     navigate(routes.PREVIEW_SCREEN, {
                       content: previewContentType.film,
+                      videoURL: MovieVideo,
                     })
                   }
                   activeOpacity={0.6}

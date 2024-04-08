@@ -52,13 +52,13 @@ const DynamicViewContainer = ({scrollY}: Props) => {
             const show = activeIndex === index;
             return (
               <Pressable
-                style={{marginHorizontal: 8}}
+                style={{marginHorizontal: 4}}
                 onPress={() => handleTab(item, index)}>
                 <AppText
                   style={
                     show && {fontWeight: '700', fontFamily: fonts.MANROPE_700}
                   }
-                  className="mx-2 font-normal font-MANROPE_400 text-[13px] text-white">
+                  className="mx-1.5 font-normal font-MANROPE_400 text-[13px] text-white">
                   {item}
                 </AppText>
                 <MotiView
