@@ -189,7 +189,7 @@ const Swiper = ({
                             }}>
                             <AppView className="w-[7px] h-[7px] rounded-full bg-red" />
                           </MotiView>
-                          <AppText className="font-medium font-ROBOTO_500 text-[10px] text-white">
+                          <AppText className="font-ROBOTO_500 text-[10px] text-white">
                             LIVE
                           </AppText>
                         </AppView>
@@ -228,7 +228,6 @@ const Swiper = ({
                             styles.title,
                             {
                               fontSize: Size.calcHeight(10.5),
-                              fontWeight: '400',
                             },
                           ]}>
                           {item.title}
@@ -236,13 +235,13 @@ const Swiper = ({
                         <AppText style={styles.title}>{item.author}</AppText>
                       </AppView>
                       <AppView className="flex-row items-center gap-x-1">
-                        <AppText className="font-medium font-ROBOTO_500 text-[11px] text-white mr-[2px]">
+                        <AppText className="font-ROBOTO_500 text-[11px] text-white mr-[2px]">
                           {item.viewersDiscretion}
                         </AppText>
                         <AppView className="bg-[#626161] rounded-sm pl-1.5 pr-1 pt-[1px] pb-[2.5px]">
-                          <AppText className="font-ROBOTO_500 font-medium text-[10px] text-white">
+                          <AppText className="font-ROBOTO_500 text-[10px] text-white">
                             start in{' '}
-                            <AppText className="font-ROBOTO_700 font-bold text-[10px] text-red">
+                            <AppText className="font-ROBOTO_700 text-[10px] text-red">
                               01:20:01
                             </AppText>
                           </AppText>
@@ -364,7 +363,7 @@ const Swiper = ({
                               }}>
                               <AppView className="w-[7px] h-[7px] rounded-full bg-red" />
                             </MotiView>
-                            <AppText className="font-medium font-ROBOTO_500 text-[10px] text-white">
+                            <AppText className="font-ROBOTO_500 text-[10px] text-white">
                               LIVE
                             </AppText>
                           </AppView>
@@ -458,7 +457,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fonts.MANROPE_700,
-    fontWeight: '700',
     fontSize: Size.calcHeight(15),
     color: colors.WHITE,
     maxWidth: 130,

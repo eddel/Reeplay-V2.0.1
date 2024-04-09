@@ -110,7 +110,7 @@ const HomeScreen = () => {
         <AppView className="mt-8 pl-5">
           {isSkipped ? (
             <>
-              <AppText className="text-lg text-white font-bold font-MANROPE_700">
+              <AppText className="text-lg text-white font-MANROPE_700">
                 Continue watching
               </AppText>
               <FlatList

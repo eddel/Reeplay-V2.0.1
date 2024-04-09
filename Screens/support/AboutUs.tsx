@@ -19,26 +19,26 @@ const AboutUs = () => {
       </AppView>
       <AppText
         style={{alignSelf: 'center'}}
-        className="absolute top-0 font-LEXEND_600 font-semibold text-[20px] text-white">
+        className="absolute top-0 font-LEXEND_600 text-[20px] text-white">
         About Reeplay
       </AppText>
 
       <ScrollView style={{marginTop: 34}}>
-        <AppText className="font-normal font-LEXEND_400 text-xl text-white mb-5">
+        <AppText className="font-LEXEND_400 text-xl text-white mb-5">
           A new wave of entertainment with video on demand.
         </AppText>
 
-        <AppText className="font-normal font-MANROPE_400 text-base text-white">
+        <AppText className="font-MANROPE_400 text-base text-white">
           Reeplay streaming app for original African contents, meant to be the
           reliable source for watching unpolished, in-depth and unrefined
           contents of Africa.
         </AppText>
-        <AppText className="font-normal font-MANROPE_400 text-base text-white mt-8">
+        <AppText className="font-MANROPE_400 text-base text-white mt-8">
           The Replay Mobile app is a Multi-purpose Video on Demand (VoD)
           Streaming platform for Movies, Tv Series, Live Tv shows & Events.
           Anime and More.
         </AppText>
-        <AppText className="font-normal font-MANROPE_400 text-base text-white mt-8">
+        <AppText className="font-MANROPE_400 text-base text-white mt-8">
           Replay app delivers content over the internet to consumers, giving
           users the options of choosing a film, show or watch Live show, Live
           events of their choice from a library of contents, anytime they want.
@@ -64,5 +64,3 @@ const AboutUs = () => {
 };
 
 export default AboutUs;
-
-const styles = StyleSheet.create({});

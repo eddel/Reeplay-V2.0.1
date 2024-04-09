@@ -116,21 +116,18 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.BLACKER,
-    fontWeight: '700',
     fontFamily: fonts.MANROPE_700,
     fontSize: Size.calcHeight(18),
     textAlign: 'center',
   },
   paymentText: {
     fontFamily: fonts.MANROPE_600,
-    fontWeight: '600',
     textAlign: 'center',
     fontSize: 40,
     color: 'black',
   },
   paymentText_SM: {
     fontFamily: fonts.MANROPE_700,
-    fontWeight: '700',
     textAlign: 'center',
     fontSize: 20,
     color: colors.DARK_GREY,

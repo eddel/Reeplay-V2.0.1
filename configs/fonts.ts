@@ -8,6 +8,7 @@ export default Object.freeze({
   MANROPE_500: 'Manrope-Medium',
   MANROPE_600: 'Manrope-SemiBold',
   MANROPE_700: 'Manrope-Bold',
+  MANROPE_800: 'Manrope-ExtraBold',
 
   ROBOTO_400: 'Roboto-Regular',
   ROBOTO_500: 'Roboto-Medium',

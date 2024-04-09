@@ -1,6 +1,7 @@
 import {
   FlatList,
   ImageStyle,
+  Platform,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -75,7 +76,7 @@ const AppCategories = ({
               </AppView>
               {tag && (
                 <AppView className="absolute top-0 left-0 items-center justify-center w-[18px] h-[22px] bg-red rounded-tl-[5px] rounded-br-[8px]">
-                  <AppText className="font-bold font-ROBOTO_700 text-[9px] text-white">{`${
+                  <AppText className="font-ROBOTO_700 text-[9px] text-white">{`${
                     index + 1 < 10 ? 0 : ''
                   }${index + 1}`}</AppText>
                 </AppView>
@@ -89,10 +90,10 @@ const AppCategories = ({
                 <AppView
                   style={{alignSelf: 'center'}}
                   className="absolute z-30 bottom-1.5">
-                  <AppText className="font-normal font-MANROPE_400 text-[10px] text-white uppercase ml-1">
+                  <AppText className="font-MANROPE_400 text-[10px] text-white uppercase ml-1">
                     {item.title}
                   </AppText>
-                  <AppText className="font-bold font-MANROPE_700 text-xs text-white">
+                  <AppText className="font-MANROPE_700 text-xs text-white">
                     {item.subtitle}
                   </AppText>
                 </AppView>

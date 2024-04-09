@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
   tabLabel: {
     marginTop: Size.calcHeight(8),
     fontFamily: fonts.ROBOTO_700,
-    fontWeight: '700',
     fontSize: Size.calcWidth(12),
   },
 });

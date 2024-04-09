@@ -49,17 +49,17 @@ const DownoadScreen = () => {
       <AppView className="mt-6 bg-red pt-3 px-1 rounded-[15px]">
         <AppView className="flex-row items-center justify-between px-3 pb-2">
           <AppView>
-            <AppText className="font-normal font-LEXEND_400 text-base text-white ">
+            <AppText className="font-LEXEND_400 text-base text-white ">
               REEPLAY
             </AppText>
-            <AppText className="font-medium font-MANROPE_500 text-white text-xs">
+            <AppText className="font-MANROPE_500 text-white text-xs">
               Ads that meet your interest
             </AppText>
           </AppView>
           <TouchableOpacity
             onPress={handleLink}
             className="bg-white py-2 px-3 rounded-[40px]">
-            <AppText className="font-semibold font-MANROPE_600 text-red text-xs">
+            <AppText className="font-MANROPE_600 text-red text-xs">
               VISIT STORE
             </AppText>
           </TouchableOpacity>
@@ -75,13 +75,13 @@ const DownoadScreen = () => {
 
       <AppView className="mt-6 mb-6 flex-row items-center justify-between">
         <AppView className="w-fit ml-4">
-          <AppText className="font-ROBOTO_700 font-bold text-white text-[17px]">
+          <AppText className="font-ROBOTO_700 text-white text-[17px]">
             DOWNLOADS
           </AppText>
           <AppView className="w-[82px] mt-[3px] ml-[10px] h-[2px] bg-grey_100 rounded-[1px]" />
         </AppView>
 
-        <AppText className="font-normal font-MANROPE_400 text-[13px] text-yellow">
+        <AppText className="font-MANROPE_400 text-[13px] text-yellow">
           {data.length} downloads
         </AppText>
       </AppView>
@@ -108,16 +108,16 @@ const DownoadScreen = () => {
               </TouchableOpacity>
 
               <AppView className="justify-center items-center flex-1">
-                <AppText className="font-bold font-LEXEND_700 text-base text-white text-center leading-[17px] max-w-[75px]">
+                <AppText className="font-LEXEND_700 text-base text-white text-center leading-[17px] max-w-[75px]">
                   {item.title}
                 </AppText>
 
                 <AppView className="flex-row items-center gap-x-2 mt-2">
-                  <AppText className="font-normal font-MANROPE_400 text-xs text-yellow">
+                  <AppText className="font-MANROPE_400 text-xs text-yellow">
                     {item.viewersDiscretion}
                   </AppText>
                   <AppView className="w-[1px] h-[68%] bg-white" />
-                  <AppText className="font-normal font-MANROPE_400 text-xs text-white">
+                  <AppText className="font-MANROPE_400 text-xs text-white">
                     {item.size}
                   </AppText>
                   <AppView className="w-[1px] h-[68%] mr-[2px] bg-white" />

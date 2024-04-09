@@ -16,10 +16,10 @@ const LanguageScreen = () => {
       <AppView className="absolute -z-[10px] -top-[70px] w-full items-center">
         <AppImage source={require('@/assets/images/Logo_L.png')} className="" />
       </AppView>
-      <AppText className="font-bold font-LEXEND_700 text-white text-lg mt-9 mb-4">
+      <AppText className="font-LEXEND_700 text-white text-lg mt-9 mb-4">
         Language
       </AppText>
-      <AppText className="font-medium font-MANROPE_500 text-yellow text-base mt-1 mb-5">
+      <AppText className="font-MANROPE_500 text-yellow text-base mt-1 mb-5">
         Suggested
       </AppText>
       {/* Suggestive list */}
@@ -28,7 +28,7 @@ const LanguageScreen = () => {
           const show = activeSuggestiveIndx === i;
           return (
             <AppView key={i} style={styles.center} className="mb-4">
-              <AppText className="font-normal font-MANROPE_400 text-base text-white">
+              <AppText className="font-MANROPE_400 text-base text-white">
                 {x}
               </AppText>
               <Pressable
@@ -53,7 +53,7 @@ const LanguageScreen = () => {
           const show = activeIndx === index;
           return (
             <AppView style={styles.center} className="mb-4">
-              <AppText className="font-normal font-MANROPE_400 text-base text-white">
+              <AppText className="font-MANROPE_400 text-base text-white">
                 Arabic
               </AppText>
               <Pressable

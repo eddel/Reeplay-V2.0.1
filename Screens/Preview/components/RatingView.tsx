@@ -13,10 +13,10 @@ const RatingView = () => {
     <AppView className="mt-6 border-t border-grey_200/10">
       <AppView className="flex-row items-center justify-between gap-x-10">
         <AppView>
-          <AppText className="font-semibold font-MANROPE_600 text-white text-[40px]">
+          <AppText className="font-MANROPE_600 text-white text-[40px]">
             3.8
           </AppText>
-          <AppText className="font-normal font-MANROPE_400 text-base text-white -mt-1.5">
+          <AppText className="font-MANROPE_400 text-base text-white -mt-1.5">
             out of 5
           </AppText>
         </AppView>
@@ -45,7 +45,7 @@ const RatingView = () => {
               <Bar transX={20} />
             </AppView>
           </AppView>
-          <AppText className="text-right mt-[1px] font-normal font-MANROPE_400 text-base text-white">
+          <AppText className="text-right mt-[1px] font-MANROPE_400 text-base text-white">
             2706+ Ratings
           </AppText>
         </AppView>
@@ -60,7 +60,7 @@ const RatingView = () => {
             type === 'full' ? <BigRateStart_F /> : <BigRateStart_W />
           }
         />
-        <AppText className="font-normal font-MANROPE_400 text-base text-white mt-[10px]">
+        <AppText className="font-MANROPE_400 text-base text-white mt-[10px]">
           Tap stars to rate
         </AppText>
       </AppView>
@@ -101,5 +101,3 @@ const Bar = ({transX}: {transX: number}) => {
     </AppView>
   );
 };
-
-const styles = StyleSheet.create({});

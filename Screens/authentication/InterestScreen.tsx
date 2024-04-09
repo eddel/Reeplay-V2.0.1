@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Platform, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {
   AppButton,
@@ -68,13 +68,13 @@ const InterestScreen = () => {
 
   return (
     <AppScreen containerStyle={{position: 'relative'}}>
-      <AppText className="text-2xl text-white font-bold font-LEXEND_700 mt-5">
+      <AppText className="text-2xl text-white font-LEXEND_700 mt-5">
         Choose your
       </AppText>
-      <AppText className="text-2xl text-white font-bold font-LEXEND_700 mb-2">
+      <AppText className="text-2xl text-white font-LEXEND_700 mb-2">
         interests
       </AppText>
-      <AppText className="text-base text-grey_100 font-normal font-MANROPE_400 mt-2">
+      <AppText className="text-base text-grey_100 font-MANROPE_400 mt-2">
         We'll tailor an experience based on your interests, creating a
         personalized experience on reeplay. You can always change later.
       </AppText>
@@ -91,7 +91,7 @@ const InterestScreen = () => {
               ]}
               className="bg-white py-[14px] rounded-3xl">
               <AppText
-                className="text-base font-normal font-MANROPE_400 text-grey_600"
+                className="text-base font-MANROPE_400 text-grey_600"
                 style={isSelected(interest) && {color: colors.WHITE}}>
                 {interest}
               </AppText>
@@ -122,7 +122,7 @@ const InterestScreen = () => {
               })
             }
             style={{marginTop: Size.calcHeight(16)}}>
-            <AppText className="text-lg text-grey_700 font-normal font-MANROPE_400 text-center">
+            <AppText className="text-lg text-grey_700 font-MANROPE_400 text-center">
               Skip
             </AppText>
           </Pressable>

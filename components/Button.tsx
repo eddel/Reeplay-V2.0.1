@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Platform,
   StyleSheet,
   Text,
   TextStyle,
@@ -23,6 +24,7 @@ interface ButtonProps {
   isLoading?: boolean;
   isDisable?: boolean;
   replaceDefaultContent?: JSX.Element;
+  labelWeight?: any;
 }
 
 const Button = ({
@@ -77,7 +79,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: Size.calcWidth(18),
-    fontWeight: '400',
     color: colors.WHITE,
     fontFamily: fonts.MANROPE_400,
     textAlign: 'center',

@@ -82,7 +82,7 @@ const BottomSheet = ({handleNav, handleClose}: BottomSheetProps) => {
   useEffect(() => {
     const showKeyboard = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardStatus(true);
-      scrollTo(-Size.getHeight() * 0.8);
+      scrollTo(MAX_TRANSLATE_Y);
     });
     const hideKeyboard = Keyboard.addListener('keyboardDidHide', () => {
       setKeyboardStatus(false);
@@ -197,7 +197,6 @@ const styles = StyleSheet.create({
   },
   header: {
     fontFamily: fonts.MANROPE_600,
-    fontWeight: '600',
     fontSize: 20,
     color: '#171A1F',
     textAlign: 'center',
@@ -205,7 +204,6 @@ const styles = StyleSheet.create({
   },
   input: {
     fontFamily: fonts.MANROPE_400,
-    fontWeight: '400',
     fontSize: 16,
     color: '#171A1F',
     marginLeft: 5,
@@ -225,7 +223,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: fonts.MANROPE_400,
-    fontWeight: '500',
     fontSize: 16,
     color: '#171A1F',
     marginLeft: 20,

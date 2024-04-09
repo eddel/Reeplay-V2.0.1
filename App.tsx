@@ -155,7 +155,7 @@ function App(): React.JSX.Element {
                 <AppView className="h-full relative">
                   <AppView className="mb-[74px] mt-[60px] items-center">
                     <CloseLogo />
-                    <AppText className="mt-5 leading-5 font-normal font-ROBOTO_400 text-[14px] text-black text-center">
+                    <AppText className="mt-5 leading-5 font-ROBOTO_400 text-[14px] text-black text-center">
                       Your internet connection is lost.{'\n'} Fix connection and
                       retry.
                     </AppText>
@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
   secondaryModalButtonText: {
     color: colors.DEEP_BLACK,
     fontFamily: fonts.ROBOTO_400,
-    fontWeight: '400',
     fontSize: Size.calcWidth(16),
   },
 });

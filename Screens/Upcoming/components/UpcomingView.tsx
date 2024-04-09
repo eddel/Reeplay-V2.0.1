@@ -203,26 +203,26 @@ const UpcomingView = ({
 
       <AppView className="w-full items-center mt-1 mb-1 pt-1 pb-1.5 border-y border-grey_200/10">
         <AppView className="flex-row items-center gap-x-2">
-          <AppText className="bg-red font-ROBOTO_700 font-bold text-white text-[8px] pt-[3px] pb-1 px-2 text-center max-w-[43px]">
+          <AppText className="bg-red font-ROBOTO_700 text-white text-[8px] pt-[3px] pb-1 px-2 text-center max-w-[43px]">
             {items.type}
           </AppText>
-          <AppText className="font-bold font-LEXEND_700 text-2xl text-white">
+          <AppText className="font-LEXEND_700 text-2xl text-white">
             {items.title}
           </AppText>
         </AppView>
         <AppView className="flex-row items-center">
-          <AppText className="uppercase mr-2 font-MANROPE_700 font-bold text-[10px] text-grey_200">
+          <AppText className="uppercase mr-2 font-MANROPE_700 text-[10px] text-grey_200">
             coming {items.releaseDate}
           </AppText>
           <TouchableOpacity onPress={setRemindMe}>
             {remindMe ? <RemindMe /> : <UnRemindMe />}
           </TouchableOpacity>
-          <AppText className="text-white ml-1.5 font-MANROPE_400 font-normal text-[10px]">
+          <AppText className="text-white ml-1.5 font-MANROPE_400 text-[10px]">
             Remind me
           </AppText>
         </AppView>
 
-        <AppText className="font-MANROPE_400 fonot-normal text-white text-[13px] text-center max-w-[286px] mt-2">
+        <AppText className="font-MANROPE_400 text-white text-[13px] text-center max-w-[286px] mt-2">
           {items.description}
         </AppText>
       </AppView>

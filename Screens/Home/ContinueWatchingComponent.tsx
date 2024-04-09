@@ -112,7 +112,10 @@ const ContinueWatchingComponent = ({
                 ? styles.title
                 : [
                     styles.title,
-                    {fontSize: Size.calcHeight(10), fontWeight: '400'},
+                    {
+                      fontSize: Size.calcHeight(10),
+                      fontFamily: fonts.MANROPE_400,
+                    },
                   ]
             }>
             {item.title}
@@ -137,7 +140,7 @@ const ContinueWatchingComponent = ({
                 <FreeIcon style={{marginRight: 4}} />
               )}
               {'viewersDiscretion' in item && (
-                <AppText className=" font-medium font-ROBOTO_500 text-[11px] text-white mr-1.5">
+                <AppText className="font-ROBOTO_500 text-[11px] text-white mr-1.5">
                   {item.viewersDiscretion}
                 </AppText>
               )}
@@ -172,7 +175,6 @@ export default ContinueWatchingComponent;
 const styles = StyleSheet.create({
   title: {
     fontFamily: fonts.MANROPE_700,
-    fontWeight: '700',
     fontSize: Size.calcHeight(13.5),
     color: colors.WHITE,
     maxWidth: 130,

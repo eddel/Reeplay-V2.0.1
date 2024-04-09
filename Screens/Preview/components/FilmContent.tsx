@@ -12,7 +12,7 @@ const FilmContent = () => {
   return (
     <AppView className="pt-4 border-t border-grey_200/10 mt-5">
       <AppView className="w-[42px]">
-        <AppText className="font-ROBOTO_700 font-bold text-white text-[13px]">
+        <AppText className="font-ROBOTO_700 text-white text-[13px]">
           CASTS
         </AppText>
         <AppView
@@ -32,7 +32,7 @@ const FilmContent = () => {
               className="mr-3"
               onPress={() => navigate(routes.CAST_SCREEN)}>
               <AppImage source={cast.image} style={styles.image} />
-              <AppText className="text-center mt-2 font-normal font-ROBOTO_400 text-white text-[10px]">
+              <AppText className="text-center mt-2 font-ROBOTO_400 text-white text-[10px]">
                 {cast.name}
               </AppText>
             </TouchableOpacity>

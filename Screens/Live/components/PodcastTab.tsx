@@ -32,7 +32,7 @@ const PodcastTab = ({scrollY}: Props) => {
       ) : (
         <AppText
           style={{alignSelf: 'center'}}
-          className="mt-16 text-center font-ROBOTO_400 font-normal text-sm text-dark_grey max-w-[170]">
+          className="mt-16 text-center font-ROBOTO_400 text-sm text-dark_grey max-w-[170]">
           No content available now, kindly check back later
         </AppText>
       )}

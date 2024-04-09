@@ -7,6 +7,7 @@ import {previewContentType} from '@/navigation/AppNavigator';
 import routes from '@/navigation/routes';
 import {useNavigation} from '@react-navigation/native';
 import {PreviewScreenNav} from '@/types/typings';
+import {MovieVideo} from '@/Screens/Home/HomeScreen';
 
 interface props {
   title: string;
@@ -16,7 +17,7 @@ const RelatedContent = ({title}: props) => {
   const {navigate} = useNavigation<PreviewScreenNav>();
   return (
     <AppView className="mt-5">
-      <AppText className="mb-[10px] font-bold font-ROBOTO_700 text-white text-[21px]">
+      <AppText className="mb-[10px] font-ROBOTO_700 text-white text-[21px]">
         {title}
       </AppText>
       <AppView style={styles.centerContent}>
@@ -28,6 +29,7 @@ const RelatedContent = ({title}: props) => {
               onPress={() =>
                 navigate(routes.PREVIEW_SCREEN, {
                   content: previewContentType.film,
+                  videoURL: MovieVideo,
                 })
               }>
               <AppImage source={lib.image} style={styles.image} />

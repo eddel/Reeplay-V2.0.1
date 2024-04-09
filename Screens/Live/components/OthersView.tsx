@@ -86,7 +86,6 @@ const OthersView = ({data, title}: OthersProps) => {
                       styles.title,
                       {
                         fontSize: Size.calcHeight(7),
-                        fontWeight: '400',
                       },
                     ]}>
                     {item.title}
@@ -98,11 +97,11 @@ const OthersView = ({data, title}: OthersProps) => {
                   </AppText>
                 </AppView>
                 <AppView className="flex-row items-center gap-x-2">
-                  <AppText className="mt-[2px] font-medium font-ROBOTO_500 text-[9px] text-white -mr-[4px]">
+                  <AppText className="mt-[2px] font-ROBOTO_500 text-[9px] text-white -mr-[4px]">
                     {item.viewersDiscretion}
                   </AppText>
                   <AppView className="bg-[#0000009C] px-[10px] pt-[3px] pb-[5px] rounded-[3px]">
-                    <AppText className="font-ROBOTO_500 font-medium text-[9px] text-white">
+                    <AppText className="font-ROBOTO_500 text-[9px] text-white">
                       01:20:01
                     </AppText>
                   </AppView>
@@ -121,7 +120,6 @@ export default OthersView;
 const styles = StyleSheet.create({
   title: {
     fontFamily: fonts.MANROPE_700,
-    fontWeight: '700',
     fontSize: Size.calcHeight(10),
     color: colors.WHITE,
     maxWidth: 130,

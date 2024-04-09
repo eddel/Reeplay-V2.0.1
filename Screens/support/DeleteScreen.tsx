@@ -17,21 +17,21 @@ const DeleteScreen = () => {
       </AppView>
       <AppText
         style={{alignSelf: 'center'}}
-        className="absolute top-0 font-LEXEND_600 font-semibold text-[20px] text-white">
+        className="absolute top-0 font-LEXEND_600 text-[20px] text-white">
         Delete Account
       </AppText>
 
       <ScrollView style={{marginTop: 34}}>
-        <AppText className="font-normal font-LEXEND_400 text-xl text-white mb-5">
+        <AppText className="font-LEXEND_400 text-xl text-white mb-5">
           Are you sure you want to delete your account?
         </AppText>
 
-        <AppText className="font-normal font-MANROPE_400 text-base text-white">
+        <AppText className="font-MANROPE_400 text-base text-white">
           Once you delete your account, it cannot be undone. All your data will
           be permanently erased from this app includes your profile information,
           preferences, saved content, and any activity history.
         </AppText>
-        <AppText className="font-normal font-MANROPE_400 text-base text-white mt-8">
+        <AppText className="font-MANROPE_400 text-base text-white mt-8">
           We're sad to see you go, but we understand that sometimes it's
           necessary. Please take a moment to consider the consequences before
           proceeding.

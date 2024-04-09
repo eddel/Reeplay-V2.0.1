@@ -72,7 +72,7 @@ const LibraryScreen = () => {
           <TouchableOpacity
             className="flex-row items-center gap-x-1.5"
             onPress={() => [setGenre('movies'), setSelectedItems(movieGenre)]}>
-            <AppText className="font-normal font-ROBOTO_400 text-white text-[15px]">
+            <AppText className="font-ROBOTO_400 text-white text-[15px]">
               {genreTxt}
             </AppText>
             <Dropdown />
@@ -83,7 +83,7 @@ const LibraryScreen = () => {
               setGenre('categories'),
               setSelectedItems(AllCateegories),
             ]}>
-            <AppText className="font-normal font-ROBOTO_400 text-white text-[15px]">
+            <AppText className="font-ROBOTO_400 text-white text-[15px]">
               {categoriesTxt}
             </AppText>
             <Dropdown />
@@ -98,7 +98,7 @@ const LibraryScreen = () => {
                   <TouchableOpacity
                     key={index}
                     onPress={() => handleSelect(txt)}>
-                    <AppText className="text-center text-white text-[15px] font-normal font-ROBOTO_400">
+                    <AppText className="text-center text-white text-[15px] font-ROBOTO_400">
                       {txt}
                     </AppText>
                   </TouchableOpacity>

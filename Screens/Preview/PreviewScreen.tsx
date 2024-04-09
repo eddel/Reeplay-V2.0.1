@@ -97,14 +97,14 @@ const PreviewScreen = () => {
             {addWatchList ? <VideoLog_F /> : <VideoLogIcon />}
           </Pressable>
           <AppView>
-            <AppText className="text-[21px] text-grey_100 font-ROBOTO_700 font-bold text-center">
+            <AppText className="text-[21px] text-grey_100 font-ROBOTO_700 text-center">
               NKOYO
             </AppText>
             <AppView className="mt-2 flex-row items-center">
               {['Comedy', 'Exciting', 'Drama'].map((tag, i) => {
                 return (
                   <Fragment key={i}>
-                    <AppText className="font-bold font-ROBOTO_700 text-xs text-grey_white">
+                    <AppText className="font-ROBOTO_700 text-xs text-grey_white">
                       {tag}
                     </AppText>
                     {i !== ['Comedy', 'Exciting', 'Drama'].length - 1 && (
@@ -124,7 +124,7 @@ const PreviewScreen = () => {
                 : 'border-red px-1.5'
             } pt-1.5 pb-1.5 border rounded-[3px]`}>
             <AppText
-              className={`text-[9px] uppercase font-ROBOTO_400 font-normal ${
+              className={`text-[9px] uppercase font-ROBOTO_400 ${
                 contentType === 'Premium'
                   ? 'text-green'
                   : contentType === 'Free'
@@ -140,10 +140,10 @@ const PreviewScreen = () => {
           <AppView className="px-5">
             <AppView className="border-y border-grey_200/10 py-[7px] mt-4 flex-row items-center justify-between">
               <AppView>
-                <AppText className="text-center font-normal font-ROBOTO_400 text-grey_200 text-[11px]">
+                <AppText className="text-center font-ROBOTO_400 text-grey_200 text-[11px]">
                   375K+ VIEWS
                 </AppText>
-                <AppText className="text-center my-1 font-bold font-ROBOTO_700 text-grey_200 text-[15px]">
+                <AppText className="text-center my-1 font-ROBOTO_700 text-grey_200 text-[15px]">
                   4.6
                 </AppText>
                 {/* star */}
@@ -165,39 +165,39 @@ const PreviewScreen = () => {
               </AppView>
               <AppView className="h-[30px] w-[1px] border-l border-grey_200/10" />
               <AppView>
-                <AppText className="text-center font-normal font-ROBOTO_400 text-grey_200 text-[11px]">
+                <AppText className="text-center font-ROBOTO_400 text-grey_200 text-[11px]">
                   PG
                 </AppText>
-                <AppText className="text-center my-1 font-bold font-ROBOTO_700 text-grey_200 text-[15px]">
+                <AppText className="text-center my-1 font-ROBOTO_700 text-grey_200 text-[15px]">
                   12+
                 </AppText>
-                <AppText className="text-center font-normal font-ROBOTO_400 text-grey_200 text-[10px]">
+                <AppText className="text-center font-ROBOTO_400 text-grey_200 text-[10px]">
                   Years Old
                 </AppText>
               </AppView>
               <AppView className="h-[30px] w-[1px] border-l border-grey_200/10" />
 
               <TouchableOpacity onPress={() => setIsComment(true)}>
-                <AppText className="text-center font-normal font-ROBOTO_400 text-grey_200 text-[11px]">
+                <AppText className="text-center font-ROBOTO_400 text-grey_200 text-[11px]">
                   COMMENTS
                 </AppText>
-                <AppText className="text-center my-1 font-bold font-ROBOTO_700 text-grey_200 text-[15px]">
+                <AppText className="text-center my-1 font-ROBOTO_700 text-grey_200 text-[15px]">
                   98+
                 </AppText>
-                <AppText className="text-center font-normal font-ROBOTO_400 text-grey_200 text-[10px]">
+                <AppText className="text-center font-ROBOTO_400 text-grey_200 text-[10px]">
                   Tap to Add
                 </AppText>
               </TouchableOpacity>
               <AppView className="h-[30px] w-[1px] border-l border-grey_200/10" />
 
               <AppView>
-                <AppText className="text-center font-normal font-ROBOTO_400 text-grey_200 text-[11px]">
+                <AppText className="text-center font-ROBOTO_400 text-grey_200 text-[11px]">
                   DURATION
                 </AppText>
-                <AppText className="text-center my-1 font-bold font-ROBOTO_700 text-grey_200 text-[15px]">
+                <AppText className="text-center my-1 font-ROBOTO_700 text-grey_200 text-[15px]">
                   1h : 7m
                 </AppText>
-                <AppText className="text-center font-normal font-ROBOTO_400 text-grey_200 text-[10px]">
+                <AppText className="text-center font-ROBOTO_400 text-grey_200 text-[10px]">
                   2021
                 </AppText>
               </AppView>
@@ -235,7 +235,7 @@ const PreviewScreen = () => {
 
                 <AppView className="absolute w-full h-full pt-[18px]">
                   <AppView className="px-5">
-                    <AppText className="ml-3 font-medium font-ROBOTO_500 text-grey_200 text-[14px]">
+                    <AppText className="ml-3 font-ROBOTO_500 text-grey_200 text-[14px]">
                       68 Comments
                     </AppText>
 
@@ -268,7 +268,7 @@ const PreviewScreen = () => {
                 <TouchableOpacity
                   onPress={() => setIsComment(false)}
                   className="absolute bottom-0 z-40 w-full py-5 bg-[#1A1A1A]">
-                  <AppText className="text-center text-grey_200 font-normal font-ROBOTO_400">
+                  <AppText className="text-center text-grey_200 font-ROBOTO_400">
                     Close
                   </AppText>
                 </TouchableOpacity>
@@ -285,10 +285,10 @@ const PreviewScreen = () => {
                 {/* desc */}
 
                 <AppView className="items-center mt-5 px-4">
-                  <AppText className="font-normal font-ROBOTO_400 uppercase text-white text-[11px]">
+                  <AppText className="font-ROBOTO_400 uppercase text-white text-[11px]">
                     {previewContentType[content]}
                   </AppText>
-                  <AppText className="text-center mt-2 font-normal font-ROBOTO_400 text-white text-xs">
+                  <AppText className="text-center mt-2 font-ROBOTO_400 text-white text-xs">
                     2 Sisters set out to Impress the World in a thrilling show
                     of Bravery and Comedic Trickery, the World in a thrilling 2
                     Sisters set out to Impress the World.
@@ -310,7 +310,7 @@ const PreviewScreen = () => {
                           );
                         })}
                       </AppView>
-                      <AppText className="text-center mt-1.5 ml-1 font-normal font-ROBOTO_400 text-[13px] text-white">
+                      <AppText className="text-center mt-1.5 ml-1 font-ROBOTO_400 text-[13px] text-white">
                         Tap to Rate
                       </AppText>
                     </TouchableOpacity>
@@ -402,20 +402,20 @@ const PreviewScreen = () => {
               contentType === 'Premium' && {marginTop: 8, marginBottom: -2}
             }
             className="items-center mt-3 mb-2">
-            <AppText className="text-center font-medium font-ROBOTO_500 text-[15px] text-black">
+            <AppText className="text-center font-ROBOTO_500 text-[15px] text-black">
               {contentType === 'Exclusive' && 'Sorry this Content is not free.'}
               {contentType === 'Premium' &&
                 `You don’t have an active 
 subscription`}
             </AppText>
             {contentType === 'Premium' && (
-              <AppText className="mt-4 mb-1 font-bold font-ROBOTO_700 text-[14px] text-black">
+              <AppText className="mt-4 mb-1 font-ROBOTO_700 text-[14px] text-black">
                 TO WATCH PREMIUM
               </AppText>
             )}
             <AppText
               style={contentType === 'Premium' && {marginBottom: 18}}
-              className="text-center max-w-[80%] font-normal font-ROBOTO_400 text-[14px] text-black my-3 mb-4">
+              className="text-center max-w-[80%] font-ROBOTO_400 text-[14px] text-black my-3 mb-4">
               {contentType === 'Exclusive' &&
                 'This is an Exclusive content, you must purchase to watch.'}
               {contentType === 'Premium' &&
@@ -483,7 +483,6 @@ export default PreviewScreen;
 const styles = StyleSheet.create({
   btnLabel: {
     fontFamily: fonts.ROBOTO_700,
-    fontWeight: '700',
     fontSize: 17,
     color: colors.GREY_100,
     marginLeft: 8,
@@ -491,7 +490,6 @@ const styles = StyleSheet.create({
   },
   btnLabel_: {
     fontFamily: fonts.ROBOTO_700,
-    fontWeight: '700',
     fontSize: 17,
     color: colors.GREY_100,
     marginLeft: 8,
@@ -507,7 +505,6 @@ const styles = StyleSheet.create({
   },
   btnTxt: {
     fontFamily: fonts.ROBOTO_700,
-    fontWeight: '600',
     fontSize: 16,
     color: colors.WHITE,
     textAlign: 'center',
@@ -518,7 +515,6 @@ const styles = StyleSheet.create({
   },
   input: {
     fontFamily: fonts.ROBOTO_400,
-    fontWeight: '400',
     fontSize: 14,
     color: colors.WHITE,
   },

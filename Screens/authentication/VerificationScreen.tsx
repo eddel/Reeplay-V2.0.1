@@ -94,29 +94,29 @@ const VerificationScreen = () => {
       />
 
       <View style={{height: '85%'}}>
-        <AppText className="text-2xl text-white font-bold font-LEXEND_700 mt-12 mb-2">
+        <AppText className="text-2xl text-white font-LEXEND_700 mt-12 mb-2">
           Verify Phone
         </AppText>
-        <AppText className="text-base text-white font-normal font-MANROPE_400">
+        <AppText className="text-base text-white font-MANROPE_400">
           Enter the code we send to {phoneNo}
         </AppText>
 
         <AppView className="mt-8 items-center">
           <OTPInput pinCount={6} handleCode={code => setOtp(code)} space />
           {error && (
-            <AppText className="max-w-[120px] text-red text-[16px] text-center font-medium font-MANROPE_500 mt-3">
+            <AppText className="max-w-[120px] text-red text-[16px] text-center font-MANROPE_500 mt-3">
               Invalid PIN Please try again
             </AppText>
           )}
         </AppView>
 
-        <AppText className="text-base text-white font-normal font-MANROPE_400 mt-10">
+        <AppText className="text-base text-white font-MANROPE_400 mt-10">
           Code is expired in {Math.floor(expiryTime / 60)}:
           {expiryTime % 60 < 10 ? '0' : ''}
           {expiryTime % 60}s
         </AppText>
         <TouchableOpacity className="mt-5">
-          <AppText className="text-base text-yellow-300 font-normal font-MANROPE_400">
+          <AppText className="text-base text-yellow-300 font-MANROPE_400">
             Resend
           </AppText>
         </TouchableOpacity>

@@ -9,7 +9,7 @@ const NotificationScreen = () => {
       <AppView className="absolute -z-[10px] -top-[70px] w-full items-center">
         <AppImage source={require('@/assets/images/Logo_L.png')} className="" />
       </AppView>
-      <AppText className="font-bold font-MANROPE_700 text-white text-lg mt-12 mb-5">
+      <AppText className="font-MANROPE_700 text-white text-lg mt-12 mb-5">
         Notifications
       </AppText>
 
@@ -25,14 +25,14 @@ const NotificationScreen = () => {
               </Pressable>
 
               <AppView className="ml-5 flex-1">
-                <AppText className="font-bold text-grey_100 font-LEXEND_700 text-xs">
+                <AppText className="text-grey_100 font-LEXEND_700 text-xs">
                   NEW ARRIVALE
                 </AppText>
-                <AppText className="font-normal font-MANROPE_400 text-xs text-white">
+                <AppText className="font-MANROPE_400 text-xs text-white">
                   NEW ARRIVAL Comedy I Horror I Adventure I Thriller I Romance I
                   Crime I Epic
                 </AppText>
-                <AppText className="font-medium font-MANROPE_500 text-[13px] text-yellow mt-[2px]">
+                <AppText className="font-MANROPE_500 text-[13px] text-yellow mt-[2px]">
                   1 hour ago
                 </AppText>
               </AppView>
@@ -45,5 +45,3 @@ const NotificationScreen = () => {
 };
 
 export default NotificationScreen;
-
-const styles = StyleSheet.create({});

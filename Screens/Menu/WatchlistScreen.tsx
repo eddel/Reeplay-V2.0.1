@@ -30,7 +30,7 @@ const WatchlistScreen = () => {
           replaceDefaultContent={
             <AppView className="mb-[74px] mt-14 items-center">
               <CloseLogo />
-              <AppText className="mt-5 leading-5 font-normal font-ROBOTO_400 text-[14px] text-black text-center">
+              <AppText className="mt-5 leading-5 font-ROBOTO_400 text-[14px] text-black text-center">
                 Your watchlist is empty.{'\n'} You haven't added any content to
                 your watchlist yet.
               </AppText>
@@ -40,7 +40,7 @@ const WatchlistScreen = () => {
         />
       ) : (
         <>
-          <AppText className="text-center font-bold font-LEXEND_700 text-grey_100 -mt-5 text-[17px]">
+          <AppText className="text-center font-LEXEND_700 text-grey_100 -mt-5 text-[17px]">
             My Watchlist
           </AppText>
 

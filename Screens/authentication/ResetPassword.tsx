@@ -1,4 +1,4 @@
-import {StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Platform, StatusBar, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import FastImage from 'react-native-fast-image';
 import {AppButton, AppImage, AppText, AppView} from '@/components';
@@ -62,7 +62,7 @@ const ResetPassword = () => {
       </View>
 
       <AppView className="mt-auto mb-5 flex-row items-center">
-        <AppText className="font-normal font-MANROPE_400 text-[#BCC1CA] text-base ">
+        <AppText className="font-MANROPE_400 text-[#BCC1CA] text-base ">
           Return to{' '}
         </AppText>
         <AppButton

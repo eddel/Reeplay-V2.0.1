@@ -33,7 +33,7 @@ const AppHeader = ({style, hideback, handleFunc, label, labelStyle}: Props) => {
         </Pressable>
       )}
       <AppText
-        style={[labelStyle]}
+        style={labelStyle}
         className="text-lg text-white font-LEXEND_700 font-bold">
         {label}
       </AppText>

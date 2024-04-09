@@ -28,11 +28,11 @@ const SelectVotesTab = ({setStage}: Props) => {
           className="w-[160px] h-[160px] rounded-[22px] overflow-hidden"
         />
 
-        <AppText className="font-bold font-MANROPE_700 text-base text-white text-center mt-9 mb-1">
+        <AppText className="font-MANROPE_700 text-base text-white text-center mt-9 mb-1">
           AMY AKPONYOMA | Contestant 14
         </AppText>
 
-        <AppText className="font-normal font-MANROPE_400 text-white text-base text-center mb-5">
+        <AppText className="font-MANROPE_400 text-white text-base text-center mb-5">
           Good extensive background in performance of corporate banking credit
           and financial analysis· Experienced in a range of capital market and
           cash management procedures.
@@ -48,7 +48,7 @@ const SelectVotesTab = ({setStage}: Props) => {
             <AppView className="w-[7px] h-[1.5px] bg-white" />
           </TouchableOpacity>
           <AppView className="mx-1 w-[26px] items-center">
-            <AppText className="font-MANROPE_700 text-base font-bold text-white">
+            <AppText className="font-MANROPE_700 text-base text-white">
               {voteCount < 10 ? `0${voteCount}` : `${voteCount}`}
             </AppText>
           </AppView>
@@ -63,7 +63,7 @@ const SelectVotesTab = ({setStage}: Props) => {
           </TouchableOpacity>
         </AppView>
 
-        <AppText className="mb-7 text-sm font-MANROPE_400 font-normal text-center text-grey_800">
+        <AppText className="mb-7 text-sm font-MANROPE_400 text-center text-grey_800">
           Free accounts cannot make more than 2 votes. Purchase a subscription
           plan to get up to 5 votes.
         </AppText>
@@ -85,5 +85,3 @@ const SelectVotesTab = ({setStage}: Props) => {
 };
 
 export default SelectVotesTab;
-
-const styles = StyleSheet.create({});

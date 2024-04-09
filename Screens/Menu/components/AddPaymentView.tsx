@@ -48,12 +48,12 @@ const AddPaymentView = () => {
         <TouchableOpacity onPress={goBack} className="absolute left-0 z-20">
           <BigClose />
         </TouchableOpacity>
-        <AppText className="font-bold font-LEXEND_700 text-white text-[20px] text-center">
+        <AppText className="font-LEXEND_700 text-white text-[20px] text-center">
           Add Payment
         </AppText>
       </AppView>
 
-      <AppText className="mt-10 font-LEXEND_400 font-normal text-[15px] text-white">
+      <AppText className="mt-10 font-LEXEND_400 text-[15px] text-white">
         Select Payment Method
       </AppText>
 
@@ -100,7 +100,7 @@ const AddPaymentView = () => {
             console.log(e.token);
           }}>
           <AppView>
-            <AppText className="mb-3 font-normal font-LEXEND_400 text-[15px] text-white">
+            <AppText className="mb-3 font-LEXEND_400 text-[15px] text-white">
               Card holder
             </AppText>
             <TextInput
@@ -113,7 +113,7 @@ const AddPaymentView = () => {
           </AppView>
 
           <View>
-            <AppText className="mb-3 mt-7 font-normal font-LEXEND_400 text-[15px] text-white">
+            <AppText className="mb-3 mt-7 font-LEXEND_400 text-[15px] text-white">
               Card number
             </AppText>
             <AppView style={[styles.input]} className="flex-row items-center">
@@ -135,7 +135,7 @@ const AddPaymentView = () => {
 
           <AppView className="flex-row items-center gap-x-4">
             <AppView className="flex-1">
-              <AppText className="mb-3 mt-7 font-normal font-LEXEND_400 text-[15px] text-white">
+              <AppText className="mb-3 mt-7 font-LEXEND_400 text-[15px] text-white">
                 Valid until
               </AppText>
               <ExpiryDate
@@ -145,7 +145,7 @@ const AddPaymentView = () => {
               />
             </AppView>
             <AppView className="flex-1">
-              <AppText className="mb-3 mt-7 font-normal font-LEXEND_400 text-[15px] text-white">
+              <AppText className="mb-3 mt-7 font-LEXEND_400 text-[15px] text-white">
                 Security code
               </AppText>
               <Cvv
@@ -166,10 +166,10 @@ const AddPaymentView = () => {
               {terms && <CheckIcon_R />}
             </TouchableOpacity>
             <AppView className="flex-row items-center gap-x-[2px]">
-              <AppText className="font-normal font-MANROPE_400 text-[14px] text-white underline">
+              <AppText className="font-MANROPE_400 text-[14px] text-white underline">
                 Accept the
               </AppText>
-              <AppText className="text-[#379AE6] font-normal font-MANROPE_400 text-[14px] underline">
+              <AppText className="text-[#379AE6] font-MANROPE_400 text-[14px] underline">
                 Term and Conditions
               </AppText>
             </AppView>
@@ -184,7 +184,7 @@ const AddPaymentView = () => {
               {/* //svg */}
               {defaults && <CheckIcon_R />}
             </TouchableOpacity>
-            <AppText className="font-normal font-MANROPE_400 text-[14px] text-white">
+            <AppText className="font-MANROPE_400 text-[14px] text-white">
               Use as default payment method
             </AppText>
           </AppView>
@@ -210,7 +210,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Size.calcHeight(18),
     paddingVertical: Size.calcHeight(15),
     fontFamily: fonts.MANROPE_500,
-    fontWeight: '500',
     fontSize: 16,
     color: '#474748',
   },
@@ -220,7 +219,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Size.calcHeight(18),
     paddingVertical: Size.calcHeight(14.5),
     fontFamily: fonts.MANROPE_500,
-    fontWeight: '500',
     fontSize: 16,
     color: '#474748',
   },
@@ -233,7 +231,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: fonts.MANROPE_400,
-    fontWeight: '400',
     fontSize: 16,
     color: colors.WHITE,
     textAlign: 'center',

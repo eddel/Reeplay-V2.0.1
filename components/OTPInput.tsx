@@ -1,7 +1,7 @@
 import colors from '@/configs/colors';
 import fonts from '@/configs/fonts';
 import React, {useRef, useState, useEffect} from 'react';
-import {StyleProp, TextStyle} from 'react-native';
+import {Platform, StyleProp, TextStyle} from 'react-native';
 import {TextInput, View, StyleSheet} from 'react-native';
 
 interface OTPInputProps {
@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 16,
     fontFamily: fonts.MANROPE_400,
-    fontWeight: '400',
     borderRadius: 4,
     color: colors.WHITE,
   },

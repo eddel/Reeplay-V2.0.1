@@ -24,7 +24,7 @@ const GiftCardRedeemScreen = () => {
   return (
     <AppScreen containerStyle={{paddingTop: 10, position: 'relative'}}>
       <AppHeader />
-      <AppText className="font-LEXEND_700 font-bold text-2xl text-white mt-[70%]">
+      <AppText className="font-LEXEND_700 text-2xl text-white mt-[70%]">
         Redeem Giftcard
       </AppText>
       <TextInput
@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Size.calcHeight(18),
     paddingVertical: Size.calcHeight(15),
     fontFamily: fonts.MANROPE_400,
-    fontWeight: '400',
     fontSize: 16,
     color: '#171A1F',
     textAlign: 'center',

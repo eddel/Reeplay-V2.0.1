@@ -14,18 +14,18 @@ const DownloadModal = ({setIsDownload, handleDelete}: Props) => {
         source={require('@/assets/images/Download.png')}
         className="w-[165px] h-[123px] rounded-lg overflow-hidden"
       />
-      <AppText className="max-w-[149px] mt-4 text-center font-normal font-ROBOTO_400 text-[13px] text-black">
+      <AppText className="max-w-[149px] mt-4 text-center font-ROBOTO_400 text-[13px] text-black">
         Are you sure you want to delete this content from downloads?
       </AppText>
 
       <AppView className="flex-row items-center gap-x-1.5 -mb-12 mt-7">
         <TouchableOpacity onPress={setIsDownload}>
-          <AppText className="font-medium font-ROBOTO_500 text-[14px] text-black">
+          <AppText className="font-ROBOTO_500 text-[14px] text-black">
             No
           </AppText>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => [handleDelete(), setIsDownload()]}>
-          <AppText className="font-medium font-ROBOTO_500 text-[14px] text-black">
+          <AppText className="font-ROBOTO_500 text-[14px] text-black">
             Yes
           </AppText>
         </TouchableOpacity>

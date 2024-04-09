@@ -38,10 +38,10 @@ const LoginScreen = () => {
         }}
       />
 
-      <AppText className="font-semibold font-MANROPE_600 text-white text-xl text-center -mt-3">
+      <AppText className="font-MANROPE_600 text-white text-xl text-center -mt-3">
         Login Account
       </AppText>
-      <AppText className="text-base text-white font-normal font-MANROPE_400 text-center">
+      <AppText className="text-base text-white font-MANROPE_400 text-center">
         Watch your favorite stars
       </AppText>
 

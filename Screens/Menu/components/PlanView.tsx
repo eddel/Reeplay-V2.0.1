@@ -22,7 +22,7 @@ const PlanView = ({setStage}: Props) => {
     <AppView className="mt-10">
       <AppText
         style={{alignSelf: 'center'}}
-        className="max-w-[80%] font-medium font-LEXEND_500 text-white text-[20px] text-center">
+        className="max-w-[80%] font-LEXEND_500 text-white text-[20px] text-center">
         Our monthly plan equals $1 only, converted to your local currency
       </AppText>
 
@@ -51,16 +51,16 @@ const PlanView = ({setStage}: Props) => {
               </Pressable>
 
               <AppView className="ml-5">
-                <AppText className="font-semibold font-LEXEND_600 text-base text-black mb-1">
+                <AppText className="font-LEXEND_600 text-base text-black mb-1">
                   {plan.price}
                 </AppText>
-                <AppText className="font-normal font-MANROPE_400 text-xs text-black">
+                <AppText className="font-MANROPE_400 text-xs text-black">
                   {plan.desc}
                 </AppText>
               </AppView>
               {plan._id === 3 && (
                 <AppView className="ml-auto mb-auto py-1 px-2 rounded-[24px] bg-yellow ">
-                  <AppText className="font-normal font-MANROPE_400 text-xs text-[#5E4C00]">
+                  <AppText className="font-MANROPE_400 text-xs text-[#5E4C00]">
                     Popular
                   </AppText>
                 </AppView>
@@ -90,5 +90,3 @@ const PlanView = ({setStage}: Props) => {
 };
 
 export default PlanView;
-
-const styles = StyleSheet.create({});

@@ -1,4 +1,10 @@
-import {View, Text, ImageSourcePropType, Animated} from 'react-native';
+import {
+  View,
+  Text,
+  ImageSourcePropType,
+  Animated,
+  Platform,
+} from 'react-native';
 import React, {Fragment} from 'react';
 import FastImage from 'react-native-fast-image';
 import {AppButton, AppImage, AppText, AppView} from '@/components';
@@ -71,7 +77,7 @@ const Caurosel = ({
               zIndex: 1,
               width: '105%',
               position: 'absolute',
-              height: '60%',
+              height: '100%',
             },
           ]}
         />
@@ -97,14 +103,14 @@ const Caurosel = ({
         className="absolute h-full"
       />
       <AppView className="absolute bottom-4 z-10 items-center">
-        <AppText className="text-white text-sm font-normal uppercase font-MANROPE_400 mb-3">
+        <AppText className="text-white text-sm uppercase font-MANROPE_400 mb-3">
           {item.type}
         </AppText>
         <AppText
           style={{
             maxWidth: item.title.length > 13 ? 200 : 168,
           }}
-          className="text-[40px] leading-[39px] font-LEXEND_700 font-bold text-white mb-1 text-center">
+          className="text-[40px] leading-[39px] font-LEXEND_700 text-white mb-1 text-center">
           {item.title}
         </AppText>
         <AppView className="flex-row items-center justify-center">
@@ -113,7 +119,7 @@ const Caurosel = ({
             item.tags.map((tag, i) => {
               return (
                 <Fragment key={i}>
-                  <AppText className="font-noraml font-ROBOTO_400 text-sm text-grey_200">
+                  <AppText className="font-ROBOTO_400 text-sm text-grey_200">
                     {tag}
                   </AppText>
                   {item.tags && i !== item.tags.length - 1 && (
@@ -177,7 +183,7 @@ const Caurosel = ({
             replaceDefaultContent={
               <AppView className="flex-row items-center justify-center">
                 <SmPlayIcon />
-                <AppText className="text-[15px] text-white font-semibold font-ROBOTO_700 ml-[10px]">
+                <AppText className="text-[15px] text-white font-ROBOTO_700 ml-[10px]">
                   {live ? 'Watch' : 'Play'}
                 </AppText>
               </AppView>

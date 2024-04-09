@@ -42,10 +42,10 @@ const OnboardingPage = ({
         />
         <AppView style={{zIndex: 99}}>
           {subImage}
-          <AppText className="text-white text-center font-LEXEND_700 font-bold text-2xl">
+          <AppText className="text-white text-center font-LEXEND_700 text-2xl">
             {mainText}
           </AppText>
-          <AppText className="text-white text-center font-LEXEND_700 font-bold text-2xl">
+          <AppText className="text-white text-center font-LEXEND_700 text-2xl">
             {mainText2}
           </AppText>
 
@@ -54,7 +54,7 @@ const OnboardingPage = ({
               paddingTop: Size.calcHeight(42),
               alignSelf: 'center',
             }}
-            className="text-lg text-white font-MANROPE_400 font-normal text-center">
+            className="text-lg text-white font-MANROPE_400 text-center">
             {subText}{' '}
           </AppText>
         </AppView>
@@ -66,9 +66,8 @@ const OnboardingPage = ({
             iconLeft={iconLeft}
             style={{borderRadius: 8}}
             labelStyle={{
-              fontFamily: fonts.MANROPE_700,
+              fontFamily: fonts.MANROPE_800,
               fontSize: 13,
-              fontWeight: '800',
               color: '#fff',
             }}
             onPress={() => handleBtn()}

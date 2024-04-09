@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {AppHeader, AppScreen, AppText, AppView, OTPInput} from '@/components';
 import {useNavigation} from '@react-navigation/native';
@@ -21,10 +21,10 @@ const CreatePIN = () => {
     <AppScreen containerStyle={{paddingTop: 10}}>
       <AppHeader />
 
-      <AppText className="text-2xl text-white font-bold font-LEXEND_700 mt-12">
+      <AppText className="text-2xl text-white font-LEXEND_700 mt-12">
         Create your new
       </AppText>
-      <AppText className="text-2xl text-white font-bold font-LEXEND_700 mb-2">
+      <AppText className="text-2xl text-white font-LEXEND_700 mb-2">
         App pin
       </AppText>
 

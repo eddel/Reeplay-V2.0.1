@@ -39,10 +39,10 @@ const PayStackView = ({setStage, tab}: Props) => {
 
   return (
     <AppScreen containerStyle={{position: 'relative'}}>
-      <AppText className="mt-[80%] font-semibold font-MANROPE_600 text-[40px] text-white text-center">
+      <AppText className="mt-[80%] font-MANROPE_600 text-[40px] text-white text-center">
         PAYSTACK
       </AppText>
-      <AppText className="font-bold font-MANROPE_700 text-[20px] text-center text-grey_200">
+      <AppText className="font-MANROPE_700 text-[20px] text-center text-grey_200">
         or selected payment processor
       </AppText>
 
@@ -86,5 +86,3 @@ const PayStackView = ({setStage, tab}: Props) => {
 };
 
 export default PayStackView;
-
-const styles = StyleSheet.create({});

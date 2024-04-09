@@ -39,7 +39,7 @@ const UpcomingScreen = () => {
           paddingHorizontal: 0,
           paddingBottom: 80,
         }}>
-        <AppText className="pl-5 font-bold font-LEXEND_700 text-[17px] text-grey_100 my-4">
+        <AppText className="pl-5 font-LEXEND_700 text-[17px] text-grey_100 my-4">
           COMING SOON
         </AppText>
         <AppView>

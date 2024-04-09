@@ -49,14 +49,14 @@ const Search = () => {
         position: 'relative',
       }}>
       <AppView className="px-5 mb-2 relative">
-        <AppText className="font-bold font-ROBOTO_700 text-[15px] text-white text-center">
+        <AppText className="font-ROBOTO_700 text-[15px] text-white text-center">
           Search
         </AppText>
         {text !== '' && (
           <TouchableOpacity
             onPress={() => setText('')}
             className="absolute right-5">
-            <AppText className="font-normal font-ROBOTO_400 text-center text-[15px] text-white">
+            <AppText className="font-ROBOTO_400 text-center text-[15px] text-white">
               Cancel
             </AppText>
           </TouchableOpacity>
@@ -68,10 +68,10 @@ const Search = () => {
             <AppView className="mt-6 bg-red pt-3 px-1 rounded-[15px]">
               <AppView className="flex-row items-center justify-between px-3 pb-2">
                 <AppView>
-                  <AppText className="font-normal font-LEXEND_400 text-base text-white ">
+                  <AppText className="font-LEXEND_400 text-base text-white ">
                     REEPLAY
                   </AppText>
-                  <AppText className="font-medium font-MANROPE_500 text-white text-xs">
+                  <AppText className="font-MANROPE_500 text-white text-xs">
                     Ads that meet your interest
                   </AppText>
                 </AppView>
@@ -98,17 +98,16 @@ const Search = () => {
               labelStyle={{
                 fontFamily: fonts.MANROPE_500,
                 fontSize: 14.5,
-                fontWeight: '500',
                 color: '#ffffff',
               }}
             />
 
             <AppView className="mt-6 rounded-[15px] overflow-hidden bg-[#1A1A1A]">
               <AppView className="bg-[#1A1A1A] rounded-t-[15px] pt-5 pb-4 px-[18px]">
-                <AppText className="font-bold font-ROBOTO_700 text-white text-lg">
+                <AppText className="font-ROBOTO_700 text-white text-lg">
                   RECENT
                 </AppText>
-                <AppText className="font-normal font-MANROPE_400 text-white text-[13px]">
+                <AppText className="font-MANROPE_400 text-white text-[13px]">
                   Your recent searches
                 </AppText>
               </AppView>
@@ -134,7 +133,7 @@ const Search = () => {
 
             <AppView className="mt-6 mb-3 rounded-[15px] overflow-hidden bg-[#1A1A1A]">
               <AppView className="bg-[#1A1A1A] rounded-t-[15px] pt-5 pb-4 px-[18px]">
-                <AppText className="font-bold font-ROBOTO_700 text-white text-lg">
+                <AppText className="font-ROBOTO_700 text-white text-lg">
                   SUGGESTIONS
                 </AppText>
               </AppView>
@@ -216,7 +215,6 @@ const styles = StyleSheet.create({
   },
   input: {
     fontFamily: fonts.MANROPE_400,
-    fontWeight: '400',
     fontSize: Size.calcHeight(15),
     color: colors.GREY_WHITE,
     textAlign: 'center',

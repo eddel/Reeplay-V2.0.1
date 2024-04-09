@@ -174,12 +174,12 @@ const AuthFormComponent = ({
   return (
     <AppView className="w-full pt-7 pb-[18px] items-center">
       {screen === 'reset' && (
-        <AppText className="text-xl text-white font-semibold font-MANROPE_600 text-center mt-4 mb-6">
+        <AppText className="text-xl text-white font-MANROPE_600 text-center mt-4 mb-6">
           Reset your password
         </AppText>
       )}
       {error !== '' && (
-        <AppText className="font-medium font-MANROPE_500 text-sm text-red mb-4 -mt-2">
+        <AppText className="font-MANROPE_500 text-sm text-red mb-4 -mt-2">
           {error}
         </AppText>
       )}
@@ -361,7 +361,7 @@ const AuthFormComponent = ({
         <>
           <AppText
             style={{fontFamily: fonts.INTER_400}}
-            className="mt-8 font-normal text-[13px] text-[#9095A0] text-center">
+            className="mt-8 text-[13px] text-[#9095A0] text-center">
             By signing up, you agree to REEPLAY's
           </AppText>
           <AppView className="mt-1 mb-4 flex-row items-center justify-center gap-x-1">
@@ -387,7 +387,7 @@ const AuthFormComponent = ({
         <Pressable
           onPress={() => navLogin.navigate(routes.SIGNUP_SCREEN)}
           style={{marginTop: Size.calcHeight(38)}}>
-          <AppText className="font-normal font-MANROPE_400 text-base text-red">
+          <AppText className="font-MANROPE_400 text-base text-red">
             Create new account
           </AppText>
         </Pressable>
@@ -395,7 +395,7 @@ const AuthFormComponent = ({
 
       {(screen === 'login' || screen === 'signUp') && (
         <AppView className="flex-row items-center mt-3">
-          <AppText className="text-base text-[#BCC1CA] font-normal font-MANROPE_400 text-center">
+          <AppText className="text-base text-[#BCC1CA] font-MANROPE_400 text-center">
             {screen === 'login'
               ? 'Forgot your Password?'
               : 'Already had an account?'}
@@ -415,7 +415,7 @@ const AuthFormComponent = ({
                 },
                 {color: screen === 'login' ? '#379AE6' : colors.RED},
               ]}
-              className="font-normal font-MANROPE_400 text-base ml-1">
+              className="font-MANROPE_400 text-base ml-1">
               {screen === 'login' ? 'Reset it' : 'Log in'}
             </AppText>
           </Pressable>
@@ -432,7 +432,6 @@ const styles = StyleSheet.create({
     width: '100%',
     borderColor: '#BCC1CA73',
     borderWidth: 1,
-    fontWeight: '400',
     fontFamily: fonts.MANROPE_400,
     fontSize: Platform.OS === 'ios' ? Size.calcHeight(16) : Size.calcHeight(16),
     color: '#BCC1CA',
@@ -449,10 +448,8 @@ const styles = StyleSheet.create({
     paddingLeft: Size.calcHeight(18),
   },
   text: {
-    fontWeight: '500',
     fontFamily: fonts.MANROPE_400,
-    fontSize:
-      Platform.OS === 'ios' ? Size.calcHeight(15) : Size.calcHeight(15.5),
+    fontSize: Platform.OS === 'ios' ? Size.calcHeight(16) : Size.calcHeight(16),
     color: '#BCC1CA',
   },
   center: {
@@ -461,7 +458,6 @@ const styles = StyleSheet.create({
   },
   privacyText: {
     fontFamily: fonts.INTER_400,
-    fontWeight: '400',
     fontSize: Size.calcHeight(14),
     color: '#379AE6',
   },

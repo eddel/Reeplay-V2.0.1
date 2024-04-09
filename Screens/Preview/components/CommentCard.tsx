@@ -27,17 +27,17 @@ const SingleCommentCard = () => {
       />
       <AppView>
         {/* Content */}
-        <AppText className="font-normal font-ROBOTO_400 text-[11.8px] tracking-wide max-w-[93%] text-white">
+        <AppText className="font-ROBOTO_400 text-[11.8px] tracking-wide max-w-[93%] text-white">
           2 Sisters set out to Impress the World in a thrilling show of Bravery
           and Comedic Trickery.
         </AppText>
 
         {/* Name */}
         <AppView className="flex-row items-center gap-x-1 mt-[3px]">
-          <AppText className="font-bold font-ROBOTO_700 text-[11.8px] text-yellow">
+          <AppText className="font-ROBOTO_700 text-[11.8px] text-yellow">
             RMD
           </AppText>
-          <AppText className="font-normal font-ROBOTO_400 text-[11.8px] text-grey_200">
+          <AppText className="font-ROBOTO_400 text-[11.8px] text-grey_200">
             1 hour ago
           </AppText>
         </AppView>
@@ -48,13 +48,13 @@ const SingleCommentCard = () => {
             <TouchableOpacity onPress={setIsLike}>
               {isLike ? <LikeBtn_F /> : <LikeBtn />}
             </TouchableOpacity>
-            <AppText className="font-ROBOTO_400 font-normal text-white text-[11.8px]">
+            <AppText className="font-ROBOTO_400 text-white text-[11.8px]">
               29
             </AppText>
           </AppView>
           <TouchableOpacity className="flex-row items-center gap-x-1.5">
             <ReplyIcon />
-            <AppText className="text-[11.8px] text-yellow font-normal font-ROBOTO_400">
+            <AppText className="text-[11.8px] text-yellow font-ROBOTO_400">
               Reply
             </AppText>
           </TouchableOpacity>
@@ -63,5 +63,3 @@ const SingleCommentCard = () => {
     </AppView>
   );
 };
-
-const styles = StyleSheet.create({});

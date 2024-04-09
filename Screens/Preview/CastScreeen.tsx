@@ -102,10 +102,10 @@ const CastScreeen = () => {
           />
 
           <AppView className="absolute bottom-0 z-30 items-center w-full">
-            <AppText className="teext-center uppercase font-bold font-ROBOTO_700 text-[15px] text-white">
+            <AppText className="teext-center uppercase font-ROBOTO_700 text-[15px] text-white">
               Actor
             </AppText>
-            <AppText className="mt-1 font-bold font-ROBOTO_700 text-[30px] text-white text-center">
+            <AppText className="mt-1 font-ROBOTO_700 text-[30px] text-white text-center">
               Richard Mofe
             </AppText>
             <AppButton
@@ -119,7 +119,7 @@ const CastScreeen = () => {
         </AppView>
 
         <AppView className="w-full items-center pt-4">
-          <AppText className="max-w-[83%] mt-2 font-normal tracking-wide font-ROBOTO_400 text-white text-[14px] text-center">
+          <AppText className="max-w-[83%] mt-2 tracking-wide font-ROBOTO_400 text-white text-[14px] text-center">
             #2skidBette #enterpreneur #upcomingartist Editor | Developer |
             Talent | Music Artiste | Business Ready to Pick the Dreams that
             chosed Me.
@@ -132,7 +132,7 @@ const CastScreeen = () => {
               width: '100%',
               alignSelf: 'center',
             }}>
-            <AppText className="font-bold font-ROBOTO_700 text-[15px] text-white text-center">
+            <AppText className="font-ROBOTO_700 text-[15px] text-white text-center">
               OTHER MOVIES FEATURED ON
             </AppText>
 
@@ -171,12 +171,12 @@ const CastScreeen = () => {
             <TouchableOpacity
               className="py-5 border-b border-grey_200/10 pb-[21px]"
               onPress={handleShare}>
-              <AppText className="text-center font-normal font-ROBOTO_400 text-[13px] text-grey_100">
+              <AppText className="text-center font-ROBOTO_400 text-[13px] text-grey_100">
                 Share
               </AppText>
             </TouchableOpacity>
             <TouchableOpacity className="py-5" onPress={goBack}>
-              <AppText className="text-center font-normal font-ROBOTO_400 text-[13px] text-grey_100">
+              <AppText className="text-center font-ROBOTO_400 text-[13px] text-grey_100">
                 Close
               </AppText>
             </TouchableOpacity>
@@ -204,7 +204,6 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontFamily: fonts.ROBOTO_700,
-    fontWeight: '700',
     fontSize: 15,
     color: colors.WHITE,
   },

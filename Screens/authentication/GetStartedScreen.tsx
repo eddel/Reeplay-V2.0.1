@@ -165,13 +165,13 @@ const GetStartedScreen = () => {
         </TouchableOpacity>
         {user.fullname !== '' && (
           <>
-            <AppText className="mt-4 text-[24px] text-white font-bold font-LEXEND_700">
+            <AppText className="mt-4 text-[24px] text-white font-LEXEND_700">
               Welcome back
             </AppText>
-            <AppText className="capitalize text-[24px] -mt-[2px] text-white font-bold font-LEXEND_700">
+            <AppText className="capitalize text-[24px] -mt-[4px] text-white font-LEXEND_700">
               {user.fullname.split(' ')[0]}
             </AppText>
-            <AppText className="text-base -mt-[1px] text-white font-normal font-MANROPE_400">
+            <AppText className="text-base -mt-[2px] text-white font-MANROPE_400">
               Login to continue
             </AppText>
           </>
@@ -255,7 +255,6 @@ const styles = StyleSheet.create({
   },
   privacyText: {
     fontFamily: fonts.ROBOTO_400,
-    fontWeight: '400',
     fontSize: Size.calcHeight(14),
     color: colors.GREY_100,
   },
@@ -272,7 +271,6 @@ const styles = StyleSheet.create({
   labelStyle: {
     fontSize: 13,
     fontFamily: fonts.MANROPE_700,
-    fontWeight: '800',
     color: '#E5E5E5',
   },
 });

@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet} from 'react-native';
+import {Platform, Pressable, StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {AppHeader, AppScreen, AppText, AppView, OTPInput} from '@/components';
 import {useNavigation} from '@react-navigation/native';
@@ -53,13 +53,13 @@ const AppPIN = () => {
     <AppScreen containerStyle={{paddingTop: 15, position: 'relative'}}>
       <AppHeader />
 
-      <AppText className="text-2xl text-white font-bold font-LEXEND_700 mt-12">
+      <AppText className="text-2xl text-white font-LEXEND_700 mt-12">
         Welcome back
       </AppText>
-      <AppText className="text-2xl text-white font-bold font-LEXEND_700 -mt-1">
+      <AppText className="text-2xl text-white font-LEXEND_700 -mt-1">
         {user.fullname.split(' ')[0]}
       </AppText>
-      <AppText className=" text-sm text-white font-normal font-MANROPE_400">
+      <AppText className=" text-sm text-white font-MANROPE_400">
         Use pin to continue
       </AppText>
 
@@ -68,7 +68,7 @@ const AppPIN = () => {
         {error && (
           <AppText
             style={{alignSelf: 'center'}}
-            className="max-w-[120px] text-red text-[16px] text-center font-medium font-MANROPE_500 mt-3">
+            className="max-w-[120px] text-red text-[16px] text-center font-MANROPE_500 mt-3">
             Invalid PIN. Please try again
           </AppText>
         )}
@@ -87,7 +87,6 @@ export default AppPIN;
 const styles = StyleSheet.create({
   forgotText: {
     fontFamily: fonts.MANROPE_400,
-    fontWeight: '400',
     fontSize: Size.calcHeight(18),
     color: colors.YELLOW_500,
     textAlign: 'center',

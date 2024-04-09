@@ -162,7 +162,7 @@ const SettingScreen = () => {
           </AppView>
           <AppText
             style={{alignSelf: 'center'}}
-            className="absolute top-0 font-LEXEND_600 font-semibold text-[20px] text-white">
+            className="absolute top-0 font-LEXEND_600 text-[20px] text-white">
             Settings
           </AppText>
         </AppView>
@@ -174,7 +174,7 @@ const SettingScreen = () => {
             <FingerPrint style={{marginTop: 2}} />
             <AppView className="ml-2 pr-8">
               <AppView className="flex-row w-full items-center justify-between">
-                <AppText className="font-medium font-MANROPE_500 text-base text-white">
+                <AppText className="font-MANROPE_500 text-base text-white">
                   Biometrics
                 </AppText>
                 <TouchableOpacity
@@ -192,7 +192,7 @@ const SettingScreen = () => {
                   <Animated.View style={[animatedStyle, styles.circle]} />
                 </TouchableOpacity>
               </AppView>
-              <AppText className="mt-1 font-normal  font-MANROPE_400 text-white text-sm">
+              <AppText className="mt-1  font-MANROPE_400 text-white text-sm">
                 Unlock App and Authorize Reeplay Transactions with your device
                 Biometric Security.
               </AppText>
@@ -225,7 +225,7 @@ const SettingScreen = () => {
                   <PrivacyPolicyIcon />
                 )}
                 {tabs.toLowerCase().includes('about') && <AboutUsIcon />}
-                <AppText className="font-normal font-MANROPE_400 text-sm text-white ">
+                <AppText className="font-MANROPE_400 text-sm text-white ">
                   {tabs}
                 </AppText>
               </AppView>
@@ -255,7 +255,7 @@ const SettingScreen = () => {
               <VideoQualityOption />
             ) : (
               <AppView className="">
-                <AppText className="mt-4 font-normal font-ROBOTO_400 text-sm text-black text-center leading-5">
+                <AppText className="mt-4 font-ROBOTO_400 text-sm text-black text-center leading-5">
                   Are you sure you want to {'\n'}clear watchlist?
                 </AppText>
 
@@ -290,7 +290,6 @@ export default SettingScreen;
 const styles = StyleSheet.create({
   btnLabel: {
     fontFamily: fonts.ROBOTO_700,
-    fontWeight: '700',
     fontSize: 16,
     color: colors.GREY_100,
     marginLeft: 8,

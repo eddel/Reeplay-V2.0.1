@@ -17,7 +17,7 @@ const SeriesContent = () => {
   return (
     <AppView className="mt-3 pt-[10px] border-t border-grey_200/10">
       <AppView className="w-[82px]">
-        <AppText className="font-ROBOTO_700 font-bold text-white text-[13px]">
+        <AppText className="font-ROBOTO_700 text-white text-[13px]">
           EPISODES
         </AppText>
         <AppView className="w-[47px] mt-[3px] ml-1.5 h-[2px] bg-grey_100 rounded-[1px]" />
@@ -25,7 +25,7 @@ const SeriesContent = () => {
 
       <AppView className="mt-5">
         <TouchableOpacity className="ml-1 mb-2 flex-row items-center">
-          <AppText className="mr-2 font-normal font-ROBOTO_400 text-white text-[13px]">
+          <AppText className="mr-2 font-ROBOTO_400 text-white text-[13px]">
             Season 1
           </AppText>
           <OpenDropDwn />
@@ -110,15 +110,15 @@ const SeriesView = ({
       <AppView className="ml-3 flex-row flex-1">
         <AppView className="mt-2 ">
           <AppView className="flex-row items-center">
-            <AppText className="mr-1 font-normal font-ROBOTO_400 text-[13px] text-white">
+            <AppText className="mr-1 font-ROBOTO_400 text-[13px] text-white">
               {index}.
             </AppText>
-            <AppText className="font-normal font-ROBOTO_400 text-[13px] text-white">
+            <AppText className="font-ROBOTO_400 text-[13px] text-white">
               {title}
             </AppText>
           </AppView>
 
-          <AppText className="max-w-[90%] mt-[7px] font-normal font-ROBOTO_400 text-[11px] text-white">
+          <AppText className="max-w-[90%] mt-[7px] font-ROBOTO_400 text-[11px] text-white">
             {description}
           </AppText>
         </AppView>

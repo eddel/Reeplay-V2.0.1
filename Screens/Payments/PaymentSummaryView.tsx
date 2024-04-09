@@ -58,24 +58,24 @@ const PaymentSummaryView = () => {
     case 'summary':
       return (
         <AppView className="bg-black px-5 relative  h-full">
-          <AppText className="mt-24 font-noraml font-MANROPE_400 text-[20px] text-center text-white">
+          <AppText className="mt-24 font-MANROPE_400 text-[20px] text-center text-white">
             Review Summary
           </AppText>
 
           <AppView className="mt-10 px-4">
             <AppView className="flex-row items-center justify-between">
-              <AppText className="font-normal font-MANROPE_400 text-white text-sm">
+              <AppText className="font-MANROPE_400 text-white text-sm">
                 Amount
               </AppText>
-              <AppText className="font-normal font-LEXEND_400 text-white text-sm">
+              <AppText className="font-LEXEND_400 text-white text-sm">
                 ₦2,640.00
               </AppText>
             </AppView>
             <AppView className="flex-row items-center justify-between mt-6">
-              <AppText className="font-normal font-MANROPE_400 text-white text-sm">
+              <AppText className="font-MANROPE_400 text-white text-sm">
                 Fee
               </AppText>
-              <AppText className="font-normal font-MANROPE_400 text-white text-sm">
+              <AppText className="font-MANROPE_400 text-white text-sm">
                 ₦0.00
               </AppText>
             </AppView>
@@ -84,10 +84,10 @@ const PaymentSummaryView = () => {
               className="border border-white w-[98%] h-[2px] mt-3"
             />
             <AppView className="flex-row items-center justify-between mt-5">
-              <AppText className="font-normal font-MANROPE_400 text-white text-sm">
+              <AppText className="font-MANROPE_400 text-white text-sm">
                 Total
               </AppText>
-              <AppText className="font-normal font-LEXEND_400 text-white text-sm">
+              <AppText className="font-LEXEND_400 text-white text-sm">
                 ₦2,640.00
               </AppText>
             </AppView>
@@ -103,14 +103,14 @@ const PaymentSummaryView = () => {
 
               <AppView className="flex-row items-center">
                 <Purple_Sub_card />
-                <AppText className="font-normal font-MANROPE_400 text-[#171A1F] text-sm ml-2">
+                <AppText className="font-MANROPE_400 text-[#171A1F] text-sm ml-2">
                   {paymentMethod}
                 </AppText>
               </AppView>
               <TouchableOpacity
                 onPress={() => setShowList(!showList)}
                 className="mr-[18px]">
-                <AppText className="font-semibold font-MANROPE_600 text-[11.5px] text-red">
+                <AppText className="font-MANROPE_600 text-[11.5px] text-red">
                   Change
                 </AppText>
               </TouchableOpacity>
@@ -137,7 +137,7 @@ const PaymentSummaryView = () => {
                       {pay.includes('PAYPAL') && <PayPal />}
                       {pay.includes('USSD') && <BankUSSD />}
                       {pay.includes('CRYPTO') && <Bitcoin />}
-                      <AppText className="font-normal font-MANROPE_400 text-sm text-white">
+                      <AppText className="font-MANROPE_400 text-sm text-white">
                         {pay}
                       </AppText>
                       <RightArrow />
@@ -166,10 +166,10 @@ const PaymentSummaryView = () => {
     case 'payStack':
       return (
         <AppScreen containerStyle={{position: 'relative'}}>
-          <AppText className="mt-[50%] font-semibold font-MANROPE_600 text-[40px] text-white text-center">
+          <AppText className="mt-[50%] font-MANROPE_600 text-[40px] text-white text-center">
             PAYSTACK
           </AppText>
-          <AppText className="font-bold font-MANROPE_700 text-[20px] text-center text-grey_200">
+          <AppText className="font-MANROPE_700 text-[20px] text-center text-grey_200">
             or selected payment processor
           </AppText>
 

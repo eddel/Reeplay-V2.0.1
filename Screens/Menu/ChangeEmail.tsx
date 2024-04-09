@@ -51,12 +51,12 @@ const ChangeEmail = () => {
     <AppScreen containerStyle={{paddingTop: 10, position: 'relative'}}>
       <AppHeader />
 
-      <AppText className="font-bold font-LEXEND_700 text-white text-2xl mt-12 mb-[68px]">
+      <AppText className=" font-LEXEND_700 text-white text-2xl mt-12 mb-[68px]">
         Change email
       </AppText>
 
       {error && (
-        <AppText className=" text-red text-[16px] font-medium font-MANROPE_500 mt-3">
+        <AppText className=" text-red text-[16px] font-MANROPE_500 mt-3">
           {errorMessage}
         </AppText>
       )}
@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Size.calcHeight(18),
     paddingVertical: Size.calcHeight(15),
     fontFamily: fonts.MANROPE_500,
-    fontWeight: '500',
     fontSize: 16,
     color: '#474748',
   },

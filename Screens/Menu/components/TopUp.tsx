@@ -55,7 +55,7 @@ const TopUp = ({setStage, tab}: Props) => {
           <BigClose />
         </Pressable>
       </AppView>
-      <AppText className="font-bold font-LEXEND_700 text-2xl text-white">
+      <AppText className="font-LEXEND_700 text-2xl text-white">
         How much do you want to {tab === 'donate' ? 'donate' : 'topup'}?
       </AppText>
 
@@ -63,7 +63,7 @@ const TopUp = ({setStage, tab}: Props) => {
         <AppView
           style={styles.inputContainer}
           className="flex-row items-center">
-          <AppText className="font-normal font-MANROPE_400 text-base text-[#171A1F]">
+          <AppText className="font-MANROPE_400 text-base text-[#171A1F]">
             ₦
           </AppText>
           <TextInput
@@ -91,7 +91,7 @@ const TopUp = ({setStage, tab}: Props) => {
                 className="py-[14px] mb-3 rounded-lg items-center justify-center">
                 <AppText
                   style={{color: showClicked ? 'white' : 'black'}}
-                  className="font-normal font-MANROPE_400 text-lg">
+                  className="font-MANROPE_400 text-lg">
                   ₦{option}
                 </AppText>
               </TouchableOpacity>
@@ -110,14 +110,14 @@ const TopUp = ({setStage, tab}: Props) => {
 
           <AppView className="flex-row items-center">
             <Purple_Sub_card />
-            <AppText className="font-normal font-MANROPE_400 text-[#171A1F] text-sm ml-2">
+            <AppText className="font-MANROPE_400 text-[#171A1F] text-sm ml-2">
               {paymentMethod}
             </AppText>
           </AppView>
           <TouchableOpacity
             onPress={() => setShowList(!showList)}
             className="mr-[18px]">
-            <AppText className="font-semibold font-MANROPE_600 text-[11.5px] text-red">
+            <AppText className="font-MANROPE_600 text-[11.5px] text-red">
               Change
             </AppText>
           </TouchableOpacity>
@@ -144,7 +144,7 @@ const TopUp = ({setStage, tab}: Props) => {
                     {pay.includes('PAYPAL') && <PayPal />}
                     {pay.includes('USSD') && <BankUSSD />}
                     {pay.includes('CRYPTO') && <Bitcoin />}
-                    <AppText className="font-normal font-MANROPE_400 text-sm text-white">
+                    <AppText className="font-MANROPE_400 text-sm text-white">
                       {pay}
                     </AppText>
                     <RightArrow />
@@ -181,7 +181,6 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontWeight: '400',
     fontFamily: fonts.MANROPE_400,
     fontSize: 16,
     color: '#171A1F',

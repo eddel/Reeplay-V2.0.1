@@ -28,14 +28,12 @@ export default PrivacyScreen;
 
 const styles = StyleSheet.create({
   header: {
-    fontWeight: 'bold',
     fontFamily: fonts.MANROPE_700,
     fontSize: Size.calcHeight(16),
     color: colors.WHITE,
     marginVertical: Size.calcHeight(12),
   },
   body: {
-    fontWeight: '400',
     fontFamily: fonts.MANROPE_400,
     fontSize: Size.calcHeight(16),
     color: colors.WHITE,

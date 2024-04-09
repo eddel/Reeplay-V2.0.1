@@ -15,8 +15,8 @@ const VideoQualityOption = () => {
         return (
           <Pressable style={[styles.center]} onPress={() => setActiveIndx(i)}>
             <AppText
-              style={show && {fontWeight: '700', fontFamily: fonts.ROBOTO_700}}
-              className="font-normal mr-1 font-ROBOTO_400 text-[13px] text-black">
+              style={show && {fontFamily: fonts.ROBOTO_700}}
+              className="mr-1 font-ROBOTO_400 text-[13px] text-black">
               {item}
             </AppText>
             {show && <QualityCheck />}

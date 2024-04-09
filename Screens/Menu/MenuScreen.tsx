@@ -113,7 +113,7 @@ const MenuScreen = () => {
                 source={require('@/assets/images/bbn.png')}
                 className="w-[40px] h-[40px] rounded-full"
               />
-              <AppText className="font-bold font-MANROPE_700 text-base text-white">
+              <AppText className="font-MANROPE_700 text-base text-white">
                 Edward Bette
               </AppText>
             </AppView>
@@ -138,7 +138,7 @@ const MenuScreen = () => {
                 {tab === 'Suggestions' && <SuggestionIcon />}
                 {tab === 'Giftcards' && <GiftCardIcon />}
                 {tab === 'Settings' && <SettingsIcon />}
-                <AppText className="font-normal font-MANROPE_400 text-[14.5px] text-white">
+                <AppText className="font-MANROPE_400 text-[14.5px] text-white">
                   {tab}
                 </AppText>
               </TouchableOpacity>
@@ -155,11 +155,11 @@ const MenuScreen = () => {
                   })
                 : setShowModal(true)
             }>
-            <AppText className="font-normal font-MANROPE_400 text-sm text-red">
+            <AppText className="font-MANROPE_400 text-sm text-red">
               {isSkipped ? 'Sign Up' : 'Log out'}
             </AppText>
           </Pressable>
-          <AppText className="mt-3 font-normal font-MANROPE_400 text-sm text-light_blue">
+          <AppText className="mt-3 font-MANROPE_400 text-sm text-light_blue">
             Reeplay Version 2.0.1
           </AppText>
         </AppView>
@@ -170,7 +170,7 @@ const MenuScreen = () => {
         hideCloseBtn
         replaceDefaultContent={
           <AppView className="">
-            <AppText className="mt-4 font-normal font-ROBOTO_400 text-sm text-black text-center leading-5">
+            <AppText className="mt-4 font-ROBOTO_400 text-sm text-black text-center leading-5">
               Are you sure you want to {'\n'}Logout?
             </AppText>
 
@@ -202,10 +202,10 @@ const MenuScreen = () => {
         style={{height: 383}}
         replaceDefaultContent={
           <AppView className="mb-3 mt-5 items-center">
-            <AppText className="mt-5 leading-5 font-medium font-ROBOTO_500 text-[14px] text-black text-center">
+            <AppText className="mt-5 leading-5 font-ROBOTO_500 text-[14px] text-black text-center">
               Sorry, you are not authorized {'\n'}to create Ads.
             </AppText>
-            <AppText className="mt-5 leading-5 font-normal font-ROBOTO_400 text-[14px] text-black text-center">
+            <AppText className="mt-5 leading-5 font-ROBOTO_400 text-[14px] text-black text-center">
               Kindly go through a {'\n'} licensed agent, who already has a
               relationship with Reeplay.
             </AppText>
@@ -222,7 +222,6 @@ export default MenuScreen;
 const styles = StyleSheet.create({
   btnLabel: {
     fontFamily: fonts.ROBOTO_700,
-    fontWeight: '700',
     fontSize: 16,
     color: colors.GREY_100,
     marginLeft: 8,

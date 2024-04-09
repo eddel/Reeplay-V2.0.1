@@ -84,7 +84,6 @@ const AppModal = ({
                   styles.secondaryModalButtonText,
                   redCloseBtn && {
                     color: 'white',
-                    fontWeight: '600',
                     fontFamily: fonts.ROBOTO_700,
                   },
                 ]}>
@@ -122,7 +121,6 @@ const styles = StyleSheet.create({
   secondaryModalButtonText: {
     color: colors.DEEP_BLACK,
     fontFamily: fonts.ROBOTO_400,
-    fontWeight: '400',
     fontSize: Size.calcWidth(16),
   },
   btn: {

@@ -34,7 +34,7 @@ const VoteScreen = () => {
             <AppHeader />
             <AppText
               style={{alignSelf: 'center'}}
-              className="text-white text-xl font-medium font-LEXEND_500 mt-6 text-center w-[80%]">
+              className="text-white text-xl font-LEXEND_500 mt-6 text-center w-[80%]">
               To vote, select one of the options below and continue. ₦500 / Vote{' '}
             </AppText>
           </AppView>
@@ -92,10 +92,10 @@ const VoteScreen = () => {
                           />
 
                           <AppView>
-                            <AppText className="mb-1 font-semibold font-LEXEND_600 text-black text-base">
+                            <AppText className="mb-1 font-LEXEND_600 text-black text-base">
                               {x.name}
                             </AppText>
-                            <AppText className="font-normal font-MANROPE_400 text-xs text-black">
+                            <AppText className="font-MANROPE_400 text-xs text-black">
                               {x.desc}
                             </AppText>
                           </AppView>

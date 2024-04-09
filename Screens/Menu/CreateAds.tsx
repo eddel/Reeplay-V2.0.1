@@ -15,10 +15,10 @@ const CreateAds = () => {
         style={{height: 383}}
         replaceDefaultContent={
           <AppView className="mb-3 mt-5 items-center">
-            <AppText className="mt-5 leading-5 font-medium font-ROBOTO_500 text-[14px] text-black text-center">
+            <AppText className="mt-5 leading-5 font-ROBOTO_500 text-[14px] text-black text-center">
               Sorry, you are not authorized {'\n'}to create Ads.
             </AppText>
-            <AppText className="mt-5 leading-5 font-normal font-ROBOTO_400 text-[14px] text-black text-center">
+            <AppText className="mt-5 leading-5 font-ROBOTO_400 text-[14px] text-black text-center">
               Kindly go through a {'\n'} licensed agent, who already has a
               relationship with Reeplay.
             </AppText>

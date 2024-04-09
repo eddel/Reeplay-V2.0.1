@@ -14,11 +14,11 @@ const SectionHeader = ({title, onPress, btnText, headerStyle}: headerProps) => {
     <AppView
       style={headerStyle}
       className="flex-row items-center justify-between">
-      <AppText className="text-base text-white font-bold font-MANROPE_700">
+      <AppText className="text-base text-white font-MANROPE_700">
         {title}
       </AppText>
       <TouchableOpacity onPress={onPress}>
-        <AppText className="text-xs text-red font-normal font-MANROPE_400">
+        <AppText className="text-xs text-red font-MANROPE_400">
           {btnText}
         </AppText>
       </TouchableOpacity>

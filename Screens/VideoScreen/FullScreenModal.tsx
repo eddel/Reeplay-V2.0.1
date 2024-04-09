@@ -444,7 +444,7 @@ const FullScreenModal = () => {
                     />
                   )}
 
-                  <AppText className="font-medium font-ROBOTO_500 text-white text-[11px]">
+                  <AppText className="font-ROBOTO_500 text-white text-[11px]">
                     Video Title
                   </AppText>
                 </AppView>
@@ -476,7 +476,7 @@ const FullScreenModal = () => {
                           }}>
                           <AppView className="w-[9px] h-[9px] rounded-full bg-red" />
                         </MotiView>
-                        <AppText className="font-medium font-ROBOTO_500 text-[11px] text-white">
+                        <AppText className="font-ROBOTO_500 text-[11px] text-white">
                           LIVE
                         </AppText>
                       </>
@@ -498,7 +498,7 @@ const FullScreenModal = () => {
                           marginRight: 16,
                         }}>
                         <NextIcon />
-                        <AppText className="ml-[5px] font-semibold font-ROBOTO_700 text-white text-[10px]">
+                        <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
                           Next
                         </AppText>
                       </TouchableOpacity>
@@ -510,7 +510,7 @@ const FullScreenModal = () => {
                             marginRight: 16,
                           }}>
                           <EpisodesMenu />
-                          <AppText className="ml-[5px] font-semibold font-ROBOTO_700 text-white text-[10px]">
+                          <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
                             Episodes
                           </AppText>
                         </TouchableOpacity>
@@ -521,7 +521,7 @@ const FullScreenModal = () => {
                           alignItems: 'center',
                         }}>
                         <SubtitleIcon />
-                        <AppText className="ml-[5px] font-semibold font-ROBOTO_700 text-white text-[10px]">
+                        <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
                           Audio/Subtitle
                         </AppText>
                       </TouchableOpacity>
@@ -537,7 +537,7 @@ const FullScreenModal = () => {
                         marginRight: 16,
                       }}>
                       <Donate_VoteIcon />
-                      <AppText className="ml-[5px] font-semibold font-ROBOTO_700 text-[#FFCC00] text-[13px]">
+                      <AppText className="ml-[5px] font-ROBOTO_700 text-[#FFCC00] text-[13px]">
                         {donate && 'Donate'}
                         {vote && 'Vote'}
                       </AppText>
@@ -560,7 +560,7 @@ const FullScreenModal = () => {
                     styles.progressBar,
                     {transform: [{translateY: transD.current}]},
                   ]}>
-                  <AppText className="text-white text-[13px] font-medium font-OUTFIT_500 w-[60px]">
+                  <AppText className="text-white text-[13px] font-OUTFIT_500 w-[60px]">
                     {formatDuration(duration)}
                   </AppText>
                   <AppView
@@ -582,7 +582,7 @@ const FullScreenModal = () => {
                       />
                     </AppView>
                   </AppView>
-                  <AppText className="text-white text-[13px] font-medium font-OUTFIT_500 w-[60px] text-center">
+                  <AppText className="text-white text-[13px] font-OUTFIT_500 w-[60px] text-center">
                     {formatDuration(currentTime)}
                   </AppText>
                 </Animated.View>

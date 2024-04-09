@@ -60,7 +60,7 @@ const AccountScreen = () => {
     <>
       <AppScreen scrollable containerStyle={{paddingTop: 20}}>
         <TouchableOpacity onPress={() => navigate(routes.MENU_SCREEN)}>
-          <AppText className="font-normal font-ROBOTO_400 text-white text-[15px]">
+          <AppText className="font-ROBOTO_400 text-white text-[15px]">
             Back
           </AppText>
         </TouchableOpacity>
@@ -80,10 +80,10 @@ const AccountScreen = () => {
             )}
 
             <AppView>
-              <AppText className="font-bold font-MANROPE_700 text-white text-lg">
+              <AppText className="font-MANROPE_700 text-white text-lg">
                 Edward Bette
               </AppText>
-              <AppText className="font-normal font-MANROPE_400 text-grey_100 text-[14px]">
+              <AppText className="font-MANROPE_400 text-grey_100 text-[14px]">
                 Joined Dec 06, 2023
               </AppText>
             </AppView>
@@ -96,7 +96,7 @@ const AccountScreen = () => {
 
         {/* Body */}
         <AppView className="mt-11">
-          <AppText className="font-medium font-MANROPE_500 text-[16px] text-white uppercase">
+          <AppText className="font-MANROPE_500 text-[16px] text-white uppercase">
             ACCOUNT
           </AppText>
           <AppView className="mt-3 pt-5 pb-7 pl-4 pr-5 space-y-9 border border-[#C4C4C445] rounded-md bg-[#1A1A1AD9]">
@@ -105,7 +105,7 @@ const AccountScreen = () => {
               className="flex-row items-center justify-between">
               <AppView className="flex-row items-center">
                 <AccountDashboard />
-                <AppText className="ml-2 font-normal font-MANROPE_400 text-base text-white">
+                <AppText className="ml-2 font-MANROPE_400 text-base text-white">
                   Reeplay@gmail.com
                 </AppText>
               </AppView>
@@ -118,7 +118,7 @@ const AccountScreen = () => {
               className="flex-row items-center justify-between">
               <AppView className="flex-row items-center">
                 <PasswordDashboard />
-                <AppText className="ml-2 font-normal font-MANROPE_400 text-base text-white">
+                <AppText className="ml-2 font-MANROPE_400 text-base text-white">
                   Change Password
                 </AppText>
               </AppView>
@@ -131,7 +131,7 @@ const AccountScreen = () => {
               className="flex-row items-center justify-between">
               <AppView className="flex-row items-center">
                 <PinDashboard />
-                <AppText className="ml-2 font-normal font-MANROPE_400 text-base text-white">
+                <AppText className="ml-2 font-MANROPE_400 text-base text-white">
                   Change Pin
                 </AppText>
               </AppView>
@@ -144,7 +144,7 @@ const AccountScreen = () => {
               className="flex-row items-center justify-between">
               <AppView className="flex-row items-center">
                 <PhoneDashboard />
-                <AppText className="ml-2 font-normal font-MANROPE_400 text-base text-white">
+                <AppText className="ml-2 font-MANROPE_400 text-base text-white">
                   +2347057456832
                 </AppText>
               </AppView>
@@ -155,7 +155,7 @@ const AccountScreen = () => {
         </AppView>
 
         <AppView className="mt-10">
-          <AppText className="font-medium font-MANROPE_500 text-[16px] text-white uppercase">
+          <AppText className=" font-MANROPE_500 text-[16px] text-white uppercase">
             BILLING
           </AppText>
           <AppView className="mt-3 pt-5 pb-7 pl-4 pr-5 border border-[#C4C4C445] rounded-md bg-[#1A1A1AD9]">
@@ -165,7 +165,7 @@ const AccountScreen = () => {
                   <VisaCard />
                   <AppView className="flex-row items-center ml-3">
                     <CardDots />
-                    <AppText className="font-medium font-MANROPE_500 text-[15px] text-white ml-1.5">
+                    <AppText className="font-MANROPE_500 text-[15px] text-white ml-1.5">
                       5071
                     </AppText>
                   </AppView>
@@ -173,7 +173,7 @@ const AccountScreen = () => {
 
                 <TouchableOpacity className="flex-row items-center mr-1.5">
                   <Green_SubscripeIcon />
-                  <AppText className="font-normal font-MANROPE_400 text-[13px] text-green ml-1">
+                  <AppText className="font-MANROPE_400 text-[13px] text-green ml-1">
                     Active Plan
                   </AppText>
                 </TouchableOpacity>
@@ -185,14 +185,14 @@ const AccountScreen = () => {
                 }
                 className="flex-row items-center gap-x-2 mb-7">
                 <SubscribeIcon />
-                <AppText className="font-normal font-MANROPE_400 text-yellow text-base">
+                <AppText className=" font-MANROPE_400 text-yellow text-base">
                   Get Subscription
                 </AppText>
               </TouchableOpacity>
             )}
 
             <TouchableOpacity className="flex-row items-center justify-between ml-1 mb-8">
-              <AppText className="font-normal font-MANROPE_400 text-[16px] text-white">
+              <AppText className=" font-MANROPE_400 text-[16px] text-white">
                 {billingService
                   ? 'Your next billing date is Jan 14, 2024'
                   : 'Your next billing date is not available'}
@@ -203,7 +203,7 @@ const AccountScreen = () => {
             <TouchableOpacity
               onPress={() => navigate(routes.ADD_PAYMENT_METHOD)}
               className="flex-row items-center justify-between">
-              <AppText className="ml-2 font-normal font-MANROPE_400 text-[16px] text-white">
+              <AppText className="ml-2 font-MANROPE_400 text-[16px] text-white">
                 {billingService
                   ? 'Change Payment Method '
                   : 'Add Payment Method / Billing Details'}
@@ -216,10 +216,10 @@ const AccountScreen = () => {
               {billingService ? (
                 <AppView className="flex-row items-center justify-between px-5">
                   <AppView className="ml-2">
-                    <AppText className="font-bold font-ROBOTO_700 text-base text-red">
+                    <AppText className=" font-ROBOTO_700 text-base text-red">
                       ₦300.00
                     </AppText>
-                    <AppText className="font-normal font-MANROPE_400 text-white text-[14px] text-center">
+                    <AppText className=" font-MANROPE_400 text-white text-[14px] text-center">
                       Balance
                     </AppText>
                   </AppView>
@@ -264,12 +264,12 @@ const AccountScreen = () => {
                 ? navigate(routes.CANCEL_SUBSCRIPTION_SCREEN)
                 : setShowModal(true)
             }>
-            <AppText className="font-normal font-MANROPE_400 text-sm text-[#DE3B40]">
+            <AppText className=" font-MANROPE_400 text-sm text-[#DE3B40]">
               {billingService ? 'Cancel Subscription' : 'Log out'}
             </AppText>
           </Pressable>
           <Pressable onPress={() => navigate(routes.DELETE_ACCOUNT_SCREEN)}>
-            <AppText className="mt-3 font-normal font-MANROPE_400 text-sm text-light_blue">
+            <AppText className="mt-3 font-MANROPE_400 text-sm text-light_blue">
               Delete account
             </AppText>
           </Pressable>
@@ -280,7 +280,7 @@ const AccountScreen = () => {
         isModalVisible={showModal}
         replaceDefaultContent={
           <AppView className="">
-            <AppText className="mt-4 font-normal font-ROBOTO_400 text-sm text-black text-center leading-5">
+            <AppText className="mt-4 font-ROBOTO_400 text-sm text-black text-center leading-5">
               Are you sure you want to {'\n'}Logout?
             </AppText>
 
@@ -312,7 +312,6 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   btnLabel: {
     fontFamily: fonts.ROBOTO_700,
-    fontWeight: '700',
     fontSize: 16,
     color: colors.GREY_100,
     marginLeft: 8,

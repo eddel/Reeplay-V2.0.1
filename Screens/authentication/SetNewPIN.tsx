@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {
   AppButton,
@@ -57,10 +57,10 @@ const SetNewPIN = () => {
     <AppScreen containerStyle={{paddingTop: 10, position: 'relative'}}>
       <AppHeader />
 
-      <AppText className="text-2xl text-white font-bold font-LEXEND_700 mt-12">
+      <AppText className="text-2xl text-white font-LEXEND_700 mt-12">
         Confirm your new
       </AppText>
-      <AppText className="text-2xl text-white font-bold font-LEXEND_700 mb-2">
+      <AppText className="text-2xl text-white font-LEXEND_700 mb-2">
         App pin
       </AppText>
 
@@ -69,7 +69,7 @@ const SetNewPIN = () => {
         {error && (
           <AppText
             style={{alignSelf: 'center'}}
-            className="max-w-[120px] text-red text-[16px] text-center font-medium font-MANROPE_500 mt-3">
+            className="max-w-[120px] text-red text-[16px] text-center font-MANROPE_500 mt-3">
             Invalid PIN. Please try again
           </AppText>
         )}

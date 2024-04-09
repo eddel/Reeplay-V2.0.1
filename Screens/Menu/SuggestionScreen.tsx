@@ -36,17 +36,17 @@ const SuggestionScreen = () => {
       <AppView className="mt-6 bg-red pt-3 px-1 rounded-[15px]">
         <AppView className="flex-row items-center justify-between px-3 pb-2">
           <AppView>
-            <AppText className="font-normal font-LEXEND_400 text-base text-white ">
+            <AppText className="font-LEXEND_400 text-base text-white ">
               REEPLAY
             </AppText>
-            <AppText className="font-medium font-MANROPE_500 text-white text-xs">
+            <AppText className="font-MANROPE_500 text-white text-xs">
               Ads that meet your interest
             </AppText>
           </AppView>
           <TouchableOpacity
             onPress={handleLink}
             className="bg-white py-2 px-3 rounded-[40px]">
-            <AppText className="font-semibold font-MANROPE_600 text-red text-xs">
+            <AppText className="font-MANROPE_600 text-red text-xs">
               BUY NOW
             </AppText>
           </TouchableOpacity>
@@ -66,10 +66,10 @@ const SuggestionScreen = () => {
 
       <AppView className="rounded-[15px] overflow-hidden bg-[#1A1A1A]">
         <AppView className="bg-[#1A1A1A] rounded-t-[15px] py-3 px-[14px]">
-          <AppText className="font-bold font-ROBOTO_700 text-white text-lg">
+          <AppText className="font-ROBOTO_700 text-white text-lg">
             SUGGESTION
           </AppText>
-          <AppText className="font-normal font-MANROPE_400 text-white text-[11px]">
+          <AppText className="font-MANROPE_400 text-white text-[11px]">
             We appreciate your Ideas and Suggestions. We want to make REEPLAY
             better, for you . write us your suggestions.
           </AppText>
@@ -79,7 +79,7 @@ const SuggestionScreen = () => {
             <TouchableOpacity
               onPress={setTyped}
               className="items-center justify-center">
-              <AppText className="font-MANROPE_400 font-normal text-base mt-12 text-center text-grey_200">
+              <AppText className="font-MANROPE_400 text-base mt-12 text-center text-grey_200">
                 Write your message here...
               </AppText>
             </TouchableOpacity>
@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     marginTop: 6,
     fontFamily: fonts.ROBOTO_400,
-    fontWeight: '400',
     fontSize: 16,
     color: '#C4C4C4A6',
   },
