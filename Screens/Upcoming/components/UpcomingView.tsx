@@ -158,7 +158,13 @@ const UpcomingView = ({
               <TouchableOpacity
                 style={{height: 17}}
                 onPress={() => setMuteVideo(!muteVideo)}>
-                {muteVideo ? <MutedIcon /> : <VolumeIcon />}
+                {muteVideo ? (
+                  <AppView className="mt-[3px]">
+                    <MutedIcon />
+                  </AppView>
+                ) : (
+                  <VolumeIcon />
+                )}
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>

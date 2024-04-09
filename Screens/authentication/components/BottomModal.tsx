@@ -151,12 +151,12 @@ const BottomSheet = ({handleNav, handleClose}: BottomSheetProps) => {
                 <View
                   style={{
                     width: 34,
-                    height: 24,
+                    height: 26,
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
                   }}>
-                  <Text style={{fontSize: 34, marginTop: -8, marginLeft: -1}}>
+                  <Text style={{fontSize: 34, marginTop: -12, marginLeft: -1}}>
                     {country.flag}
                   </Text>
                 </View>

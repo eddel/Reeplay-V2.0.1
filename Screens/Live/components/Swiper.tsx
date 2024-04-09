@@ -197,7 +197,13 @@ const Swiper = ({
                         <TouchableOpacity
                           style={{height: 17}}
                           onPress={setMuteVideo}>
-                          {muteVideo ? <MutedIcon /> : <VolumeIcon />}
+                          {muteVideo ? (
+                            <AppView className="mt-[3px]">
+                              <MutedIcon />
+                            </AppView>
+                          ) : (
+                            <VolumeIcon />
+                          )}
                         </TouchableOpacity>
                       </AppView>
                       <TouchableOpacity
@@ -371,7 +377,13 @@ const Swiper = ({
                           <TouchableOpacity
                             style={{height: 17}}
                             onPress={setMuteVideo}>
-                            {muteVideo ? <MutedIcon /> : <VolumeIcon />}
+                            {muteVideo ? (
+                              <AppView className="mt-[3px]">
+                                <MutedIcon />
+                              </AppView>
+                            ) : (
+                              <VolumeIcon />
+                            )}
                           </TouchableOpacity>
                         </AppView>
                         <TouchableOpacity

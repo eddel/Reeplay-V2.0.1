@@ -484,7 +484,13 @@ const FullScreenModal = () => {
                   </AppView>
 
                   <TouchableOpacity style={{height: 17}} onPress={setMuteVideo}>
-                    {muteVideo ? <MutedIcon /> : <VolumeIcon />}
+                    {muteVideo ? (
+                      <AppView className="mt-[3px]">
+                        <MutedIcon />
+                      </AppView>
+                    ) : (
+                      <VolumeIcon />
+                    )}
                   </TouchableOpacity>
                 </AppView>
 

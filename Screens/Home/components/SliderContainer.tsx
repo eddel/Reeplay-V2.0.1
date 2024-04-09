@@ -16,15 +16,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import {AppImage, AppText, AppView} from '@/components';
 import Size from '@/Utils/useResponsiveSize';
 import Caurosel from './Caurosel';
-import MaskedView from '@react-native-masked-view/masked-view';
 import {Rect, Svg} from 'react-native-svg';
 import {HeroSliderDataProps, LiveSliderDataProps} from '@/types/data.types';
-import {useNavigation} from '@react-navigation/native';
-import {HomeScreenNav} from '@/types/typings';
 import Carousel from 'react-native-reanimated-carousel';
 
 const SLIDER_HEIGHT =
-  Platform.OS === 'ios' ? Size.getHeight() * 0.59 : Size.getHeight() * 0.6;
+  Platform.OS === 'ios' ? Size.getHeight() * 0.59 : Size.getHeight() * 0.62;
 const ITEM_WIDTH = Size.getWidth() * 0.72;
 const SPACER_SIZE = (Size.getWidth() - ITEM_WIDTH) / 3;
 const WIDTH = Dimensions.get('window').width;
@@ -286,7 +283,7 @@ const Indicators = ({items, currentIndex}: indicatorData) => {
   }, [currentIndex]);
 
   return (
-    <AppView className="flex-row items-center justify-center gap-x-[3px] -mt-9">
+    <AppView className="flex-row items-center justify-center gap-x-[3px]">
       {items.map((item, i) => {
         if (item.title === 'spacer') return null;
 

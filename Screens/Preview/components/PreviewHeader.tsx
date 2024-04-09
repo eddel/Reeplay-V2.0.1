@@ -273,7 +273,13 @@ const PreviewHeader = () => {
           <AnimatedTouchable
             style={[styles.bottom, {height: 17}]}
             onPress={() => setMuteVideo(!muteVideo)}>
-            {muteVideo ? <MutedIcon /> : <VolumeIcon />}
+            {muteVideo ? (
+              <AppView className="mt-[3px]">
+                <MutedIcon />
+              </AppView>
+            ) : (
+              <VolumeIcon />
+            )}
           </AnimatedTouchable>
 
           <View style={[styles.bar, {width: Size.getWidth()}]}>
