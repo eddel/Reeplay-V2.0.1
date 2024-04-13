@@ -4,11 +4,13 @@ import {AppButton, AppHeader, AppScreen, AppText, AppView} from '@/components';
 import Size from '@/Utils/useResponsiveSize';
 import fonts from '@/configs/fonts';
 import colors from '@/configs/colors';
+import ComfirmPin from './ComfirmPin';
 
 const ChangePhone = () => {
   const [phoneNum, setPhoneNum] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [step, setStep] = useState<string>('confirm');
 
   function handleContinue() {
     if (phoneNum === '') {
@@ -24,41 +26,47 @@ const ChangePhone = () => {
     }
   }
 
-  return (
-    <AppScreen containerStyle={{paddingTop: 10, position: 'relative'}}>
-      <AppHeader />
+  switch (step) {
+    case 'confirm':
+      return <ComfirmPin setStep={setStep} />;
 
-      <AppText className="max-w-[200px] font-LEXEND_700 text-white text-2xl mt-12 mb-[68px]">
-        Change phone number
-      </AppText>
+    case 'main':
+      return (
+        <AppScreen containerStyle={{paddingTop: 10, position: 'relative'}}>
+          <AppHeader />
 
-      {/* In cases of server error */}
-      {/* {error && (
+          <AppText className="max-w-[200px] font-LEXEND_700 text-white text-2xl mt-12 mb-[68px]">
+            Change phone number
+          </AppText>
+
+          {/* In cases of server error */}
+          {/* {error && (
         <AppText className=" text-red text-[16px] font-MANROPE_500 mt-3">
           {errorMessage}
         </AppText>
       )} */}
-      <AppView className="mt-2 space-y-7">
-        <TextInput
-          value={phoneNum}
-          onChangeText={setPhoneNum}
-          placeholder="New Phone"
-          placeholderTextColor="#474748"
-          style={styles.input}
-          keyboardType="number-pad"
-        />
-      </AppView>
+          <AppView className="mt-2 space-y-7">
+            <TextInput
+              value={phoneNum}
+              onChangeText={setPhoneNum}
+              placeholder="New Phone"
+              placeholderTextColor="#474748"
+              style={styles.input}
+              keyboardType="number-pad"
+            />
+          </AppView>
 
-      <AppView className="absolute bottom-6 w-full">
-        <AppButton
-          bgColor={colors.RED}
-          title="Continue"
-          onPress={handleContinue}
-          style={{borderRadius: 10, width: '100%'}}
-        />
-      </AppView>
-    </AppScreen>
-  );
+          <AppView className="absolute bottom-6 w-full">
+            <AppButton
+              bgColor={colors.RED}
+              title="Continue"
+              onPress={handleContinue}
+              style={{borderRadius: 10, width: '100%'}}
+            />
+          </AppView>
+        </AppScreen>
+      );
+  }
 };
 
 export default ChangePhone;

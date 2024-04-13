@@ -112,7 +112,7 @@ const PaymentSummaryView = ({setStage}: Props) => {
       </AppView>
 
       {!showList && (
-        <AppView className="absolute bottom-5 w-full">
+        <AppView className="absolute bottom-10 w-full">
           <AppButton
             bgColor={colors.RED}
             title="Continue"

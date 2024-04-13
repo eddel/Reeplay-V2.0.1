@@ -75,8 +75,8 @@ const AppCategories = ({
                 />
               </AppView>
               {tag && (
-                <AppView className="absolute top-0 left-0 items-center justify-center w-[18px] h-[22px] bg-red rounded-tl-[5px] rounded-br-[8px]">
-                  <AppText className="font-ROBOTO_700 text-[9px] text-white">{`${
+                <AppView className="absolute top-0 left-0 items-center justify-center w-[18px] h-[20px] bg-red rounded-tl-[5px] rounded-br-[8px]">
+                  <AppText className="font-ROBOTO_700 text-[9px] text-white -mt-[2px]">{`${
                     index + 1 < 10 ? 0 : ''
                   }${index + 1}`}</AppText>
                 </AppView>

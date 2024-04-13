@@ -22,6 +22,8 @@ interface OthersProps extends headerProps {
 
 const OthersView = ({data, title}: OthersProps) => {
   const navigation = useNavigation<TabMainNavigation>();
+  const tvShow = title === 'Others in TV Shows';
+  const event = title === 'Others in Events';
   return (
     <>
       <SectionHeader
@@ -47,7 +49,8 @@ const OthersView = ({data, title}: OthersProps) => {
                 navigation.navigate(routes.FULL_SCREEN_VIDEO, {
                   type: fullVideoType.live,
                   videoURL: item.video,
-                  donate: true,
+                  vote: tvShow,
+                  donate: event,
                 })
               }
               className="w-[171px] h-[89px] rounded-t-[5px] overflow-hidden relative">

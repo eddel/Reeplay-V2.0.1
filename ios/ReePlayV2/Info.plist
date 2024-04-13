@@ -34,7 +34,7 @@
 		<string>$(PODS_ROOT)/../../node_modules/react-native</string>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lexend-Black.ttf</string>

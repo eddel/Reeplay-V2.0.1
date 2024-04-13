@@ -102,6 +102,8 @@ const HomeScreen = () => {
           {useNativeDriver: false},
         )}
         scrollEventThrottle={16}
+        // decelerationRate="fast"
+        bounces
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 50, width: '100%'}}
         style={{backgroundColor: colors.DEEP_BLACK, position: 'relative'}}>

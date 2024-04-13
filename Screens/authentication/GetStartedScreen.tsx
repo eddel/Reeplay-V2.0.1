@@ -165,10 +165,12 @@ const GetStartedScreen = () => {
         </TouchableOpacity>
         {user.fullname !== '' && (
           <>
-            <AppText className="mt-4 text-[24px] text-white font-LEXEND_700">
+            <AppText className="-mt-1 text-[24px] text-white font-LEXEND_700">
               Welcome back
             </AppText>
-            <AppText className="capitalize text-[24px] -mt-[4px] text-white font-LEXEND_700">
+            <AppText
+              style={Platform.OS === 'ios' && {marginTop: -3}}
+              className="capitalize text-[24px] -mt-[8px] text-white font-LEXEND_700">
               {user.fullname.split(' ')[0]}
             </AppText>
             <AppText className="text-base -mt-[2px] text-white font-MANROPE_400">

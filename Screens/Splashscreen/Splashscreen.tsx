@@ -94,7 +94,7 @@ const Splashscreen = () => {
                 easing: Easing.out(Easing.ease),
               }}
               source={require('@/assets/images/LogoReply.png')}
-              style={{width: 200, height: 100, objectFit: 'contain'}}
+              style={{width: 135, height: 101.67, objectFit: 'contain'}}
             />
           </AppView>
           <MotiView

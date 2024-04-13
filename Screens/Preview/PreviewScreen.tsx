@@ -405,8 +405,7 @@ const PreviewScreen = () => {
             <AppText className="text-center font-ROBOTO_500 text-[15px] text-black">
               {contentType === 'Exclusive' && 'Sorry this Content is not free.'}
               {contentType === 'Premium' &&
-                `You don’t have an active 
-subscription`}
+                `You don’t have an active subscription`}
             </AppText>
             {contentType === 'Premium' && (
               <AppText className="mt-4 mb-1 font-ROBOTO_700 text-[14px] text-black">

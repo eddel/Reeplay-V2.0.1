@@ -48,7 +48,6 @@ const ChannelsTabs = ({scrollY}: Props) => {
             navigation.navigate(routes.FULL_SCREEN_VIDEO, {
               type: fullVideoType.live,
               videoURL,
-              donate: true,
               channelImage: item,
             })
           }
@@ -68,7 +67,6 @@ const ChannelsTabs = ({scrollY}: Props) => {
             navigation.navigate(routes.FULL_SCREEN_VIDEO, {
               type: fullVideoType.live,
               videoURL,
-              vote: true,
               channelImage: item,
             })
           }
@@ -89,7 +87,6 @@ const ChannelsTabs = ({scrollY}: Props) => {
               type: fullVideoType.live,
               videoURL:
                 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-              donate: true,
               channelImage: item,
             })
           }

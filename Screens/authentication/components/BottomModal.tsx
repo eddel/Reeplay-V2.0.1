@@ -155,6 +155,7 @@ const BottomSheet = ({handleNav, handleClose}: BottomSheetProps) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
+                    marginBottom: -3,
                   }}>
                   <Text style={{fontSize: 34, marginTop: -12, marginLeft: -1}}>
                     {country.flag}

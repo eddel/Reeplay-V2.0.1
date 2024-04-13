@@ -23,6 +23,8 @@ const OTPInput = ({pinCount, handleCode, style, space}: OTPInputProps) => {
     const newCode = [...code];
     newCode[index] = text;
 
+    console.log(newCode[index]);
+
     setCode(newCode);
 
     if (text.length === 1 && index < inputRefs.current.length - 1) {
@@ -67,6 +69,11 @@ const OTPInput = ({pinCount, handleCode, style, space}: OTPInputProps) => {
           keyboardType="numeric"
           onChangeText={text => handleTextChange(text, index)}
           value={code[index]}
+          onKeyPress={({nativeEvent}) => {
+            if (nativeEvent.key === 'Backspace' && !code[index] && index > 0) {
+              inputRefs.current[index - 1]?.focus();
+            }
+          }}
         />
       ))}
     </View>

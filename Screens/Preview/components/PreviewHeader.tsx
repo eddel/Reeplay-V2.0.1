@@ -271,7 +271,7 @@ const PreviewHeader = () => {
           </View>
 
           <AnimatedTouchable
-            style={[styles.bottom, {height: 17}]}
+            style={[styles.bottom, {height: 17, marginBottom: 10}]}
             onPress={() => setMuteVideo(!muteVideo)}>
             {muteVideo ? (
               <AppView className="mt-[3px]">

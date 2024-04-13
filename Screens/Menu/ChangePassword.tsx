@@ -4,12 +4,14 @@ import {AppButton, AppHeader, AppScreen, AppText, AppView} from '@/components';
 import colors from '@/configs/colors';
 import Size from '@/Utils/useResponsiveSize';
 import fonts from '@/configs/fonts';
+import ComfirmPin from './ComfirmPin';
 
 const ChangePassword = () => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [step, setStep] = useState<string>('confirm');
 
   function handleContinue() {
     if (password === '') {
@@ -32,48 +34,54 @@ const ChangePassword = () => {
     }
   }
 
-  return (
-    <AppScreen containerStyle={{paddingTop: 10, position: 'relative'}}>
-      <AppHeader />
+  switch (step) {
+    case 'confirm':
+      return <ComfirmPin setStep={setStep} />;
 
-      <AppText className="max-w-[250px] font-LEXEND_700 text-white text-2xl mt-12 mb-[68px]">
-        Change your new password
-      </AppText>
+    case 'main':
+      return (
+        <AppScreen containerStyle={{paddingTop: 10, position: 'relative'}}>
+          <AppHeader />
 
-      {error && (
-        <AppText className=" text-red text-[16px] font-MANROPE_500 mt-3">
-          {errorMessage}
-        </AppText>
-      )}
-      <AppView className="mt-2 space-y-7">
-        <TextInput
-          value={password}
-          onChangeText={setPassword}
-          placeholder="New Password"
-          placeholderTextColor="#474748"
-          secureTextEntry
-          style={styles.input}
-        />
-        <TextInput
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          placeholder="Confirm Password"
-          placeholderTextColor="#474748"
-          secureTextEntry
-          style={styles.input}
-        />
-      </AppView>
+          <AppText className="max-w-[250px] font-LEXEND_700 text-white text-2xl mt-12 mb-[68px]">
+            Change your new password
+          </AppText>
 
-      <AppView className="absolute bottom-6 w-full">
-        <AppButton
-          bgColor={colors.RED}
-          title="Continue"
-          onPress={handleContinue}
-          style={{borderRadius: 10, width: '100%'}}
-        />
-      </AppView>
-    </AppScreen>
-  );
+          {error && (
+            <AppText className=" text-red text-[16px] font-MANROPE_500 mt-3">
+              {errorMessage}
+            </AppText>
+          )}
+          <AppView className="mt-2 space-y-7">
+            <TextInput
+              value={password}
+              onChangeText={setPassword}
+              placeholder="New Password"
+              placeholderTextColor="#474748"
+              secureTextEntry
+              style={styles.input}
+            />
+            <TextInput
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              placeholder="Confirm Password"
+              placeholderTextColor="#474748"
+              secureTextEntry
+              style={styles.input}
+            />
+          </AppView>
+
+          <AppView className="absolute bottom-6 w-full">
+            <AppButton
+              bgColor={colors.RED}
+              title="Continue"
+              onPress={handleContinue}
+              style={{borderRadius: 10, width: '100%'}}
+            />
+          </AppView>
+        </AppScreen>
+      );
+  }
 };
 
 export default ChangePassword;

@@ -470,7 +470,7 @@ const FullScreenModal = () => {
                           animate={{opacity: 1}}
                           transition={{
                             type: 'timing',
-                            duration: 1500,
+                            duration: 500,
                             easing: Easing.out(Easing.ease),
                             loop: true,
                           }}>
@@ -483,7 +483,9 @@ const FullScreenModal = () => {
                     )}
                   </AppView>
 
-                  <TouchableOpacity style={{height: 17}} onPress={setMuteVideo}>
+                  <TouchableOpacity
+                    style={{height: 17, marginBottom: 5}}
+                    onPress={setMuteVideo}>
                     {muteVideo ? (
                       <AppView className="mt-[3px]">
                         <MutedIcon />
@@ -534,7 +536,21 @@ const FullScreenModal = () => {
                     </>
                   )}
 
-                  {type === fullVideoType.live && (
+                  {type == fullVideoType.live && channelImg && (
+                    <TouchableOpacity
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginRight: 5,
+                      }}>
+                      <NextIcon />
+                      <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
+                        Next
+                      </AppText>
+                    </TouchableOpacity>
+                  )}
+
+                  {type === fullVideoType.live && (donate || vote) && (
                     <TouchableOpacity
                       onPress={handle_VOTE_DONATE}
                       style={{
@@ -542,7 +558,9 @@ const FullScreenModal = () => {
                         alignItems: 'center',
                         marginRight: 16,
                       }}>
-                      <Donate_VoteIcon />
+                      <AppView className="-mb-[10px]">
+                        <Donate_VoteIcon />
+                      </AppView>
                       <AppText className="ml-[5px] font-ROBOTO_700 text-[#FFCC00] text-[13px]">
                         {donate && 'Donate'}
                         {vote && 'Vote'}

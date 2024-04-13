@@ -62,9 +62,15 @@ const SettingScreen = () => {
   const url = 'https://reeplay.app/help';
 
   const animation = useSharedValue(0);
+  const animation2 = useSharedValue(0);
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{translateX: animation.value}],
+    };
+  });
+  const animatedStyle2 = useAnimatedStyle(() => {
+    return {
+      transform: [{translateX: animation2.value}],
     };
   });
 
@@ -75,15 +81,16 @@ const SettingScreen = () => {
       animation.value = withTiming(0, {duration: 400});
     }
   }
+  function handleAnimation2() {
+    if (animation.value === 0) {
+      animation2.value = withTiming(11.5, {duration: 400});
+    } else {
+      animation2.value = withTiming(0, {duration: 400});
+    }
+  }
 
   const handleLink = async () => {
-    const supported = await Linking.canOpenURL(url);
-
-    if (supported) {
-      await Linking.openURL(url);
-    } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
-    }
+    await Linking.openURL(url);
   };
 
   async function handleLock() {
@@ -116,6 +123,9 @@ const SettingScreen = () => {
     const lockState = await getData(HAS_LOCK_APP);
     if (lockState) {
       setLock(JSON.parse(lockState));
+      console.log(JSON.parse(lockState));
+      if (JSON.parse(lockState))
+        animation2.value = withTiming(11.5, {duration: 400});
     }
   }
 
@@ -231,7 +241,14 @@ const SettingScreen = () => {
               </AppView>
 
               {tabs.toLowerCase().includes('lock') ? (
-                <ToggleButton isOn={lock} setIsOn={setLock} />
+                <TouchableOpacity
+                  className={`w-8 h-[19px] rounded-2xl pt-[1.5px] px-[2px] pb-[2.2px]  items-center flex-row ${
+                    lock ? 'bg-red' : 'bg-[#bbbbbb]'
+                  }`}
+                  activeOpacity={1}
+                  onPress={() => [setLock(!lock), handleAnimation2()]}>
+                  <Animated.View style={[animatedStyle2, styles.circle]} />
+                </TouchableOpacity>
               ) : tabs.toLowerCase().includes('clear') ? (
                 <></>
               ) : (

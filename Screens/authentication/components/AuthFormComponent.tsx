@@ -394,7 +394,9 @@ const AuthFormComponent = ({
       )}
 
       {(screen === 'login' || screen === 'signUp') && (
-        <AppView className="flex-row items-center mt-3">
+        <AppView
+          style={Platform.OS === 'android' && {marginTop: 1}}
+          className="flex-row items-center mt-3">
           <AppText className="text-base text-[#BCC1CA] font-MANROPE_400 text-center">
             {screen === 'login'
               ? 'Forgot your Password?'

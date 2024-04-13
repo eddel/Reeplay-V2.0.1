@@ -151,7 +151,7 @@ const PaymentSummaryView = () => {
           {!showList && (
             <AppView
               style={{alignSelf: 'center'}}
-              className="absolute bottom-5 w-full">
+              className="absolute bottom-10 w-full">
               <AppButton
                 bgColor={colors.RED}
                 title="Continue"

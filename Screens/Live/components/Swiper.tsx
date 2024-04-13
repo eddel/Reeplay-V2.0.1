@@ -78,6 +78,9 @@ const Swiper = ({
   const [isBuffering, setIsBuffering] = useState(false);
   const [isBufferingLoad, setIsBufferingLoad] = useState(false);
 
+  const tvShow = title === 'Top TV Shows';
+  const event = title === 'Popular Events';
+
   const onLoad = (data: OnLoadData) => {
     setIsLoading(false);
   };
@@ -211,7 +214,8 @@ const Swiper = ({
                           navigation.navigate(routes.FULL_SCREEN_VIDEO, {
                             type: fullVideoType.live,
                             videoURL: item.video,
-                            donate: true,
+                            vote: tvShow,
+                            donate: event,
                           })
                         }>
                         <FullscreenIcon />
@@ -391,7 +395,6 @@ const Swiper = ({
                             navigation.navigate(routes.FULL_SCREEN_VIDEO, {
                               type: fullVideoType.live,
                               videoURL: item.video,
-                              donate: true,
                               channelImage: item.image,
                             })
                           }>

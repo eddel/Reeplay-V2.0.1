@@ -6,10 +6,12 @@ import fonts from '@/configs/fonts';
 import colors from '@/configs/colors';
 import AppModal from '@/components/AppModal';
 import VerificationModal from '@/Screens/authentication/components/VerificationModal';
+import {useNavigation} from '@react-navigation/native';
 
 const GiftCardRedeemScreen = () => {
   const [giftCard, setGiftCard] = useState<string>('');
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const {goBack} = useNavigation();
 
   function handleRedeem() {
     if (giftCard !== '') {
@@ -17,6 +19,7 @@ const GiftCardRedeemScreen = () => {
       setTimeout(() => {
         setIsSuccess(false);
         setGiftCard('');
+        goBack();
       }, 3000);
     }
   }

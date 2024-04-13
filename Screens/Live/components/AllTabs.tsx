@@ -30,11 +30,11 @@ const AllTabs = () => {
           imageStyle={{width: 182, height: 102}}
           headerStyle={{paddingRight: 20}}
           space={6}
-          onPressMovie={() =>
+          onPressMovie={item =>
             navigation.navigate(routes.FULL_SCREEN_VIDEO, {
               type: fullVideoType.live,
               videoURL,
-              donate: true,
+              channelImage: item,
             })
           }
         />
@@ -60,7 +60,7 @@ const AllTabs = () => {
                 removeCloseBtn
                 live
                 imageStyle={styles.image}
-                vote
+                donate
               />
             );
           }}
@@ -116,7 +116,6 @@ const AllTabs = () => {
                 removeCloseBtn
                 live
                 imageStyle={styles.image}
-                donate
               />
             );
           }}

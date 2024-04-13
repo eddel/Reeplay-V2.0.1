@@ -46,9 +46,9 @@ interface ContinueProps {
       };
   removeCloseBtn?: boolean;
   live?: boolean;
+  imageStyle?: ImageStyle;
   donate?: boolean;
   vote?: boolean;
-  imageStyle?: ImageStyle;
 }
 
 const ContinueWatchingComponent = ({

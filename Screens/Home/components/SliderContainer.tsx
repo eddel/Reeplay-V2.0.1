@@ -22,8 +22,9 @@ import Carousel from 'react-native-reanimated-carousel';
 
 const SLIDER_HEIGHT =
   Platform.OS === 'ios' ? Size.getHeight() * 0.59 : Size.getHeight() * 0.62;
+const SLIDER_HEIGHT_L =
+  Platform.OS === 'ios' ? Size.getHeight() * 0.605 : Size.getHeight() * 0.62;
 const ITEM_WIDTH = Size.getWidth() * 0.72;
-const SPACER_SIZE = (Size.getWidth() - ITEM_WIDTH) / 3;
 const WIDTH = Dimensions.get('window').width;
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
@@ -67,7 +68,9 @@ const Slider = ({data, live}: SliderProps) => {
   }, [scrollX]);
 
   return (
-    <AppView style={{height: SLIDER_HEIGHT}} className="relative w-full z-0">
+    <AppView
+      style={{height: live ? SLIDER_HEIGHT : SLIDER_HEIGHT_L}}
+      className="relative w-full z-0">
       <LinearGradient
         colors={['rgb(0,0,0)', 'rgba(0,0,0,0.65)', 'transparent']}
         style={styles.gradientStyles}
@@ -100,21 +103,24 @@ const Slider = ({data, live}: SliderProps) => {
         <BackDrop data={[...data]} curIndex={currentIndex} scrollX={scrollX} />
       )}
 
+      {/* Image Carousel */}
       <View style={{flex: 1}}>
         <Carousel
           loop
           style={{
-            marginTop: 122,
-            alignItems: 'flex-end',
-            alignSelf: 'flex-end',
-            width: '100%',
-            height: 385,
-            justifyContent: 'center',
+            width: WIDTH,
+            marginTop: 102,
           }}
-          width={Size.getWidth() * 0.912 - 6}
+          vertical={false}
+          width={WIDTH}
           height={410}
           pagingEnabled={true}
+          modeConfig={{
+            parallaxScrollingScale: 0.9,
+            parallaxScrollingOffset: 80,
+          }}
           mode="parallax"
+          snapEnabled={true}
           data={[...data]}
           scrollAnimationDuration={200}
           onSnapToItem={index => {
@@ -127,7 +133,6 @@ const Slider = ({data, live}: SliderProps) => {
                 <Caurosel
                   item={item}
                   currentIndex={index === currentIndex}
-                  // translate={}
                   colors={live ? [] : item.colors2}
                   live={live}
                 />
@@ -136,83 +141,6 @@ const Slider = ({data, live}: SliderProps) => {
           }}
         />
       </View>
-
-      {/* Image caurosel */}
-      {/* <Animated.FlatList
-        ref={flatListRef}
-        data={[...movieData]}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-          alignItems: 'flex-end',
-          marginBottom: Size.calcHeight(40),
-        }}
-        keyExtractor={(_, index) => index.toString()}
-        snapToInterval={Size.getWidth() - 98}
-        onViewableItemsChanged={({viewableItems}) => {
-          // Log the current index
-          if (viewableItems.length > 0) {
-            const currentIndex = viewableItems[0].index || 0;
-            setCurrentIndex(currentIndex);
-          }
-        }}
-        decelerationRate={0}
-        scrollEventThrottle={16}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollX}}}],
-          {useNativeDriver: true},
-        )}
-        onScrollEndDrag={event => {
-          handleScroll(event);
-        }}
-        onMomentumScrollEnd={event => {
-          handleScroll(event);
-        }}
-        renderItem={({item, index}) => {
-          const last = index === movieData.length - 1;
-          if (item.title === 'spacer')
-            return (
-              <AppView
-                className={`relative z-10 ${
-                  last ? 'rounded-l-md ml-1.5' : 'rounded-r-md mr-1.5'
-                } overflow-hidden`}
-                style={{
-                  width: SPACER_SIZE + 10,
-                  height: Size.calcHeight(382),
-                }}>
-                <AppImage
-                  source={last ? data[0].image : data[data.length - 1].image}
-                  style={{width: ITEM_WIDTH}}
-                  className="absolute right-0 h-full z-10"
-                />
-              </AppView>
-            );
-
-          const isCurrentIndex = index === currentIndex + 1;
-
-          const inputRange = [
-            (index - 2) * ITEM_WIDTH,
-            (index - 1) * ITEM_WIDTH,
-            index * ITEM_WIDTH,
-          ];
-          const translateY = scrollX.interpolate({
-            inputRange,
-            outputRange: [0, -30, 0],
-          });
-
-          return (
-            <>
-              <Caurosel
-                item={item}
-                currentIndex={isCurrentIndex}
-                translate={translateY}
-                live={live}
-              />
-            </>
-          );
-        }}
-      /> */}
-
       <Indicators items={[...data]} currentIndex={currentIndex} />
     </AppView>
   );

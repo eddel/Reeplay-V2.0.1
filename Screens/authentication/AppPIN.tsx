@@ -53,13 +53,13 @@ const AppPIN = () => {
     <AppScreen containerStyle={{paddingTop: 15, position: 'relative'}}>
       <AppHeader />
 
-      <AppText className="text-2xl text-white font-LEXEND_700 mt-12">
+      <AppText className="text-2xl text-white font-LEXEND_700 mt-8">
         Welcome back
       </AppText>
-      <AppText className="text-2xl text-white font-LEXEND_700 -mt-1">
+      <AppText className="text-2xl text-white font-LEXEND_700 -mt-[5px]">
         {user.fullname.split(' ')[0]}
       </AppText>
-      <AppText className=" text-sm text-white font-MANROPE_400">
+      <AppText className="-mt-[2px] text-sm text-white font-MANROPE_400">
         Use pin to continue
       </AppText>
 

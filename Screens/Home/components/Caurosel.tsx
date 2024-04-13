@@ -4,6 +4,7 @@ import {
   ImageSourcePropType,
   Animated,
   Platform,
+  Dimensions,
 } from 'react-native';
 import React, {Fragment} from 'react';
 import FastImage from 'react-native-fast-image';
@@ -34,6 +35,8 @@ import fonts from '@/configs/fonts';
 import {MovieVideo} from '../HomeScreen';
 
 const ITEM_WIDTH = Size.getWidth() * 0.88;
+const WIDTH = Dimensions.get('window').width;
+
 const SPACING = 6;
 
 interface Props {
@@ -56,17 +59,13 @@ const Caurosel = ({
   return (
     <Animated.View
       style={{
-        width: ITEM_WIDTH,
+        width: WIDTH,
         // paddingHorizontal: SPACING,
         position: 'relative',
-        borderRadius: 8,
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
         alignItems: 'center',
         overflow: 'hidden',
         flex: 1,
         flexGrow: 2,
-        transform: [{scaleY: 1.11}],
       }}>
       {!live && (
         <LinearGradient
@@ -75,9 +74,11 @@ const Caurosel = ({
             {
               bottom: -1,
               zIndex: 1,
-              width: '105%',
+              width: ITEM_WIDTH,
               position: 'absolute',
               height: '100%',
+              borderBottomRightRadius: 10,
+              borderBottomLeftRadius: 10,
             },
           ]}
         />
@@ -90,7 +91,7 @@ const Caurosel = ({
             {
               bottom: -1,
               zIndex: 1,
-              width: '105%',
+              width: ITEM_WIDTH,
               position: 'absolute',
               height: '60%',
             },
@@ -100,7 +101,7 @@ const Caurosel = ({
       <AppImage
         source={item.image}
         style={{width: ITEM_WIDTH}}
-        className="absolute h-full"
+        className="absolute h-full rounded-md"
       />
       <AppView className="absolute bottom-4 z-10 items-center">
         <AppText className="text-white text-sm uppercase font-MANROPE_400 mb-3">
@@ -108,7 +109,7 @@ const Caurosel = ({
         </AppText>
         <AppText
           style={{
-            maxWidth: item.title.length > 13 ? 200 : 168,
+            maxWidth: item.title.length > 13 ? 270 : 248,
           }}
           className="text-[40px] leading-[39px] font-LEXEND_700 text-white mb-1 text-center">
           {item.title}

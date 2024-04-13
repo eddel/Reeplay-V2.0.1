@@ -156,7 +156,7 @@ const UpcomingView = ({
             />
             <AppView className="absolute w-[90%] bottom-0 mb-1 px-2 flex-row items-center justify-between z-30">
               <TouchableOpacity
-                style={{height: 17}}
+                style={{height: 17, marginBottom: 3}}
                 onPress={() => setMuteVideo(!muteVideo)}>
                 {muteVideo ? (
                   <AppView className="mt-[3px]">

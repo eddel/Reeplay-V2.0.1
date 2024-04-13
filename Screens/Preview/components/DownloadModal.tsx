@@ -18,7 +18,7 @@ const DownloadModal = ({setIsDownload, handleDelete}: Props) => {
         Are you sure you want to delete this content from downloads?
       </AppText>
 
-      <AppView className="flex-row items-center gap-x-1.5 -mb-12 mt-7">
+      <AppView className="flex-row items-center gap-x-4 -mb-12 mt-7">
         <TouchableOpacity onPress={setIsDownload}>
           <AppText className="font-ROBOTO_500 text-[14px] text-black">
             No

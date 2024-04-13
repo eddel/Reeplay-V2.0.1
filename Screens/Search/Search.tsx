@@ -12,6 +12,7 @@ import {
 import React, {useState} from 'react';
 import {
   AppButton,
+  AppHeader,
   AppImage,
   AppScreen,
   AppText,
@@ -32,13 +33,7 @@ const Search = () => {
   const url = 'https://www.tecno-mobile.com/stores/';
 
   const handleLink = async () => {
-    const supported = await Linking.canOpenURL(url);
-
-    if (supported) {
-      await Linking.openURL(url);
-    } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
-    }
+    await Linking.openURL(url);
   };
   return (
     <AppScreen
@@ -48,19 +43,22 @@ const Search = () => {
         paddingHorizontal: 0,
         position: 'relative',
       }}>
-      <AppView className="px-5 mb-2 relative">
-        <AppText className="font-ROBOTO_700 text-[15px] text-white text-center">
-          Search
-        </AppText>
-        {text !== '' && (
-          <TouchableOpacity
-            onPress={() => setText('')}
-            className="absolute right-5">
-            <AppText className="font-ROBOTO_400 text-center text-[15px] text-white">
-              Cancel
-            </AppText>
-          </TouchableOpacity>
-        )}
+      <AppView className="px-5 flex-row items-center mb-2  relative">
+        <AppHeader style={{width: 50}} />
+        <AppView className="flex-1 -ml-[50px] z-[-10]">
+          <AppText className="font-ROBOTO_700 text-[15px] text-white text-center">
+            Search
+          </AppText>
+          {text !== '' && (
+            <TouchableOpacity
+              onPress={() => setText('')}
+              className="absolute right-5">
+              <AppText className="font-ROBOTO_400 text-center text-[15px] text-white">
+                Cancel
+              </AppText>
+            </TouchableOpacity>
+          )}
+        </AppView>
       </AppView>
       {text === '' ? (
         <ScrollView style={[{height: Size.getHeight() - 300}]}>
@@ -228,7 +226,6 @@ const styles = StyleSheet.create({
   centerContent: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
     flexWrap: 'wrap',
     columnGap: Size.calcHeight(10),
     rowGap: Size.calcHeight(10),

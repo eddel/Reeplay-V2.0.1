@@ -40,14 +40,7 @@ const CastScreeen = () => {
   const url = 'https://www.instagram.com/reeplayapp';
 
   const handleLink = async () => {
-    // Checking if the link is supported for links with custom URL scheme.
-    const supported = await Linking.canOpenURL(url);
-
-    if (supported) {
-      await Linking.openURL(url);
-    } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
-    }
+    await Linking.openURL(url);
   };
 
   const handleShare = () => {
@@ -198,7 +191,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     width: Size.calcWidth(186),
-    borderRadius: 15,
+    borderRadius: 8,
     paddingVertical: Size.calcHeight(14.5),
     marginTop: Size.calcHeight(12),
   },
