@@ -53,6 +53,7 @@ import {fullVideoType, previewContentType} from '@/navigation/AppNavigator';
 import routes from '@/navigation/routes';
 import BlurView from 'react-native-blur-effect';
 import {BlurView as Blur} from '@react-native-community/blur';
+import {MovieVideo, MusicVideo, SeriesVideo} from '../Home/HomeScreen';
 
 const PreviewScreen = () => {
   const [addWatchList, setAddWatchList] = useToggle(false);
@@ -332,10 +333,10 @@ const PreviewScreen = () => {
                         ? navigate(routes.FULL_SCREEN_VIDEO, {
                             videoURL:
                               content === previewContentType.film
-                                ? 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4'
+                                ? MovieVideo
                                 : content === previewContentType['music video']
-                                ? 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4'
-                                : 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+                                ? MusicVideo
+                                : SeriesVideo,
                             type: previewContentType['tv series']
                               ? fullVideoType.series
                               : fullVideoType.default,
@@ -454,10 +455,10 @@ const PreviewScreen = () => {
                     navigate(routes.FULL_SCREEN_VIDEO, {
                       videoURL:
                         content === previewContentType.film
-                          ? 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4'
+                          ? MovieVideo
                           : content === previewContentType['music video']
-                          ? 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4'
-                          : 'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+                          ? MusicVideo
+                          : SeriesVideo,
                       type: previewContentType['tv series']
                         ? fullVideoType.series
                         : fullVideoType.default,

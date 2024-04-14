@@ -30,11 +30,11 @@ import {getData} from '@/Utils/useAsyncStorage';
 import {previewContentType} from '@/navigation/AppNavigator';
 
 export const SeriesVideo: string =
-  'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4';
+  'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs';
 export const MusicVideo: string =
-  'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4';
+  'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/gv1dw19vqjuv5mfbvbsl';
 export const MovieVideo: string =
-  'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4';
+  'https://res.cloudinary.com/demo/video/upload/f_auto:video,q_auto/tz2nkki28sk5idwthlpk.mp4';
 
 const HomeScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -101,9 +101,9 @@ const HomeScreen = () => {
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
           {useNativeDriver: false},
         )}
-        scrollEventThrottle={16}
+        // scrollEventThrottle={16}
         // decelerationRate="fast"
-        bounces
+        // bounces
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 50, width: '100%'}}
         style={{backgroundColor: colors.DEEP_BLACK, position: 'relative'}}>

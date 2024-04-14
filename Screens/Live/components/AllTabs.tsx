@@ -16,7 +16,7 @@ const AllTabs = () => {
   const {navigate} = useNavigation<LiveScreenNav>();
   const navigation = useNavigation<TabMainNavigation>();
   const videoURL =
-    'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4';
+    'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs';
 
   return (
     <AppView className="mb-20">

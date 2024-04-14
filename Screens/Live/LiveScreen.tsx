@@ -67,8 +67,8 @@ const LiveScreen = () => {
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
           {useNativeDriver: false},
         )}
-        bounces={false}
-        scrollEventThrottle={16}
+        // bounces={false}
+        // scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         style={{
           backgroundColor: colors.DEEP_BLACK,
