@@ -5,9 +5,10 @@ import colors from '@/configs/colors';
 import AppModal from '@/components/AppModal';
 import VerificationModal from '@/Screens/authentication/components/VerificationModal';
 import {useNavigation} from '@react-navigation/native';
-import {SubscriptionNavProps} from '@/types/typings';
+import {SubscriptionNavProps, VoteScreenNavProps} from '@/types/typings';
 import routes from '@/navigation/routes';
 import LottieView from 'lottie-react-native';
+import Orientation from 'react-native-orientation-locker';
 
 interface Props {
   setStage: React.Dispatch<React.SetStateAction<string>>;
@@ -33,7 +34,12 @@ const PayStackView = ({setStage, tab}: Props) => {
   function reset() {
     setIsShowModal(false);
     setPaySuccessful(false);
-    setStage('preview');
+    if (tab === 'vote') {
+      goBack();
+      Orientation.lockToLandscapeLeft();
+    } else {
+      setStage('preview');
+    }
     // goBack();
   }
 

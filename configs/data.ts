@@ -66,7 +66,7 @@ export const HeroSliderData = [
     type: 'FILM',
     title: 'Grind',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#C841BF', '#7C328E', '#33094F'],
+    colors: ['#C841BF', '#7C328E', '#33094F', '#000'],
     colors2: ['transparent', 'transparent', '#33094F'],
   },
   {
@@ -77,7 +77,7 @@ export const HeroSliderData = [
     type: 'FILM',
     title: 'Ile Owo',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#CD0924', '#52060B', '#4C030A'],
+    colors: ['#CD0924', '#52060B', '#4C030A', '#000'],
     colors2: ['transparent', 'transparent', '#4C030A'],
   },
   {
@@ -88,7 +88,7 @@ export const HeroSliderData = [
     type: 'SERIES',
     title: 'Ahima',
     tags: ['Action', 'Horror', 'Drama'],
-    colors: ['#B3C5CF', '#E0E0DE', '#404241'],
+    colors: ['#B3C5CF', '#E0E0DE', '#404241', '#000'],
     colors2: ['transparent', 'transparent', '#404241'],
   },
   {
@@ -99,7 +99,7 @@ export const HeroSliderData = [
     type: 'FILM',
     title: 'Grind',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#C841BF', '#7C328E', '#33094F'],
+    colors: ['#C841BF', '#7C328E', '#33094F', '#000'],
     colors2: ['transparent', 'transparent', '#33094F'],
   },
   {
@@ -110,7 +110,7 @@ export const HeroSliderData = [
     type: 'FILM',
     title: 'Ile Owo',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#CD0924', '#52060B', '#4C030A'],
+    colors: ['#CD0924', '#52060B', '#4C030A', '#000'],
     colors2: ['transparent', 'transparent', '#4C030A'],
   },
   {
@@ -121,7 +121,7 @@ export const HeroSliderData = [
     type: 'SERIES',
     title: 'Ahima',
     tags: ['Action', 'Horror', 'Drama'],
-    colors: ['#B3C5CF', '#E0E0DE', '#404241'],
+    colors: ['#B3C5CF', '#E0E0DE', '#404241', '#000'],
     colors2: ['transparent', 'transparent', '#404241'],
   },
   {
@@ -132,7 +132,7 @@ export const HeroSliderData = [
     type: 'FILM',
     title: 'Grind',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#C841BF', '#7C328E', '#33094F'],
+    colors: ['#C841BF', '#7C328E', '#33094F', '#000'],
     colors2: ['transparent', 'transparent', '#33094F'],
   },
   {
@@ -143,7 +143,7 @@ export const HeroSliderData = [
     type: 'FILM',
     title: 'Ile Owo',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#CD0924', '#52060B', '#4C030A'],
+    colors: ['#CD0924', '#52060B', '#4C030A', '#000'],
     colors2: ['transparent', 'transparent', '#4C030A'],
   },
   {
@@ -154,7 +154,7 @@ export const HeroSliderData = [
     type: 'SERIES',
     title: 'Ahima',
     tags: ['Action', 'Horror', 'Drama'],
-    colors: ['#B3C5CF', '#E0E0DE', '#404241'],
+    colors: ['#B3C5CF', '#E0E0DE', '#404241', '#000'],
     colors2: ['transparent', 'transparent', '#404241'],
   },
 ];

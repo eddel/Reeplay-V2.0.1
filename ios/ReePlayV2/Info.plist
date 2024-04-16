@@ -35,6 +35,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Your images are used for your profile picture to identify who is the owner of the account</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lexend-Black.ttf</string>

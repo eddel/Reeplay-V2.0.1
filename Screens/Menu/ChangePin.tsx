@@ -16,6 +16,7 @@ import AppModal from '@/components/AppModal';
 import VerificationModal from '../authentication/components/VerificationModal';
 import SetChangePin from './SetChangePin';
 import {useNavigation} from '@react-navigation/native';
+import ComfirmPin from './ComfirmPin';
 
 const HAS_SET_NEWPIN = 'new_pin';
 
@@ -25,7 +26,7 @@ const ChangePin = () => {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
-  const [step, setStep] = useState<string>('first');
+  const [step, setStep] = useState<string>('confirm');
   const [firstPin, setFirstPin] = useState<string>('');
 
   const handlePin = async () => {
@@ -51,13 +52,16 @@ const ChangePin = () => {
   };
 
   switch (step) {
-    case 'first':
+    case 'confirm':
+      return <ComfirmPin setStep={setStep} />;
+
+    case 'main':
       return <SetChangePin setStep={setStep} setPin={setFirstPin} />;
 
     case 'second':
       return (
         <AppScreen containerStyle={{paddingTop: 20, position: 'relative'}}>
-          <AppHeader handleFunc={() => setStep('first')} />
+          <AppHeader handleFunc={() => setStep('main')} />
 
           <AppView className="mt-56">
             <OTPInput pinCount={4} handleCode={code => setCode(code)} />

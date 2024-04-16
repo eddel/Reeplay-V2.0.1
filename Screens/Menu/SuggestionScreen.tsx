@@ -1,5 +1,14 @@
-import {Alert, Linking, StyleSheet, Text, TextInput, View} from 'react-native';
-import React, {useState} from 'react';
+import {
+  Alert,
+  Keyboard,
+  Linking,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {
   AppButton,
   AppHeader,
@@ -12,18 +21,39 @@ import {
 import useToggle from '@/Hooks/useToggle';
 import fonts from '@/configs/fonts';
 import colors from '@/configs/colors';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 const SuggestionScreen = () => {
   const [typed, setTyped] = useToggle();
+  const [keyboardStatus, setKeyboardStatus] = useState<boolean>(false);
 
   const url = 'https://www.tecno-mobile.com/stores/';
 
   const handleLink = async () => {
-    await Linking.openURL(url);
+    await InAppBrowser.open(url);
   };
 
+  useEffect(() => {
+    const showKeyboard = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardStatus(true);
+    });
+    const hideKeyboard = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardStatus(false);
+    });
+
+    return () => {
+      showKeyboard.remove();
+      hideKeyboard.remove();
+    };
+  }, [Keyboard]);
+
   return (
-    <AppScreen scrollable containerStyle={{paddingTop: 10}}>
+    <AppScreen
+      scrollable
+      containerStyle={{
+        paddingTop: 10,
+        paddingBottom: Platform.OS === 'ios' && keyboardStatus ? 250 : 0,
+      }}>
       <AppHeader />
 
       <AppView className="mt-6 bg-red pt-3 px-1 rounded-[15px]">

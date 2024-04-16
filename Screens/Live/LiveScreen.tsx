@@ -18,11 +18,20 @@ import DynamicViewContainer from './DynamicViewContainer';
 import Size from '@/Utils/useResponsiveSize';
 import BlurView from 'react-native-blur-effect';
 import {BlurView as Blur} from '@react-native-community/blur';
+import Orientation from 'react-native-orientation-locker';
 
 const LiveScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const scrollY2 = useRef(new Animated.Value(0)).current;
   const [isScrolled, setIsScrolled] = useState(0);
+  const [orientation, setOrientation] = useState<string | null>(null);
+
+  useEffect(() => {
+    Orientation.getOrientation(orientation => {
+      console.log('Current UI Orientation: ', orientation);
+      setOrientation(orientation);
+    });
+  });
 
   useEffect(() => {
     const listernerID = scrollY.addListener(({value}) => {
@@ -34,13 +43,16 @@ const LiveScreen = () => {
       scrollY.removeListener(listernerID);
     };
   }, [scrollY]);
+
+  useEffect(() => {
+    Orientation.lockToPortrait();
+  });
   return (
     <>
-      <Header scroll={isScrolled} />
       <AppView
         style={{
           minHeight: Size.calcHeight(90),
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: 'rgba(0, 0, 0, 0.59)',
         }}
         className="absolute bottom-0 w-full z-20">
         {Platform.OS === 'ios' ? (
@@ -56,28 +68,36 @@ const LiveScreen = () => {
           <BlurView backgroundColor="rgba(0, 0, 0, 0.4)" blurRadius={120} />
         )}
       </AppView>
-      <StatusBar
-        translucent
-        barStyle="light-content"
-        backgroundColor="transparent"
-      />
+      {orientation === 'PORTRAIT' ? (
+        <>
+          <Header scroll={isScrolled} />
+          <StatusBar
+            translucent
+            barStyle="light-content"
+            backgroundColor="transparent"
+          />
 
-      <ScrollView
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: scrollY}}}],
-          {useNativeDriver: false},
-        )}
-        // bounces={false}
-        // scrollEventThrottle={16}
-        showsVerticalScrollIndicator={false}
-        style={{
-          backgroundColor: colors.DEEP_BLACK,
-          position: 'relative',
-        }}>
-        <Slider data={LiveSliderData} live />
+          <ScrollView
+            onScroll={Animated.event(
+              [{nativeEvent: {contentOffset: {y: scrollY}}}],
+              {useNativeDriver: false},
+            )}
+            scrollEventThrottle={16}
+            decelerationRate="normal"
+            bounces={false}
+            showsVerticalScrollIndicator={false}
+            style={{
+              backgroundColor: colors.DEEP_BLACK,
+              position: 'relative',
+            }}>
+            <Slider data={LiveSliderData} live />
 
-        <DynamicViewContainer scrollY={scrollY2} />
-      </ScrollView>
+            <DynamicViewContainer scrollY={scrollY2} />
+          </ScrollView>
+        </>
+      ) : (
+        <AppView className="w-full h-full bg-black" />
+      )}
     </>
   );
 };

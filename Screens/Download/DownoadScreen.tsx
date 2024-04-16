@@ -18,6 +18,7 @@ import {MovieVideo} from '../Home/HomeScreen';
 import AppModal from '@/components/AppModal';
 import DownloadModal from '../Preview/components/DownloadModal';
 import useToggle from '@/Hooks/useToggle';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 const DownoadScreen = () => {
   const {navigate} = useNavigation<DownloadScreenNav>();
@@ -26,9 +27,8 @@ const DownoadScreen = () => {
   const [isDeleteIndex, setIsDeleteIndex] = useState<number>(0);
 
   const url = 'https://www.tecno-mobile.com/stores/';
-
   const handleLink = async () => {
-    await Linking.openURL(url);
+    await InAppBrowser.open(url);
   };
 
   function handleDelete(id: number) {

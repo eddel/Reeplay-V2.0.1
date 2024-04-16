@@ -150,7 +150,7 @@ const UpcomingView = ({
                 position: 'absolute',
                 bottom: 0,
                 height: 70,
-                width: '90%',
+                width: '100%',
                 zIndex: 20,
               }}
             />

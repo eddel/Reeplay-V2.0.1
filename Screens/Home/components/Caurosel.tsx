@@ -68,25 +68,24 @@ const Caurosel = ({
         flexGrow: 2,
       }}>
       {!live && (
-        <LinearGradient
-          colors={colorsArr}
-          style={[
-            {
-              bottom: -1,
-              zIndex: 1,
-              width: ITEM_WIDTH,
-              position: 'absolute',
-              height: '100%',
-              borderBottomRightRadius: 10,
-              borderBottomLeftRadius: 10,
-            },
-          ]}
-        />
+        <AppView
+          style={{width: ITEM_WIDTH, height: '100%', bottom: -1}}
+          className="overflow-hidden absolute z-[1] rounded-b-[7px]">
+          <LinearGradient
+            colors={colorsArr}
+            style={[
+              {
+                width: ITEM_WIDTH,
+                height: '100%',
+              },
+            ]}
+          />
+        </AppView>
       )}
 
       {live && currentIndex && (
         <LinearGradient
-          colors={['transparent', 'rgba(0, 0, 0, 0.8)', 'rgba(0, 0, 0, 0.91)']}
+          colors={['transparent', 'rgba(0, 0, 0, 0.8)', 'rgb(0, 0, 0)']}
           style={[
             {
               bottom: -1,
@@ -101,7 +100,7 @@ const Caurosel = ({
       <AppImage
         source={item.image}
         style={{width: ITEM_WIDTH}}
-        className="absolute h-full rounded-md"
+        className="absolute h-full rounded-[7px]"
       />
       <AppView className="absolute bottom-4 z-10 items-center">
         <AppText className="text-white text-sm uppercase font-MANROPE_400 mb-3">

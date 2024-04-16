@@ -123,6 +123,11 @@ export type SubscriptionRouteProps = RouteProp<
   'SubscriptionScreen'
 >;
 
+export type VoteScreenNavProps = NativeStackNavigationProp<
+  DrawerNavigatorProps,
+  'VoteScreen'
+>;
+
 export type HomeScreenNav = NativeStackNavigationProp<BottomNavigator, 'Home'>;
 export type LiveScreenNav = NativeStackNavigationProp<BottomNavigator, 'Live'>;
 export type UpcomingScreenNav = NativeStackNavigationProp<

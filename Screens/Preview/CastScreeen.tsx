@@ -32,6 +32,7 @@ import {PreviewScreenNav} from '@/types/typings';
 import BlurView from 'react-native-blur-effect';
 import {BlurView as Blur} from '@react-native-community/blur';
 import {MovieVideo} from '@/Screens/Home/HomeScreen';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 const CastScreeen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -40,7 +41,7 @@ const CastScreeen = () => {
   const url = 'https://www.instagram.com/reeplayapp';
 
   const handleLink = async () => {
-    await Linking.openURL(url);
+    await InAppBrowser.open(url);
   };
 
   const handleShare = () => {

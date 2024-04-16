@@ -1,5 +1,13 @@
-import {Platform, StatusBar, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {
+  Keyboard,
+  Platform,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import FastImage from 'react-native-fast-image';
 import Size from '@/Utils/useResponsiveSize';
 import {AppImage, AppText, AppView} from '@/components';
@@ -7,6 +15,21 @@ import AuthFormComponent from './components/AuthFormComponent';
 import LinearGradient from 'react-native-linear-gradient';
 
 const LoginScreen = () => {
+  const [keyboardStatus, setKeyboardStatus] = useState<boolean>(false);
+
+  useEffect(() => {
+    const showKeyboard = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardStatus(true);
+    });
+    const hideKeyboard = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardStatus(false);
+    });
+
+    return () => {
+      showKeyboard.remove();
+      hideKeyboard.remove();
+    };
+  }, [Keyboard]);
   return (
     <View
       style={{
@@ -34,7 +57,7 @@ const LoginScreen = () => {
           width: 300,
           height: 200,
           objectFit: 'contain',
-          marginTop: 50,
+          marginTop: Size.getHeight() < 668 ? 10 : 50,
         }}
       />
 
@@ -45,14 +68,19 @@ const LoginScreen = () => {
         Watch your favorite stars
       </AppText>
 
-      <View
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        bounces={false}
         style={{
           paddingHorizontal: Size.calcHeight(20),
-          marginTop: 12,
+          marginTop: Size.getHeight() < 668 ? 12 : 0,
           width: '100%',
+        }}
+        contentContainerStyle={{
+          paddingBottom: keyboardStatus ? 180 : Platform.OS === 'ios' ? 200 : 0,
         }}>
         <AuthFormComponent screen="login" />
-      </View>
+      </ScrollView>
     </View>
   );
 };

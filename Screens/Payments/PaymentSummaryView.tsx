@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {
   AppButton,
@@ -117,34 +117,72 @@ const PaymentSummaryView = () => {
             </AppView>
 
             {showList && (
-              <AppView className="space-y-2 mt-4">
-                {paymentMethods.map((pay, i) => {
-                  return (
-                    <TouchableOpacity
-                      key={i}
-                      onPress={() => [
-                        setPaymentMethod(pay),
-                        setShowList(false),
-                      ]}
-                      className="flex-row items-center justify-between px-6 py-5 bg-[#92919614]">
-                      {pay.includes('VISA') && (
-                        <AppText className="flex-row items-center">
-                          <MasterCardIcon />
-                          {'  '} <Sub_VisaIcon />
-                        </AppText>
-                      )}
-                      {pay.includes('APPLE') && <ApplePay />}
-                      {pay.includes('PAYPAL') && <PayPal />}
-                      {pay.includes('USSD') && <BankUSSD />}
-                      {pay.includes('CRYPTO') && <Bitcoin />}
-                      <AppText className="font-MANROPE_400 text-sm text-white">
-                        {pay}
-                      </AppText>
-                      <RightArrow />
-                    </TouchableOpacity>
-                  );
-                })}
-              </AppView>
+              <>
+                {Platform.OS === 'android' ? (
+                  <AppView className="space-y-2 mt-4">
+                    {paymentMethods.map((pay, i) => {
+                      return (
+                        <TouchableOpacity
+                          key={i}
+                          onPress={() => [
+                            setPaymentMethod(pay),
+                            setShowList(false),
+                          ]}
+                          className="flex-row items-center justify-between px-6 py-5 bg-[#92919614]">
+                          {pay.includes('VISA') && (
+                            <AppText className="flex-row items-center">
+                              <MasterCardIcon />
+                              {'  '} <Sub_VisaIcon />
+                            </AppText>
+                          )}
+                          {pay.includes('APPLE') && <ApplePay />}
+                          {pay.includes('PAYPAL') && <PayPal />}
+                          {pay.includes('USSD') && <BankUSSD />}
+                          {pay.includes('CRYPTO') && <Bitcoin />}
+                          <AppText className="font-MANROPE_400 text-sm text-white">
+                            {pay}
+                          </AppText>
+                          <RightArrow />
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </AppView>
+                ) : (
+                  <ScrollView
+                    style={{height: 500}}
+                    showsVerticalScrollIndicator={false}>
+                    <AppView className="space-y-2 mt-4">
+                      {paymentMethods.map((pay, i) => {
+                        return (
+                          <TouchableOpacity
+                            key={i}
+                            onPress={() => [
+                              setPaymentMethod(pay),
+                              setShowList(false),
+                            ]}
+                            className="flex-row items-center justify-between px-6 py-5 bg-[#92919614]">
+                            {pay.includes('VISA') && (
+                              <AppText className="flex-row items-center">
+                                <MasterCardIcon />
+                                {'  '} <Sub_VisaIcon />
+                              </AppText>
+                            )}
+                            {pay.includes('APPLE') && <ApplePay />}
+                            {pay.includes('PAYPAL') && <PayPal />}
+                            {pay.includes('USSD') && <BankUSSD />}
+                            {pay.includes('CRYPTO') && <Bitcoin />}
+                            <AppText className="font-MANROPE_400 text-sm text-white">
+                              {pay}
+                            </AppText>
+                            <RightArrow />
+                          </TouchableOpacity>
+                        );
+                      })}
+                    </AppView>
+                    <AppView className="w-full h-[210px]" />
+                  </ScrollView>
+                )}
+              </>
             )}
           </AppView>
 

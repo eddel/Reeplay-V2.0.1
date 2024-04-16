@@ -46,6 +46,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 export const HAS_LOCK_APP = 'HAS_LOCK_APP';
 
@@ -90,7 +91,7 @@ const SettingScreen = () => {
   }
 
   const handleLink = async () => {
-    await Linking.openURL(url);
+    await InAppBrowser.open(url);
   };
 
   async function handleLock() {

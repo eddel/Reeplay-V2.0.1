@@ -23,8 +23,8 @@ import Carousel from 'react-native-reanimated-carousel';
 const SLIDER_HEIGHT =
   Platform.OS === 'ios' ? Size.getHeight() * 0.59 : Size.getHeight() * 0.62;
 const SLIDER_HEIGHT_L =
-  Platform.OS === 'ios' ? Size.getHeight() * 0.605 : Size.getHeight() * 0.62;
-const ITEM_WIDTH = Size.getWidth() * 0.72;
+  Platform.OS === 'ios' ? Size.getHeight() * 0.65 : Size.getHeight() * 0.62;
+const ITEM_WIDTH = Size.getWidth() * 0.88;
 const WIDTH = Dimensions.get('window').width;
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
@@ -69,13 +69,13 @@ const Slider = ({data, live}: SliderProps) => {
 
   return (
     <AppView
-      style={{height: live ? SLIDER_HEIGHT : SLIDER_HEIGHT_L}}
-      className="relative w-full z-0">
+      style={{height: live ? 510 : 510}}
+      className="relative w-full z-0 bg-transparent">
       <LinearGradient
         colors={['rgb(0,0,0)', 'rgba(0,0,0,0.65)', 'transparent']}
         style={styles.gradientStyles}
       />
-      <LinearGradient
+      {/* <LinearGradient
         colors={
           Platform.OS === 'android'
             ? [
@@ -97,14 +97,14 @@ const Slider = ({data, live}: SliderProps) => {
           styles.gradientStyles,
           {bottom: 0, zIndex: 0, height: SLIDER_HEIGHT},
         ]}
-      />
+      /> */}
 
       {!live && (
         <BackDrop data={[...data]} curIndex={currentIndex} scrollX={scrollX} />
       )}
 
       {/* Image Carousel */}
-      <View style={{flex: 1}}>
+      <View style={{height: 510}}>
         <Carousel
           loop
           style={{
@@ -171,6 +171,10 @@ const BackDrop = ({data, scrollX, curIndex}: BackDropOptions) => {
       <FlatList
         data={MainItem}
         keyExtractor={(_, index) => index.toString()}
+        contentContainerStyle={{
+          height: SLIDER_HEIGHT,
+          overflow: 'hidden',
+        }}
         renderItem={({item, index}) => {
           if ('colors' in item && item.colors.length === 0) return null;
 
@@ -183,7 +187,10 @@ const BackDrop = ({data, scrollX, curIndex}: BackDropOptions) => {
               <LinearGradient
                 //@ts-ignore
                 colors={MainItem[curIndex].colors}
-                style={{height: SLIDER_HEIGHT, width: '100%'}}
+                style={{
+                  height: SLIDER_HEIGHT,
+                  width: '100%',
+                }}
               />
             </Animated.View>
           );

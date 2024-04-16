@@ -1,6 +1,8 @@
 import {
   Alert,
   FlatList,
+  Keyboard,
+  KeyboardEvent,
   Linking,
   Platform,
   ScrollView,
@@ -9,7 +11,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   AppButton,
   AppHeader,
@@ -26,15 +28,38 @@ import {CloseBtn_S, SearchIcon_S} from '@/assets/icons';
 import fonts from '@/configs/fonts';
 import BlurView from 'react-native-blur-effect';
 import {BlurView as Blur} from '@react-native-community/blur';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 const Search = () => {
   const [text, setText] = useState<string>('');
+  const [keyboardHeight, setKeyboardHeight] = useState<number | null>(null);
 
   const url = 'https://www.tecno-mobile.com/stores/';
 
   const handleLink = async () => {
-    await Linking.openURL(url);
+    await InAppBrowser.open(url);
   };
+
+  useEffect(() => {
+    const showKeyboard = Keyboard.addListener(
+      'keyboardDidShow',
+      (event: KeyboardEvent) => {
+        // Extract keyboard height from the event
+        const {height} = event.endCoordinates;
+        // Set the keyboard height in state
+        setKeyboardHeight(height);
+      },
+    );
+    const hideKeyboard = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardHeight(null);
+    });
+
+    return () => {
+      showKeyboard.remove();
+      hideKeyboard.remove();
+    };
+  }, [Keyboard]);
+
   return (
     <AppScreen
       containerStyle={{
@@ -172,7 +197,13 @@ const Search = () => {
         </ScrollView>
       )}
 
-      <AppView className="absolute bottom-0 z-30 w-full">
+      <AppView
+        style={
+          keyboardHeight && Platform.OS === 'ios'
+            ? {marginBottom: keyboardHeight + 10}
+            : {}
+        }
+        className="absolute bottom-0 z-30 w-full">
         <AppView className="relative w-full items-center">
           {Platform.OS === 'android' ? (
             <AppView style={styles.blur}>
