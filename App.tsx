@@ -7,7 +7,7 @@
 
 import React, {useEffect, useRef, useState} from 'react';
 
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import AppNavigator from '@/navigation/AppNavigator';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
@@ -33,6 +33,7 @@ import colors from './configs/colors';
 import fonts from './configs/fonts';
 import Size from './Utils/useResponsiveSize';
 import routes from './navigation/routes';
+import Orientation from 'react-native-orientation-locker';
 
 const LEFT_APP_TIME = 'LEFT_APP_TIME';
 
@@ -82,6 +83,10 @@ function App(): React.JSX.Element {
       }
     }
   }
+
+  // useEffect(() => {
+  //   Orientation.lockToPortrait();
+  // });
 
   async function setLeftAppTime() {
     const date = new Date();
@@ -139,11 +144,18 @@ function App(): React.JSX.Element {
       unsubscribe();
     };
   });
+  const navTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: '#000',
+    },
+  };
   return (
     <Provider store={store}>
-      <GestureHandlerRootView style={{flex: 1}}>
+      <GestureHandlerRootView style={{flex: 1, backgroundColor: '#000'}}>
         <StatusBar backgroundColor="#000" />
-        <NavigationContainer ref={navigationRef}>
+        <NavigationContainer ref={navigationRef} theme={navTheme}>
           <AppNavigator lockApp={lockApp} />
           {!network && (
             <AppModal

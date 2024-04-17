@@ -1,4 +1,11 @@
-import {Platform, Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import {
   AppButton,
@@ -79,26 +86,66 @@ const InterestScreen = () => {
         personalized experience on reeplay. You can always change later.
       </AppText>
 
-      <AppView className="flex-row gap-y-5 gap-x-3 flex-wrap mt-3">
-        {interests.map((interest, i) => {
-          return (
-            <TouchableOpacity
-              key={i}
-              onPress={() => handlePress(interest)}
-              style={[
-                {paddingHorizontal: interest.length >= 6 ? 22 : 34},
-                isSelected(interest) && {backgroundColor: colors.RED},
-              ]}
-              className="bg-white py-[14px] rounded-3xl">
-              <AppText
-                className="text-base font-MANROPE_400 text-grey_600"
-                style={isSelected(interest) && {color: colors.WHITE}}>
-                {interest}
-              </AppText>
-            </TouchableOpacity>
-          );
-        })}
-      </AppView>
+      {Platform.OS === 'ios' && (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={
+            Size.getHeight() < 668 && {
+              maxHeight: 360,
+            }
+          }
+          contentContainerStyle={{
+            flexDirection: 'row',
+            rowGap: 20,
+            columnGap: 12,
+            flexWrap: 'wrap',
+            marginTop: 12,
+            overflow: 'hidden',
+            paddingBottom: 20,
+          }}>
+          {interests.map((interest, i) => {
+            return (
+              <TouchableOpacity
+                key={i}
+                onPress={() => handlePress(interest)}
+                style={[
+                  {paddingHorizontal: interest.length >= 6 ? 22 : 34},
+                  isSelected(interest) && {backgroundColor: colors.RED},
+                ]}
+                className="bg-white py-[14px] rounded-3xl">
+                <AppText
+                  className="text-base font-MANROPE_400 text-grey_600"
+                  style={isSelected(interest) && {color: colors.WHITE}}>
+                  {interest}
+                </AppText>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+      )}
+
+      {Platform.OS === 'android' && (
+        <AppView className="flex-row gap-y-5 gap-x-3 flex-wrap mt-3">
+          {interests.map((interest, i) => {
+            return (
+              <TouchableOpacity
+                key={i}
+                onPress={() => handlePress(interest)}
+                style={[
+                  {paddingHorizontal: interest.length >= 6 ? 22 : 34},
+                  isSelected(interest) && {backgroundColor: colors.RED},
+                ]}
+                className="bg-white py-[14px] rounded-3xl">
+                <AppText
+                  className="text-base font-MANROPE_400 text-grey_600"
+                  style={isSelected(interest) && {color: colors.WHITE}}>
+                  {interest}
+                </AppText>
+              </TouchableOpacity>
+            );
+          })}
+        </AppView>
+      )}
 
       <AppView className="absolute bottom-3">
         <AppButton

@@ -53,7 +53,12 @@ const OthersView = ({data, title}: OthersProps) => {
                   donate: event,
                 })
               }
-              className="w-[171px] h-[89px] rounded-t-[5px] overflow-hidden relative">
+              style={
+                Platform.OS === 'ios'
+                  ? {width: Size.getWidth() / 2 - 25}
+                  : {width: 171}
+              }
+              className="h-[89px] rounded-t-[5px] overflow-hidden relative">
               <AppImage
                 className="absolute top-0 bottom-0 z-10"
                 style={{height: 89, width: 171}}

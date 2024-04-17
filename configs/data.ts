@@ -62,99 +62,99 @@ export const HeroSliderData = [
     _id: 1,
     image: require('@/assets/images/CR1.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+      'https://res.cloudinary.com/demo/video/upload/f_auto:video,q_auto/tz2nkki28sk5idwthlpk.mp4',
     type: 'FILM',
     title: 'Grind',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#C841BF', '#7C328E', '#33094F'],
+    colors: ['#C841BF', '#7C328E', '#33094F', '#000'],
     colors2: ['transparent', 'transparent', '#33094F'],
   },
   {
     _id: 2,
     image: require('@/assets/images/CR333.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+      'https://res.cloudinary.com/demo/video/upload/f_auto:video,q_auto/tz2nkki28sk5idwthlpk.mp4',
     type: 'FILM',
     title: 'Ile Owo',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#CD0924', '#52060B', '#4C030A'],
+    colors: ['#CD0924', '#52060B', '#4C030A', '#000'],
     colors2: ['transparent', 'transparent', '#4C030A'],
   },
   {
     _id: 3,
     image: require('@/assets/images/CR2.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs',
     type: 'SERIES',
     title: 'Ahima',
     tags: ['Action', 'Horror', 'Drama'],
-    colors: ['#B3C5CF', '#E0E0DE', '#404241'],
+    colors: ['#B3C5CF', '#E0E0DE', '#404241', '#000'],
     colors2: ['transparent', 'transparent', '#404241'],
   },
   {
     _id: 1,
     image: require('@/assets/images/CR1.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+      'https://res.cloudinary.com/demo/video/upload/f_auto:video,q_auto/tz2nkki28sk5idwthlpk.mp4',
     type: 'FILM',
     title: 'Grind',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#C841BF', '#7C328E', '#33094F'],
+    colors: ['#C841BF', '#7C328E', '#33094F', '#000'],
     colors2: ['transparent', 'transparent', '#33094F'],
   },
   {
     _id: 2,
     image: require('@/assets/images/CR333.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+      'https://res.cloudinary.com/demo/video/upload/f_auto:video,q_auto/tz2nkki28sk5idwthlpk.mp4',
     type: 'FILM',
     title: 'Ile Owo',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#CD0924', '#52060B', '#4C030A'],
+    colors: ['#CD0924', '#52060B', '#4C030A', '#000'],
     colors2: ['transparent', 'transparent', '#4C030A'],
   },
   {
     _id: 3,
     image: require('@/assets/images/CR2.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs',
     type: 'SERIES',
     title: 'Ahima',
     tags: ['Action', 'Horror', 'Drama'],
-    colors: ['#B3C5CF', '#E0E0DE', '#404241'],
+    colors: ['#B3C5CF', '#E0E0DE', '#404241', '#000'],
     colors2: ['transparent', 'transparent', '#404241'],
   },
   {
     _id: 1,
     image: require('@/assets/images/CR1.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+      'https://res.cloudinary.com/demo/video/upload/f_auto:video,q_auto/tz2nkki28sk5idwthlpk.mp4',
     type: 'FILM',
     title: 'Grind',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#C841BF', '#7C328E', '#33094F'],
+    colors: ['#C841BF', '#7C328E', '#33094F', '#000'],
     colors2: ['transparent', 'transparent', '#33094F'],
   },
   {
     _id: 2,
     image: require('@/assets/images/CR333.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+      'https://res.cloudinary.com/demo/video/upload/f_auto:video,q_auto/tz2nkki28sk5idwthlpk.mp4',
     type: 'FILM',
     title: 'Ile Owo',
     tags: ['Romance', 'Exicting', 'Drama'],
-    colors: ['#CD0924', '#52060B', '#4C030A'],
+    colors: ['#CD0924', '#52060B', '#4C030A', '#000'],
     colors2: ['transparent', 'transparent', '#4C030A'],
   },
   {
     _id: 3,
     image: require('@/assets/images/CR2.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs',
     type: 'SERIES',
     title: 'Ahima',
     tags: ['Action', 'Horror', 'Drama'],
-    colors: ['#B3C5CF', '#E0E0DE', '#404241'],
+    colors: ['#B3C5CF', '#E0E0DE', '#404241', '#000'],
     colors2: ['transparent', 'transparent', '#404241'],
   },
 ];
@@ -163,7 +163,7 @@ export const LiveSliderData = [
   {
     image: require('@/assets/images/Live/L1.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/gv1dw19vqjuv5mfbvbsl',
     type: 'EVENT',
     title: 'IYANA UK TOUR',
     subscription: 'free',
@@ -171,7 +171,7 @@ export const LiveSliderData = [
   {
     image: require('@/assets/images/Live/L2.png'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/gv1dw19vqjuv5mfbvbsl',
     type: 'EVENT',
     title: 'IYANA UK TOUR',
     subscription: 'premium',
@@ -179,7 +179,7 @@ export const LiveSliderData = [
   {
     image: require('@/assets/images/Live/L3.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/gv1dw19vqjuv5mfbvbsl',
     type: 'EVENT',
     title: 'IYANA UK TOUR',
     subscription: 'free',
@@ -187,7 +187,7 @@ export const LiveSliderData = [
   {
     image: require('@/assets/images/Live/L4.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/gv1dw19vqjuv5mfbvbsl',
     type: 'EVENT',
     title: 'IYANA UK TOUR',
     subscription: 'exclusive',
@@ -195,7 +195,7 @@ export const LiveSliderData = [
   {
     image: require('@/assets/images/Live/L5.jpg'),
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/gv1dw19vqjuv5mfbvbsl',
     type: 'EVENT',
     title: 'BEAUTY WEDS JOHN',
     subscription: 'eexclusive',
@@ -329,7 +329,7 @@ export const TrendingNow = [
     subscription: 'free',
     viewersDiscretion: '16+',
     video:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/gv1dw19vqjuv5mfbvbsl',
   },
   {
     title: 'LONDON, UK',
@@ -338,7 +338,7 @@ export const TrendingNow = [
     subscription: 'exclusive',
     viewersDiscretion: '18+',
     video:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/gv1dw19vqjuv5mfbvbsl',
   },
   {
     title: 'LONDON, UK',
@@ -347,7 +347,7 @@ export const TrendingNow = [
     subscription: 'premium',
     viewersDiscretion: '16+',
     video:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615779/evideo_erolpo.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/gv1dw19vqjuv5mfbvbsl',
   },
   {
     title: 'LAGOS, NIGERIA',
@@ -356,7 +356,7 @@ export const TrendingNow = [
     subscription: 'free',
     viewersDiscretion: '16+',
     video:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+      'https://res.cloudinary.com/demo/video/upload/f_auto:video,q_auto/tz2nkki28sk5idwthlpk.mp4',
   },
   {
     title: 'LAGOS, NIGERIA',
@@ -365,7 +365,7 @@ export const TrendingNow = [
     subscription: 'exclusive',
     viewersDiscretion: '16+',
     video:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+      'https://res.cloudinary.com/demo/video/upload/f_auto:video,q_auto/tz2nkki28sk5idwthlpk.mp4',
   },
   {
     title: 'LAGOS, NIGERIA',
@@ -374,7 +374,7 @@ export const TrendingNow = [
     subscription: 'exclusive',
     viewersDiscretion: '16+',
     video:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615123/bgvideo_wxpja1.mp4',
+      'https://res.cloudinary.com/demo/video/upload/f_auto:video,q_auto/tz2nkki28sk5idwthlpk.mp4',
   },
 ];
 
@@ -451,22 +451,22 @@ export const SliderLiveChannel = [
   {
     image: require('@/assets/images/Live/bbcNews.png'),
     video:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs',
   },
   {
     image: require('@/assets/images/Live/bbcNews.png'),
     video:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs',
   },
   {
     image: require('@/assets/images/Live/bbcNews.png'),
     video:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs',
   },
   {
     image: require('@/assets/images/Live/bbcNews.png'),
     video:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs',
   },
 ];
 
@@ -601,7 +601,7 @@ export const SeriesEpisodesData = [
     description:
       'Two Sisters set out to Impress the World in an interesting & thrilling show of Bravery yet Comedic Trickery.',
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs',
     durationWatched: 20,
     duration: 100,
     image: require('@/assets/images/UP1.png'),
@@ -611,7 +611,7 @@ export const SeriesEpisodesData = [
     description:
       'Two Sisters set out to Impress the World in an interesting & thrilling show of Bravery yet Comedic Trickery.',
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs',
     durationWatched: 100,
     duration: 120,
     image: require('@/assets/images/UP1.png'),
@@ -621,7 +621,7 @@ export const SeriesEpisodesData = [
     description:
       'Two Sisters set out to Impress the World in an interesting & thrilling show of Bravery yet Comedic Trickery.',
     videoURL:
-      'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4',
+      'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs',
     durationWatched: 50,
     duration: 90,
     image: require('@/assets/images/UP1.png'),

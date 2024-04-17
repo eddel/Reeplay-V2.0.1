@@ -24,6 +24,7 @@ interface Props {
       set: boolean;
     }>
   >;
+  seekWidth: number;
 }
 
 const SeekBar = ({
@@ -33,16 +34,13 @@ const SeekBar = ({
   handleSeek,
   setIsPlaying,
   setFixed,
+  seekWidth,
 }: Props) => {
   const translateX = useSharedValue(
-    Platform.OS === 'android'
-      ? -Size.getWidth() - 237 + 3
-      : -Size.getWidth() - 357 + 3,
+    Platform.OS === 'android' ? -Size.getWidth() - 237 + 3 : -seekWidth + 1000,
   );
   const MAX_MIN =
-    Platform.OS === 'android'
-      ? Size.getWidth() - 357 + 3
-      : Size.getWidth() - 357 + 3;
+    Platform.OS === 'android' ? Size.getWidth() - 237 + 3 : seekWidth - 14;
   const [seeking, setSeeking] = useState(false);
 
   const scrollTo = useCallback((destination: number) => {

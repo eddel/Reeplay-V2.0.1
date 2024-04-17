@@ -72,6 +72,39 @@ const FullScreenModal = () => {
     time: currentTime,
     set: false,
   });
+  const myViewRef = useRef<View>(null);
+  const [seekWidth, setSeekWidth] = useState(Size.getWidth() - 340);
+  const [orientation, setOrientation] = useState<string | null>(null);
+  const [show, setShow] = useState(false);
+
+  useLayoutEffect(() => {
+    Orientation.getOrientation(orientation => {
+      console.log('Current UI Orientation: ', orientation);
+      setOrientation(orientation);
+    });
+
+    setTimeout(() => {
+      setShow(true);
+    }, 1500);
+  });
+
+  const measureView = () => {
+    if (myViewRef.current) {
+      myViewRef.current.measure(
+        (
+          x: number,
+          y: number,
+          width: number,
+          height: number,
+          pageX: number,
+          pageY: number,
+        ) => {
+          console.log('Element position from the top:', width);
+          setSeekWidth(width);
+        },
+      );
+    }
+  };
 
   const type = route.params.type;
   const videoURL = route.params.videoURL;
@@ -164,16 +197,31 @@ const FullScreenModal = () => {
 
   const onReadyForDisplay = () => {
     setIsBufferingLoad(false);
+    measureView();
   };
 
   function existFullscreen() {
     Orientation.lockToPortrait();
+    navigation.setOptions({
+      orientation: 'portrait',
+    });
     navigation.goBack();
   }
 
-  useEffect(() => {
-    if (isFocused) Orientation.lockToLandscapeLeft();
-  }, [isFocused]);
+  useLayoutEffect(() => {
+    Orientation.lockToLandscapeLeft();
+    // navigation.setOptions({
+    //   orientation: 'landscape_right',
+    // });
+    Orientation.getOrientation(orientation => {
+      console.log('Current UI Orientation: ', orientation);
+      setOrientation(orientation);
+    });
+  }, []);
+
+  // useEffect(() => {
+  //   Orientation.lockToLandscapeLeft();
+  // });
 
   useEffect(() => {
     let loadingTimeout: any;
@@ -263,374 +311,54 @@ const FullScreenModal = () => {
     };
   }, [isPlaying, hide, muteVideo, isBufferingLoad]);
 
+  useEffect(() => {
+    measureView();
+    setTimeout(() => {
+      setShow(true);
+    }, 1500);
+  }, []);
+
   return (
-    <View
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-      }}>
-      {/* Background Video */}
-      {Platform.OS === 'android' ? (
+    <>
+      {orientation === 'LANDSCAPE-LEFT' && show ? (
         <View
           style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            zIndex: 10,
-          }}>
-          <BlurView
-            backgroundColor="rgba(255, 255, 255, 0.1)"
-            blurRadius={20}
-          />
-        </View>
-      ) : (
-        <Blur
-          blurAmount={30}
-          overlayColor="transparent"
-          blurType="dark"
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            zIndex: 10,
-          }}
-        />
-      )}
-      <AppVideo
-        source={{
-          uri: videoURL,
-        }}
-        videoRef={videoRef2}
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-        resizeMode="stretch"
-        fullscreen
-        fullscreenOrientation="landscape"
-        muted={true}
-        // repeat
-        paused={true}
-      />
-
-      {/* Main video component */}
-      <View
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: Platform.OS === 'ios' ? '105.8%' : '100%',
-          zIndex: 20,
-        }}>
-        <AppScreen
-          containerStyle={{
             position: 'relative',
-            paddingBottom: 0,
-            backgroundColor: isLoading ? colors.DEEP_BLACK : 'transparent',
+            width: '100%',
+            height: '100%',
           }}>
-          {!isLoading ? (
-            <>
-              <AnimatedLinear
-                colors={['transparent', 'rgb(0, 0, 0)']}
-                style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  height: 81,
-                  width: '100%',
-                  zIndex: 20,
-                  opacity: opacityU.current,
-                  // transform: [{translateY: transD.current}],
-                }}
+          {/* Background Video */}
+          {Platform.OS === 'android' ? (
+            <View
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                zIndex: 10,
+              }}>
+              <BlurView
+                backgroundColor="rgba(255, 255, 255, 0.1)"
+                blurRadius={20}
               />
-              <AnimatedLinear
-                colors={['rgba(0, 0, 0, 0.6)', 'transparent']}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  height: 70,
-                  width: '100%',
-                  zIndex: 20,
-                  opacity: opacityU.current,
-                  // transform: [{translateY: transU.current}],
-                }}
-              />
-
-              {/* Brightness View */}
-              <Animated.View
-                style={{
-                  position: 'absolute',
-                  width: '6%',
-                  height: '78%',
-                  zIndex: 40,
-                  top: 30,
-                  justifyContent: 'center',
-                  opacity: opacityU.current,
-                }}>
-                <AppView style={{alignSelf: 'center'}} className="ml-[5px]">
-                  <BrightnessIcon />
-                </AppView>
-                <AppView className="relative mt-3 overflow-hidden h-[200px] w-[60%]">
-                  <AppView className="h-[200px] w-[6px] absolute right-0 items-center bg-[#535353] rounded-[5px]" />
-                  <BrightnessBar />
-                </AppView>
-              </Animated.View>
-
-              {/* Middle */}
-              <AnimatedPressable
-                onPress={() => setHide(!hide)}
-                style={[
-                  styles.overlay,
-                  {
-                    backgroundColor: isBufferingLoad
-                      ? 'rgba(0, 0, 0, 0.2)'
-                      : 'transparent',
-
-                    opacity: opacityU.current,
-                  },
-                ]}>
-                <TouchableOpacity onPress={() => handleSeek(currentTime - 10)}>
-                  <SeekBackIcon />
-                </TouchableOpacity>
-                {isBufferingLoad ? (
-                  <AppView className="mx-16 w-[50px] h-[70px] justify-center">
-                    <LottieView
-                      source={require('@/assets/icons/RPlay.json')}
-                      style={{
-                        width: 350,
-                        height: 350,
-                        alignSelf: 'center',
-                      }}
-                      autoPlay
-                      loop
-                    />
-                  </AppView>
-                ) : (
-                  <TouchableOpacity
-                    style={{
-                      marginHorizontal: 64,
-                      width: 50,
-                      height: 70,
-                      justifyContent: 'center',
-                    }}
-                    onPress={() => setIsPlaying(!isPlaying)}>
-                    {isPlaying ? (
-                      <B_PlayBtn />
-                    ) : (
-                      <B_PauseBtn style={{marginLeft: -20}} />
-                    )}
-                  </TouchableOpacity>
-                )}
-                <AnimatedTouchable
-                  style={{
-                    marginLeft: -8,
-                    // opacity: opacityU.current
-                  }}
-                  onPress={() => handleSeek(currentTime + 10)}>
-                  <SeekForwardIcon />
-                </AnimatedTouchable>
-              </AnimatedPressable>
-
-              {/* Top */}
-              <Animated.View
-                style={[
-                  styles.topView,
-                  {transform: [{translateY: transU.current}]},
-                ]}>
-                <AppView className="ml-7 flex-row items-center">
-                  {channelImg && channelImg !== '' && (
-                    <AppImage
-                      source={channelImg}
-                      className="w-[28px] h-[28px] rounded-full mr-2"
-                    />
-                  )}
-
-                  <AppText className="font-ROBOTO_500 text-white text-[11px]">
-                    Video Title
-                  </AppText>
-                </AppView>
-                <TouchableOpacity onPress={existFullscreen}>
-                  <BigClose />
-                </TouchableOpacity>
-              </Animated.View>
-
-              {/* Bottom */}
-              <Animated.View
-                style={[
-                  styles.bottomView,
-                  {
-                    transform: [{translateY: transD.current}],
-                  },
-                ]}>
-                <AppView className="flex-row items-center gap-x-4">
-                  <AppView className="w-[65px] justify-center flex-row items-center gap-x-2">
-                    {type === fullVideoType.live && (
-                      <>
-                        <MotiView
-                          from={{opacity: 0}}
-                          animate={{opacity: 1}}
-                          transition={{
-                            type: 'timing',
-                            duration: 500,
-                            easing: Easing.out(Easing.ease),
-                            loop: true,
-                          }}>
-                          <AppView className="w-[9px] h-[9px] rounded-full bg-red" />
-                        </MotiView>
-                        <AppText className="font-ROBOTO_500 text-[11px] text-white">
-                          LIVE
-                        </AppText>
-                      </>
-                    )}
-                  </AppView>
-
-                  <TouchableOpacity
-                    style={{height: 17, marginBottom: 5}}
-                    onPress={setMuteVideo}>
-                    {muteVideo ? (
-                      <AppView className="mt-[3px]">
-                        <MutedIcon />
-                      </AppView>
-                    ) : (
-                      <VolumeIcon />
-                    )}
-                  </TouchableOpacity>
-                </AppView>
-
-                <AppView className="flex-row items-center">
-                  {type !== fullVideoType.live && (
-                    <>
-                      <TouchableOpacity
-                        style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          marginRight: 16,
-                        }}>
-                        <NextIcon />
-                        <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
-                          Next
-                        </AppText>
-                      </TouchableOpacity>
-                      {type === fullVideoType.series && (
-                        <TouchableOpacity
-                          style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            marginRight: 16,
-                          }}>
-                          <EpisodesMenu />
-                          <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
-                            Episodes
-                          </AppText>
-                        </TouchableOpacity>
-                      )}
-                      <TouchableOpacity
-                        style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                        }}>
-                        <SubtitleIcon />
-                        <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
-                          Audio/Subtitle
-                        </AppText>
-                      </TouchableOpacity>
-                    </>
-                  )}
-
-                  {type == fullVideoType.live && channelImg && (
-                    <TouchableOpacity
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginRight: 5,
-                      }}>
-                      <NextIcon />
-                      <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
-                        Next
-                      </AppText>
-                    </TouchableOpacity>
-                  )}
-
-                  {type === fullVideoType.live && (donate || vote) && (
-                    <TouchableOpacity
-                      onPress={handle_VOTE_DONATE}
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginRight: 16,
-                      }}>
-                      <AppView className="-mb-[10px]">
-                        <Donate_VoteIcon />
-                      </AppView>
-                      <AppText className="ml-[5px] font-ROBOTO_700 text-[#FFCC00] text-[13px]">
-                        {donate && 'Donate'}
-                        {vote && 'Vote'}
-                      </AppText>
-                    </TouchableOpacity>
-                  )}
-
-                  <TouchableOpacity
-                    style={{
-                      marginLeft: 24,
-                    }}>
-                    <VideoCastingIcon />
-                  </TouchableOpacity>
-                </AppView>
-              </Animated.View>
-
-              {/* SeekBar */}
-              {type !== fullVideoType.live && (
-                <Animated.View
-                  style={[
-                    styles.progressBar,
-                    {transform: [{translateY: transD.current}]},
-                  ]}>
-                  <AppText className="text-white text-[13px] font-OUTFIT_500 w-[60px]">
-                    {formatDuration(duration)}
-                  </AppText>
-                  <AppView
-                    style={{
-                      width:
-                        Platform.OS === 'android'
-                          ? Size.getWidth() - 220
-                          : Size.getWidth() - 340,
-                    }}
-                    className="items-center h-[15px] mx-3 rounded-[5px] overflow-hidden">
-                    <AppView className="h-1 w-full bg-grey_white_90 rounded-[5px] mt-1.5">
-                      <SeekBar
-                        duration={duration}
-                        currentTime={currentTime}
-                        setCurrentTime={setCurrentTime}
-                        handleSeek={handleSeek}
-                        setIsPlaying={setIsPlaying}
-                        setFixed={setFixed}
-                      />
-                    </AppView>
-                  </AppView>
-                  <AppText className="text-white text-[13px] font-OUTFIT_500 w-[60px] text-center">
-                    {formatDuration(currentTime)}
-                  </AppText>
-                </Animated.View>
-              )}
-            </>
+            </View>
           ) : (
-            <AppView className="absolute w-full h-full items-center justify-center z-30">
-              <LottieView
-                source={require('@/assets/icons/RPlay.json')}
-                style={{
-                  width: 270,
-                  height: 270,
-                }}
-                autoPlay
-                loop
-              />
-            </AppView>
+            <Blur
+              blurAmount={30}
+              overlayColor="transparent"
+              blurType="dark"
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                zIndex: 10,
+              }}
+            />
           )}
-
           <AppVideo
             source={{
               uri: videoURL,
             }}
-            videoRef={videoRef}
+            videoRef={videoRef2}
             style={{
               width: '100%',
               height: '100%',
@@ -638,19 +366,356 @@ const FullScreenModal = () => {
             resizeMode="stretch"
             fullscreen
             fullscreenOrientation="landscape"
-            muted={muteVideo}
-            paused={isPlaying}
-            onLoad={onLoad}
-            onLoadStart={onLoadStart}
-            onProgress={onProgress}
-            onEnd={onEnd}
-            onSeek={onSeek}
-            onBuffer={onBuffer}
-            onReadyForDisplay={onReadyForDisplay}
+            muted={true}
+            // repeat
+            paused={true}
           />
-        </AppScreen>
-      </View>
-    </View>
+
+          {/* Main video component */}
+          <View
+            style={{
+              position: 'absolute',
+              width: Size.getWidth(),
+              height: Platform.OS === 'ios' ? '105.8%' : '100%',
+              zIndex: 20,
+            }}>
+            <AppScreen
+              containerStyle={{
+                position: 'relative',
+                paddingBottom: 0,
+                backgroundColor: isLoading ? colors.DEEP_BLACK : 'transparent',
+              }}>
+              {!isLoading ? (
+                <>
+                  <AnimatedLinear
+                    colors={['transparent', 'rgb(0, 0, 0)']}
+                    style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      height: 81,
+                      width: '100%',
+                      zIndex: 20,
+                      opacity: opacityU.current,
+                      // transform: [{translateY: transD.current}],
+                    }}
+                  />
+                  <AnimatedLinear
+                    colors={['rgba(0, 0, 0, 0.6)', 'transparent']}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      height: 70,
+                      width: '100%',
+                      zIndex: 20,
+                      opacity: opacityU.current,
+                      // transform: [{translateY: transU.current}],
+                    }}
+                  />
+
+                  {/* Brightness View */}
+                  <Animated.View
+                    style={{
+                      position: 'absolute',
+                      width: '6%',
+                      height: '78%',
+                      zIndex: 40,
+                      top: 30,
+                      justifyContent: 'center',
+                      opacity: opacityU.current,
+                    }}>
+                    <AppView style={{alignSelf: 'center'}} className="ml-[5px]">
+                      <BrightnessIcon />
+                    </AppView>
+                    <AppView className="relative mt-3 overflow-hidden h-[200px] w-[60%]">
+                      <AppView className="h-[200px] w-[6px] absolute right-0 items-center bg-[#535353] rounded-[5px]" />
+                      <BrightnessBar />
+                    </AppView>
+                  </Animated.View>
+
+                  {/* Middle */}
+                  <AnimatedPressable
+                    onPress={() => setHide(!hide)}
+                    style={[
+                      styles.overlay,
+                      {
+                        backgroundColor: isBufferingLoad
+                          ? 'rgba(0, 0, 0, 0.2)'
+                          : 'transparent',
+
+                        opacity: opacityU.current,
+                      },
+                    ]}>
+                    <TouchableOpacity
+                      onPress={() => handleSeek(currentTime - 10)}>
+                      <SeekBackIcon />
+                    </TouchableOpacity>
+                    {isBufferingLoad ? (
+                      <AppView className="mx-16 w-[50px] h-[70px] justify-center">
+                        <LottieView
+                          source={require('@/assets/icons/RPlay.json')}
+                          style={{
+                            width: 350,
+                            height: 350,
+                            alignSelf: 'center',
+                          }}
+                          autoPlay
+                          loop
+                        />
+                      </AppView>
+                    ) : (
+                      <TouchableOpacity
+                        style={{
+                          marginHorizontal: 64,
+                          width: 50,
+                          height: 70,
+                          justifyContent: 'center',
+                        }}
+                        onPress={() => setIsPlaying(!isPlaying)}>
+                        {isPlaying ? (
+                          <B_PlayBtn />
+                        ) : (
+                          <B_PauseBtn style={{marginLeft: -20}} />
+                        )}
+                      </TouchableOpacity>
+                    )}
+                    <AnimatedTouchable
+                      style={{
+                        marginLeft: -8,
+                        // opacity: opacityU.current
+                      }}
+                      onPress={() => handleSeek(currentTime + 10)}>
+                      <SeekForwardIcon />
+                    </AnimatedTouchable>
+                  </AnimatedPressable>
+
+                  {/* Top */}
+                  <Animated.View
+                    style={[
+                      styles.topView,
+                      {transform: [{translateY: transU.current}]},
+                    ]}>
+                    <AppView className="ml-7 flex-row items-center">
+                      {channelImg && channelImg !== '' && (
+                        <AppImage
+                          source={channelImg}
+                          className="w-[28px] h-[28px] rounded-full mr-2"
+                        />
+                      )}
+
+                      <AppText className="font-ROBOTO_500 text-white text-[11px]">
+                        Video Title
+                      </AppText>
+                    </AppView>
+                    <TouchableOpacity onPress={existFullscreen}>
+                      <BigClose />
+                    </TouchableOpacity>
+                  </Animated.View>
+
+                  {/* Bottom */}
+                  <Animated.View
+                    style={[
+                      styles.bottomView,
+                      {
+                        transform: [{translateY: transD.current}],
+                      },
+                    ]}>
+                    <AppView className="flex-row items-center gap-x-4">
+                      <AppView className="w-[65px] justify-center flex-row items-center gap-x-2">
+                        {type === fullVideoType.live && (
+                          <>
+                            <MotiView
+                              from={{opacity: 0}}
+                              animate={{opacity: 1}}
+                              transition={{
+                                type: 'timing',
+                                duration: 500,
+                                easing: Easing.out(Easing.ease),
+                                loop: true,
+                              }}>
+                              <AppView className="w-[9px] h-[9px] rounded-full bg-red" />
+                            </MotiView>
+                            <AppText className="font-ROBOTO_500 text-[11px] text-white">
+                              LIVE
+                            </AppText>
+                          </>
+                        )}
+                      </AppView>
+
+                      <TouchableOpacity
+                        style={{height: 17, marginBottom: 5}}
+                        onPress={setMuteVideo}>
+                        {muteVideo ? (
+                          <AppView className="mt-[3px]">
+                            <MutedIcon />
+                          </AppView>
+                        ) : (
+                          <VolumeIcon />
+                        )}
+                      </TouchableOpacity>
+                    </AppView>
+
+                    <AppView className="flex-row items-center">
+                      {type !== fullVideoType.live && (
+                        <>
+                          <TouchableOpacity
+                            style={{
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                              marginRight: 16,
+                            }}>
+                            <NextIcon />
+                            <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
+                              Next
+                            </AppText>
+                          </TouchableOpacity>
+                          {type === fullVideoType.series && (
+                            <TouchableOpacity
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                marginRight: 16,
+                              }}>
+                              <EpisodesMenu />
+                              <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
+                                Episodes
+                              </AppText>
+                            </TouchableOpacity>
+                          )}
+                          <TouchableOpacity
+                            style={{
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                            }}>
+                            <SubtitleIcon />
+                            <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
+                              Audio/Subtitle
+                            </AppText>
+                          </TouchableOpacity>
+                        </>
+                      )}
+
+                      {type == fullVideoType.live && channelImg && (
+                        <TouchableOpacity
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginRight: 5,
+                          }}>
+                          <NextIcon />
+                          <AppText className="ml-[5px] font-ROBOTO_700 text-white text-[10px]">
+                            Next
+                          </AppText>
+                        </TouchableOpacity>
+                      )}
+
+                      {type === fullVideoType.live && (donate || vote) && (
+                        <TouchableOpacity
+                          onPress={handle_VOTE_DONATE}
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginRight: 16,
+                          }}>
+                          <AppView className="-mb-[10px]">
+                            <Donate_VoteIcon />
+                          </AppView>
+                          <AppText className="ml-[5px] font-ROBOTO_700 text-[#FFCC00] text-[13px]">
+                            {donate && 'Donate'}
+                            {vote && 'Vote'}
+                          </AppText>
+                        </TouchableOpacity>
+                      )}
+
+                      <TouchableOpacity
+                        style={{
+                          marginLeft: 24,
+                        }}>
+                        <VideoCastingIcon />
+                      </TouchableOpacity>
+                    </AppView>
+                  </Animated.View>
+
+                  {/* SeekBar */}
+                  {type !== fullVideoType.live && (
+                    <Animated.View
+                      style={[
+                        styles.progressBar,
+                        {transform: [{translateY: transD.current}]},
+                      ]}>
+                      <AppText className="text-white text-[13px] font-OUTFIT_500 w-[60px]">
+                        {formatDuration(duration)}
+                      </AppText>
+                      <AppView
+                        style={{
+                          width:
+                            Platform.OS === 'android'
+                              ? Size.getWidth() - 220
+                              : seekWidth - 180,
+                        }}
+                        className="items-center h-[15px] mx-3 rounded-[5px] overflow-hidden">
+                        <AppView className="h-1 w-full bg-grey_white_90 rounded-[5px] mt-1.5">
+                          <SeekBar
+                            duration={duration}
+                            currentTime={currentTime}
+                            setCurrentTime={setCurrentTime}
+                            handleSeek={handleSeek}
+                            setIsPlaying={setIsPlaying}
+                            setFixed={setFixed}
+                            seekWidth={seekWidth - 180}
+                          />
+                        </AppView>
+                      </AppView>
+                      <AppText className="text-white text-[13px] font-OUTFIT_500 w-[60px] text-center">
+                        {formatDuration(currentTime)}
+                      </AppText>
+                    </Animated.View>
+                  )}
+                </>
+              ) : (
+                <AppView className="absolute w-full h-full items-center justify-center z-30">
+                  <LottieView
+                    source={require('@/assets/icons/RPlay.json')}
+                    style={{
+                      width: 270,
+                      height: 270,
+                    }}
+                    autoPlay
+                    loop
+                  />
+                </AppView>
+              )}
+
+              <View ref={myViewRef} style={{width: '100%', height: '100%'}}>
+                <AppVideo
+                  source={{
+                    uri: videoURL,
+                  }}
+                  videoRef={videoRef}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  resizeMode="stretch"
+                  fullscreen
+                  fullscreenOrientation="landscape"
+                  muted={muteVideo}
+                  paused={isPlaying}
+                  onLoad={onLoad}
+                  onLoadStart={onLoadStart}
+                  onProgress={onProgress}
+                  onEnd={onEnd}
+                  onSeek={onSeek}
+                  onBuffer={onBuffer}
+                  onReadyForDisplay={onReadyForDisplay}
+                />
+              </View>
+            </AppScreen>
+          </View>
+        </View>
+      ) : (
+        <AppView className="w-full h-full bg-black" />
+      )}
+    </>
   );
 };
 
@@ -670,7 +735,7 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     position: 'absolute',
-    bottom: 6,
+    bottom: Platform.OS === 'android' ? 6 : Size.getWidth() < 658 ? 25 : 10,
     marginBottom: Platform.OS === 'ios' ? 4 : 13,
     paddingHorizontal: 8,
     paddingRight: 20,
@@ -692,7 +757,7 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     position: 'absolute',
-    bottom: Platform.OS === 'android' ? 55 : 40,
+    bottom: Platform.OS === 'android' ? 55 : Size.getWidth() < 668 ? 58 : 42,
     paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',

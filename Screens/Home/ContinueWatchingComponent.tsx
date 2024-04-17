@@ -64,7 +64,7 @@ const ContinueWatchingComponent = ({
   const progressRatio = isDuration ? item.durationWatched / item.duration : 0;
   const progressBarWidth = ITEM_WIDTH * progressRatio;
   const videoURL =
-    'https://res.cloudinary.com/dag4n1g6h/video/upload/v1708615629/video_rhsuqs.mp4';
+    'https://res.cloudinary.com/dag4n1g6h/video/upload/f_auto:video,q_auto/video_rhsuqs';
 
   return (
     <AppView style={{width: ITEM_WIDTH}} className="mt-4 mr-3">

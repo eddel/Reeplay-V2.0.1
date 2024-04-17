@@ -1,5 +1,6 @@
 import {
   Keyboard,
+  Platform,
   Pressable,
   ScrollView,
   StatusBar,
@@ -79,12 +80,16 @@ const SignUpScreen = () => {
             width: 300,
             height: 200,
             objectFit: 'contain',
-            marginTop: 50,
+            marginTop: Size.getHeight() < 668 ? 10 : 50,
             alignSelf: 'center',
           }}
         />
 
-        <AppText className="font-MANROPE_600 text-white text-xl text-center -mt-3">
+        <AppText
+          style={{
+            marginTop: Size.getHeight() < 668 ? -30 : -12,
+          }}
+          className="font-MANROPE_600 text-white text-xl text-center -mt-3">
           Create an Account
         </AppText>
         <AppText className="text-base text-white font-MANROPE_400 text-center">
@@ -96,10 +101,16 @@ const SignUpScreen = () => {
           bounces={false}
           style={{
             paddingHorizontal: Size.calcHeight(20),
-            marginTop: 12,
+            marginTop: Size.getHeight() < 668 ? 12 : 0,
             width: '100%',
           }}
-          contentContainerStyle={{paddingBottom: keyboardStatus ? 180 : 0}}>
+          contentContainerStyle={{
+            paddingBottom: keyboardStatus
+              ? 180
+              : Platform.OS === 'ios'
+              ? 350
+              : 0,
+          }}>
           <AuthFormComponent
             countryCode={countryCode}
             setIsCountryCode={setIsCountryCode}
